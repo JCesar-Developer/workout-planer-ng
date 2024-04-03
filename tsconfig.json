@@ -3,6 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@data/*": ["data/*"],
+      "@primeng/*": ["src/app/prime-ng/*"],
+      "@dashboard/*": ["src/app/dashboard/*"],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -22,7 +27,10 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,148 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Hola",
+      "category": "Pecho",
+      "image": "./assets/images/exercises/exercise-1.gif"
+    },
+    {
+      "id": 2,
+      "name": "Exercise 2",
+      "category": "Piernas",
+      "image": "./assets/images/exercises/exercise-2.gif"
+    },
+    {
+      "id": 3,
+      "name": "Exercise 3",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-3.gif"
+    },
+    {
+      "id": 4,
+      "name": "Exercise 4",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-4.gif"
+    },
+    {
+      "id": 5,
+      "name": "Exercise 5",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-5.gif"
+    },
+    {
+      "id": 6,
+      "name": "Exercise 6",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-6.gif"
+    },
+    {
+      "id": 7,
+      "name": "Exercise 7",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-7.gif"
+    },
+    {
+      "id": 8,
+      "name": "Exercise 8",
+      "category": "Pecho",
+      "image": "./assets/images/exercises/exercise-8.gif"
+    },
+    {
+      "id": 9,
+      "name": "Exercise 9",
+      "category": "Piernas",
+      "image": "./assets/images/exercises/exercise-9.gif"
+    },
+    {
+      "id": 10,
+      "name": "Exercise 10",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-10.gif"
+    },
+    {
+      "id": 11,
+      "name": "Exercise 11",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-11.gif"
+    },
+    {
+      "id": 12,
+      "name": "Exercise 12",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-12.gif"
+    },
+    {
+      "name": "Exercise 1",
+      "category": "Core",
+      "alternativeImage": "https://ivanfisio.com/wp-content/uploads/2017/03/fwd-head-posture.png",
+      "id": 13
+    },
+    {
+      "name": "Julito's routine",
+      "category": "Pecho",
+      "alternativeImage": "https://t4.ftcdn.net/jpg/04/32/67/81/360_F_432678173_rGmxadNK6JEqYSJkkg2t36wFqaYlK1l1.jpg",
+      "id": 14
+    },
+    {
+      "name": "Ejercicio 3",
+      "category": "Pecho",
+      "alternativeImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKfe3pFOwVHarhBXIW8PntH6HaAOBD4qMarr9Frn-p9g&s",
+      "id": 15
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 16
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 17
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 18
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 19
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 20
+    },
+    {
+      "name": null,
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 21
+    },
+    {
+      "name": "",
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 22
+    },
+    {
+      "name": null,
+      "category": "Core",
+      "alternativeImage": "",
+      "id": 23
+    },
+    {
+      "name": null,
+      "category": "Core",
+      "alternativeImage": null,
+      "id": 24
+    }
+  ]
+}

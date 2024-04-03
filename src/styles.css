@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-color: #00B085;
+  --dark-green-color: #007050;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.b1 { border: solid 1px red;}
+.b2 { border: solid 1px blue;}
+.b3 { border: solid 1px green;}
+.b4 { border: solid 1px yellow;}
+.b5 { border: solid 1px purple;}

@@ -1,27 +1,41 @@
-# WorkoutPlanner
+# Workout Planner App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+## Dev
 
-## Development server
+1. Clonar el proyecto.
+2. Ejecutar ```npm install```
+3. Levantar backend ```npm run backend```
+4. Ejecutar la app ```npm start``` o bien ```ng serve -o```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# TODO-LIST
 
-## Code scaffolding
+✅❌➡️
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### EXERCISES MODULE
 
-## Build
+##### FORM MODEL
+[✅] Create ➡️ Model to add new exercise.
+[] Validaciones. (No aceptar si está sin nombre).
+OK
+[] Mostrar snackbar tras la insersión del ejercicio. 
+[] Cerrar el modelo cuando se hace el guardado.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+NO:
+[] Manejo del error.
+[] Mostrar snackbar que muestre error.
 
-## Running unit tests
+CANCEL:
+[] limpiar el formulario después de cancelar el pop-up
+[] Hacer el toogle del formulario.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+##### PAGE HEADER
+[✅] Add ➡️ search-bar.
+[✅] Add ➡️ Button add new exercise.
+[✅] Create ➡️ Tags to select different exercises.
+[] Animation ➡️ To do a smooth transition between pages.
 
-## Running end-to-end tests
+##### EXERCISE CARD
+[✅] Improve ➡️ the exercise-card presentation.
+[] The card image doesn't shows right.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  
