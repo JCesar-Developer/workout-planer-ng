@@ -10,6 +10,7 @@ import { ExerciseCardComponent } from './components/exercise-card/exercise-card.
 import { ExerciseFormComponent } from './components/exercise-form/exercise-form.component';
 
 import { exerciseImagePipe } from './pipes/exercise-image.pipe';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -25,6 +26,10 @@ import { exerciseImagePipe } from './pipes/exercise-image.pipe';
     CommonModule,
     PrimeNgModule,
     ExercisesRoutingModule,
-  ]
+  ],
+  providers: [
+    DialogService,
+    DynamicDialogRef,
+  ],
 })
 export class ExercisesModule { }

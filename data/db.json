@@ -2,165 +2,108 @@
   "exercises": [
     {
       "id": 1,
-      "name": "Hola",
-      "category": "Pecho",
-      "image": "./assets/images/exercises/exercise-1.gif"
+      "name": "Lunge con Mancuernas",
+      "image": "./assets/images/exercises/exercise-1.gif",
+      "category": "Piernas",
+      "alternativeImage": null
     },
     {
       "id": 2,
-      "name": "Exercise 2",
-      "category": "Piernas",
-      "image": "./assets/images/exercises/exercise-2.gif"
+      "name": "Elevación frontal en polea baja",
+      "image": "./assets/images/exercises/exercise-2.gif",
+      "category": "Pecho",
+      "alternativeImage": null
     },
     {
       "id": 3,
-      "name": "Exercise 3",
+      "name": "Exercise3",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-3.gif"
+      "image": "./assets/images/exercises/exercise-3.gif",
+      "alternativeImage": null
     },
     {
       "id": 4,
-      "name": "Exercise 4",
+      "name": "Exercise4",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-4.gif"
+      "image": "./assets/images/exercises/exercise-4.gif",
+      "alternativeImage": null
     },
     {
       "id": 5,
-      "name": "Exercise 5",
+      "name": "Exercise5",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-5.gif"
+      "image": "./assets/images/exercises/exercise-5.gif",
+      "alternativeImage": null
     },
     {
       "id": 6,
-      "name": "Exercise 6",
+      "name": "Exercise6",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-6.gif"
+      "image": "./assets/images/exercises/exercise-6.gif",
+      "alternativeImage": null
     },
     {
       "id": 7,
-      "name": "Exercise 7",
+      "name": "Exercise7",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-7.gif"
+      "image": "./assets/images/exercises/exercise-7.gif",
+      "alternativeImage": null
     },
     {
       "id": 8,
-      "name": "Exercise 8",
+      "name": "Exercise8",
       "category": "Pecho",
-      "image": "./assets/images/exercises/exercise-8.gif"
+      "image": "./assets/images/exercises/exercise-8.gif",
+      "alternativeImage": null
     },
     {
       "id": 9,
-      "name": "Exercise 9",
+      "name": "Exercise9",
       "category": "Piernas",
-      "image": "./assets/images/exercises/exercise-9.gif"
+      "image": "./assets/images/exercises/exercise-9.gif",
+      "alternativeImage": null
     },
     {
       "id": 10,
-      "name": "Exercise 10",
+      "name": "Exercise10",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-10.gif"
+      "image": "./assets/images/exercises/exercise-10.gif",
+      "alternativeImage": null
     },
     {
       "id": 11,
-      "name": "Exercise 11",
+      "name": "Exercise11",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-11.gif"
+      "image": "./assets/images/exercises/exercise-11.gif",
+      "alternativeImage": null
     },
     {
       "id": 12,
-      "name": "Exercise 12",
+      "name": "Exercise12",
       "category": "Core",
-      "image": "./assets/images/exercises/exercise-12.gif"
+      "image": "./assets/images/exercises/exercise-12.gif",
+      "alternativeImage": null
     },
     {
-      "name": "Exercise 1",
+      "id": 13,
+      "name": "Ejercicio Cuello",
+      "image": null,
       "category": "Core",
-      "alternativeImage": "https://ivanfisio.com/wp-content/uploads/2017/03/fwd-head-posture.png",
-      "id": 13
+      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/estiramiento-para-el-cuello-init-pos-1837.png"
     },
     {
-      "name": "Julito's routine",
+      "id": 14,
+      "name": "Elevaciones laterales en Polea Baja",
+      "image": null,
       "category": "Pecho",
-      "alternativeImage": "https://t4.ftcdn.net/jpg/04/32/67/81/360_F_432678173_rGmxadNK6JEqYSJkkg2t36wFqaYlK1l1.jpg",
-      "id": 14
+      "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/12/Elevaciones-laterales-en-polea.webp"
     },
     {
-      "name": "Ejercicio 3",
+      "id": 15,
+      "name": "Press plano con barra en Banco",
+      "image": null,
       "category": "Pecho",
-      "alternativeImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKfe3pFOwVHarhBXIW8PntH6HaAOBD4qMarr9Frn-p9g&s",
-      "id": 15
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 16
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 17
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 18
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 19
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 20
-    },
-    {
-      "name": null,
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 21
-    },
-    {
-      "name": "",
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 22
-    },
-    {
-      "name": null,
-      "category": "Core",
-      "alternativeImage": "",
-      "id": 23
-    },
-    {
-      "name": null,
-      "category": "Core",
-      "alternativeImage": null,
-      "id": 24
-    },
-    {
-      "name": "Leg",
-      "category": "Piernas",
-      "alternativeImage": null,
-      "id": 25
-    },
-    {
-      "name": "2",
-      "category": "Pecho",
-      "alternativeImage": null,
-      "id": 26
-    },
-    {
-      "name": "Ejercicio Julito",
-      "category": "Core",
-      "alternativeImage": null,
-      "id": 27
+      "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/04/Press-de-banca-plano-con-barra.webp"
     }
   ]
 }

@@ -13,10 +13,10 @@ export class ExerciseCardComponent {
   public exercise!: Exercise;
 
   @Output()
-  public onEditForm: EventEmitter<boolean> = new EventEmitter();
+  public onEditForm: EventEmitter<Exercise> = new EventEmitter();
 
   public openEditForm() {
-    this.onEditForm.emit(true);
+    this.onEditForm.emit( this.exercise );
   }
 
 }

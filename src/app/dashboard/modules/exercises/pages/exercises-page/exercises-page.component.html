@@ -7,12 +7,14 @@
 
     <!-- PAGE-HEADER -->
     <header class="mb-5">
+      <!-- header-title -->
       <h1 class="text-3xl font-bold text-[--primary-color]">
         {{ title | uppercase }}
       </h1>
 
       <section class="my-3">
         <div class="flex row gap-5">
+          <!--  header-search-bar -->
           <span class="p-fluid w-full">
             <p-autoComplete
               [(ngModel)]="selectedExercise"
@@ -21,16 +23,18 @@
               field="name"
             ></p-autoComplete>
           </span>
+          <!-- header-btn-open-form -->
           <span class="p-fluid w-52">
             <p-button
-              (click)="toggleFormVisibility( true )"
-              label="Nuevo Ejercicio"
-              styleClass="p-button-secondary"
-            ></p-button>
+            (click)="openExerciseForm()"
+            label="Nuevo Ejercicio"
+            styleClass="p-button-secondary"
+          ></p-button>
           </span>
         </div>
       </section>
 
+      <!-- header-select-category-chips -->
       <ul class="flex flex-row gap-2">
         <a *ngFor="let category of categories" href="/exercises">
           <p-chip [label]="category"></p-chip>
@@ -42,17 +46,16 @@
     <ul class="pt-5 card-list">
       <li *ngFor="let exercise of exercises" class="flex justify-center">
         <exercise-card
-          (onEditForm)="toggleFormVisibility( $event )"
-          [exercise]="exercise"></exercise-card>
+          (onEditForm)="openExerciseForm( $event )"
+          [exercise]="exercise"
+        ></exercise-card>
       </li>
     </ul>
   </section>
 
-  <exercise-form
-    [visible]="formVisible"
-    (onChangeVisible)="toggleFormVisibility( $event )"
+  <!-- <exercise-form
     (onEmitAlert)="showAlert( $event )"
-  ></exercise-form>
+  ></exercise-form> -->
 
 </div>
 

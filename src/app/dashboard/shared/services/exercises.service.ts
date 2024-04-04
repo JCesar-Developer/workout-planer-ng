@@ -26,6 +26,11 @@ export class ExercisesService {
     return this.http.post<Exercise>(`${ this.baseUrl }/exercises`, exercise);
   }
 
+  //UPDATE
+  public update( exercise: Exercise ): Observable<Exercise> {
+    return this.http.put<Exercise>(`${ this.baseUrl }/exercises/${ exercise.id }`, exercise);
+  }
+
   //DELETE
 
 }
