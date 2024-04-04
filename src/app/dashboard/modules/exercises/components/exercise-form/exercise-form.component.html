@@ -1,12 +1,14 @@
 <p-dialog
   header="Crear Nuevo Ejercicio"
+  (onShow)="onShow( $event )"
   [(visible)]="visible"
-  (onHide)="onHide()"
+  (onHide)="closeDialog()"
   [modal]="true"
   [style]="{ width: '50vw', height: '50vh'}"
   [draggable]="false"
   [resizable]="false"
 >
+
   <form
     (ngSubmit)="onSubmit()"
     [formGroup]="exerciseForm"
@@ -52,7 +54,7 @@
       <!-- Buttons -->
       <div class="flex flex-row justify-between gap-4">
         <span class="p-fluid w-full">
-          <p-button styleClass="p-button-secondary p-button-sm" label="Cancel"></p-button>
+          <p-button (onClick)="closeDialog()" styleClass="p-button-secondary p-button-sm" label="Cancelar"></p-button>
         </span>
         <span class="p-fluid w-full">
           <p-button type="submit" styleClass="p-button-sm" label="Submit"></p-button>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { type Exercise, Category } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExercisesService } from '@dashboard/shared/services/exercises.service';
 
-import { MessageService } from 'primeng/api';
+import { MessageService, Message } from 'primeng/api';
 
 @Component({
   selector: 'app-exercises-page',
@@ -38,5 +38,9 @@ export class ExercisesPageComponent implements OnInit {
 
   public toggleFormVisibility(visibility: boolean) {
     this.formVisible = visibility;
+  }
+
+  public showAlert( message: Message ) {
+    this.messageService.add( message );
   }
 }

@@ -143,6 +143,24 @@
       "category": "Core",
       "alternativeImage": null,
       "id": 24
+    },
+    {
+      "name": "Leg",
+      "category": "Piernas",
+      "alternativeImage": null,
+      "id": 25
+    },
+    {
+      "name": "2",
+      "category": "Pecho",
+      "alternativeImage": null,
+      "id": 26
+    },
+    {
+      "name": "Ejercicio Julito",
+      "category": "Core",
+      "alternativeImage": null,
+      "id": 27
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
 @Component({
@@ -11,5 +11,12 @@ export class ExerciseCardComponent {
 
   @Input()
   public exercise!: Exercise;
+
+  @Output()
+  public onEditForm: EventEmitter<boolean> = new EventEmitter();
+
+  public openEditForm() {
+    this.onEditForm.emit(true);
+  }
 
 }

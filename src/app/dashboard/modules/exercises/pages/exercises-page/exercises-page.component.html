@@ -1,7 +1,9 @@
 <div class="m-8">
+
+  <p-toast></p-toast>
+
   <section class="p-8 bg-white rounded-xl shadow-lg divide-y divide-teal-400">
 
-    <p-toast></p-toast>
 
     <!-- PAGE-HEADER -->
     <header class="mb-5">
@@ -39,12 +41,18 @@
     <!-- EXERCISES LIST -->
     <ul class="pt-5 card-list">
       <li *ngFor="let exercise of exercises" class="flex justify-center">
-        <exercise-card [exercise]="exercise"></exercise-card>
+        <exercise-card
+          (onEditForm)="toggleFormVisibility( $event )"
+          [exercise]="exercise"></exercise-card>
       </li>
     </ul>
   </section>
 
-  <exercise-form [visible]="formVisible" (onChangeVisible)="toggleFormVisibility( $event )"></exercise-form>
+  <exercise-form
+    [visible]="formVisible"
+    (onChangeVisible)="toggleFormVisibility( $event )"
+    (onEmitAlert)="showAlert( $event )"
+  ></exercise-form>
 
 </div>
 

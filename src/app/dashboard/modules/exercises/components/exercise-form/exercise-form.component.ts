@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExercisesService } from '@dashboard/shared/services/exercises.service';
-import { MessageService } from 'primeng/api';
+import type { Message } from 'primeng/api';
 
 interface ExerciseForm {
   name: FormControl<string|null>;
@@ -13,15 +13,20 @@ interface ExerciseForm {
 @Component({
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
-  providers: [MessageService]
 })
 export class ExerciseFormComponent implements OnInit {
 
   @Input()
   public visible: boolean = false;
 
+  @Input()
+  public exercise?: Exercise | undefined;
+
   @Output()
   public onChangeVisible = new EventEmitter<boolean>();
+
+  @Output()
+  public onEmitAlert = new EventEmitter<Message>();
 
   public exerciseForm: FormGroup = new FormGroup<ExerciseForm>({
     name: new FormControl(null, Validators.required),
@@ -33,8 +38,8 @@ export class ExerciseFormComponent implements OnInit {
 
   constructor(
     private exercisesService: ExercisesService,
-    private messageService: MessageService,
   ) {}
+
 
   get currentExercise(): Exercise {
     return this.exerciseForm.value as Exercise;
@@ -51,23 +56,28 @@ export class ExerciseFormComponent implements OnInit {
     })
   }
 
-  onHide() {
+  closeDialog() {
+    this.visible = false;
     this.onChangeVisible.emit(this.visible);
+    setTimeout(() => {
+      this.exerciseForm.reset();
+    }, 500);
   }
 
   onSubmit() {
-    console.log(this.exerciseForm.value);
-
-    console.log('Valid', this.exerciseForm.valid);
-
     if( this.exerciseForm.invalid ) {
-      this.messageService.add({ severity: 'danger', summary: 'Danger!', detail: 'Message Content' });
+      this.onEmitAlert.emit({ severity: 'error', summary: 'Error', detail: 'Faltan campos obligatorios' });
       return;
     }
 
     this.exercisesService.save(this.currentExercise)
     .subscribe( exercise => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+      this.onChangeVisible.emit(false);
+      this.onEmitAlert.emit({ severity: 'success', summary: 'Success', detail: `Ejercicio ${ exercise.name } guardado` });
     });
+  }
+
+  public onShow( e: any ) {
+    console.log(e);
   }
 }
