@@ -1,0 +1,41 @@
+<header class="mb-5">
+  <!-- header-title -->
+  <h1 class="text-3xl font-bold text-[--primary-color]">
+    {{ title | uppercase }}
+  </h1>
+
+  <div class="my-3">
+    <div class="flex row gap-5">
+
+      <!--  header-search-bar -->
+      <span class="p-fluid w-full">
+        <p-autoComplete
+          [(ngModel)]="selectedExercise"
+          [suggestions]="filteredExercises"
+          (completeMethod)="filterExercise($event)"
+          field="name"
+        ></p-autoComplete>
+      </span>
+
+      <!-- header-btn-open-form -->
+      <span class="p-fluid w-52">
+        <p-button
+          (click)="openForm()"
+          label="Nuevo Ejercicio"
+          styleClass="p-button-secondary"
+        ></p-button>
+      </span>
+
+    </div>
+  </div>
+
+  <!-- header-select-category-chips -->
+  <div class="w-full">
+    <ul class="flex flex-row gap-2">
+      <a *ngFor="let category of categories" href="/exercises">
+        <p-chip [label]="category"></p-chip>
+      </a>
+    </ul>
+  </div>
+
+</header>

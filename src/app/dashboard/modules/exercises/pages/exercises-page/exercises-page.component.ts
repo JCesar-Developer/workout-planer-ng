@@ -18,11 +18,9 @@ export class ExercisesPageComponent implements OnInit {
 
   public title: string = 'Lista de ejercicios';
 
+  //SUBIR ESTO AL STORE PROPIO.
   public exercises: Exercise[] = [];
   public categories: Category[] = Object.values(Category);
-
-  public selectedExercise: Exercise | null = null;
-  public filteredExercises: Exercise[] = [];
 
   constructor(
     private exercisesService: ExercisesService,
@@ -38,12 +36,6 @@ export class ExercisesPageComponent implements OnInit {
     this.exercisesService.getExercises()
       .subscribe( exercises => this.exercises = exercises );
   }
-
-  public filterExercise( event: any ) {
-    this.exercisesService.getExercisesSuggestions(event.query)
-    .subscribe( exercises => this.filteredExercises = exercises );
-  }
-
 
   public openExerciseForm( exercise?: Exercise ) {
     this.ref = this.dialogService.open(ExerciseFormComponent, {

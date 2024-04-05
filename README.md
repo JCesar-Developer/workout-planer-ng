@@ -9,32 +9,50 @@
 
 # TODO-LIST
 
-✅❌➡️❗
+✅❌👉❗
+
+[] Animación para hacer más suave la transición entre páginas.
 
 ### EXERCISES MODULE
-
+[✅] Aislar PAGE HEADER en su propio módulo.
+[✅] Aislar PAGE LIST en su propio módulo.
+[] Agregar Linter & Prettier 
 [] Explorar cargas diferidas en Angular.
 [] Explorar FORMGROUPS, FORMCONTROLS, FORMBUILDERS.
-[] Estudiar Karma + Jasmine
-[] Explorar composable architecture en Angular.
-[] Crear test unitarios y E2E tests.
-[] Externalizar MessageService.
+[] Explorar COMPOSABLE ARCHITECTURE en Angular.
+[] Proveer MessageService a nivel de Páginas.
+
+##### PAGE HEADER
+[✅] Add ➡️ search-bar.
+[✅] Add ➡️ Button add new exercise.
+[✅] Create ➡️ Tags to select different exercises.
+[] Agregar validación al Autocomplete.
+
+##### PAGE LIST
+[] Agregar paginación al formulario. 
+
+##### EXERCISE CARD
+[✅] Improve ➡️ the exercise-card presentation.
+[✅] Arreglar el tamaño de las tarjetas cuando el título es demasiado grande.
+  [✅] Tamaño fijo para texto.
+  [✅] Tamaño fijo para Categoría.
+
 
 ##### FORM MODEL
 [✅] Create ➡️ Model to add new exercise.
 [✅] Validaciones. (No aceptar si está sin nombre).
-[❌] Agregar debouncer al URL alternativo. ¡Descartado porqué es una FEATURE innecesaria!
+[❌] Agregar debouncer al URL alternativo.
+[✅] La imagen del formulario es más grande de lo normal.
 [] Almacenar imágenes en entorno local.
-[] Agregar paginación al formulario. 
-[] Corregir tamaño de la imagen.
+[] Asegurarse que el NAME-INPUT, no acepta strings vacios.
 
-  OK
+  OK 
   [✅] Mostrar snackbar tras la insersión del ejercicio. 
   [✅] Cerrar el modelo cuando se hace el guardado.
-  [✅] Refrescar el listado para mostrar nuevo ejercicio el primero. ❗
+  [✅] Refrescar el listado para mostrar nuevo ejercicio el primero. 
   
   NO:
-  [] Colorear el REQUIRED INPUT para mostar el error de validación del formulario. 
+  [] Colorear la ADVERTENCIA que muestra el error de validación del formulario. ❗❗❗
   [✅] Manejo del error.
   [✅] Mostrar snackbar que muestre error.
 
@@ -49,19 +67,10 @@
   [✅] Actualizar ejercicio.
 
   DELETE: 
-  [] Agregar opción para eliminar el Ejercicio.
-  [] Eliminar ejercicio, y actuatualizar la interfas
-  [] 
+  [✅] Agregar opción para eliminar el Ejercicio. 
+  [✅] Eliminar ejercicio, y actualizar la interfas. 
+  [✅] Notificar que el ejercicio se eliminó correctamente 
 
-##### PAGE HEADER
-[✅] Add ➡️ search-bar.
-[✅] Add ➡️ Button add new exercise.
-[✅] Create ➡️ Tags to select different exercises.
-[] Animation ➡️ To do a smooth transition between pages.
-
-##### EXERCISE CARD
-[✅] Improve ➡️ the exercise-card presentation.
-[] Arreglar el tamaño de las tarjetas cuando el título es demasiado grande.
-  - Tamaño fijo para texto.
-  - Tamaño fijo para Categoría. 
-
+###### TEST:
+[] Estudiar Karma + Jasmine.
+[] Crear test unitarios y E2E tests.

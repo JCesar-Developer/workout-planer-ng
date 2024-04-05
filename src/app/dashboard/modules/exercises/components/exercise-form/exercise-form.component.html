@@ -6,7 +6,7 @@
     <!-- INPUT-IMAGE -->
     <div class="w-1/2 h-full">
       <img
-        class="h-full w-full object-cover"
+        class="mx-auto w-auto h-full max-h-full object-cover"
         [src]="currentExercise | exerciseImage"
         alt="Exercise image">
     </div>
@@ -20,9 +20,16 @@
           pInputText
           type="text"
           class="p-fluid w-full"
+          [class]="isValidField('name') ? 'ng-dirty' : ''"
           placeholder="Nombre del ejercicio"
           formControlName="name"
         />
+
+        <!-- Error messages -->
+        <span *ngIf="isValidField('name')" class="-mt-3 text-sm text-red-400">
+          {{ getErrorMessage('name') }}
+        </span>
+
         <!-- CATEGORY-INPUT -->
         <span class="p-fluid w-full">
           <p-dropdown
@@ -43,9 +50,16 @@
 
       <!-- Buttons -->
       <div class="flex flex-row justify-between gap-4">
-        <span class="p-fluid w-full">
-          <p-button (onClick)="closeDialog()" styleClass="p-button-secondary p-button-sm" label="Cancelar"></p-button>
+        <span *ngIf="exerciseId; else closeBtn" class="p-fluid w-full">
+          <p-button (onClick)="onDelete( exerciseId )" styleClass="p-button-danger p-button-sm" label="Eliminar"></p-button>
         </span>
+
+        <ng-template #closeBtn>
+          <span class="p-fluid w-full">
+            <p-button (onClick)="closeDialog()" styleClass="p-button-secondary p-button-sm" label="Cerrar"></p-button>
+          </span>
+        </ng-template>
+
         <span class="p-fluid w-full">
           <p-button
             type="submit"

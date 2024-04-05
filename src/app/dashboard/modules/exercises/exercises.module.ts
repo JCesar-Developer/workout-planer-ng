@@ -9,8 +9,11 @@ import { ExercisesPageComponent } from './pages/exercises-page/exercises-page.co
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 import { ExerciseFormComponent } from './components/exercise-form/exercise-form.component';
 
-import { exerciseImagePipe } from './pipes/exercise-image.pipe';
+import { ExerciseImagePipe } from './pipes/exercise-image.pipe';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ExercisePageHeaderComponent } from './components/exercise-page-header/exercise-page-header.component';
+import { ExercisePageListComponent } from './components/exercise-page-list/exercise-page-list.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
     ExercisesPageComponent,
     ExerciseCardComponent,
     ExerciseFormComponent,
-    exerciseImagePipe,
+    ExerciseImagePipe,
+    TruncatePipe,
+    ExercisePageHeaderComponent,
+    ExercisePageListComponent,
   ],
   imports: [
     FormsModule,

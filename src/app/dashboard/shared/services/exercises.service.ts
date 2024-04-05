@@ -32,5 +32,8 @@ export class ExercisesService {
   }
 
   //DELETE
+  public delete( exerciseId: number ): Observable<Exercise> {
+    return this.http.delete<Exercise>(`${ this.baseUrl }/exercises/${ exerciseId }`);
+  }
 
 }

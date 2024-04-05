@@ -1,7 +1,7 @@
 <article class="p-2 border border-gray-100 shadow-md rounded-lg relative">
   <!-- Delete icon -->
   <button
-    (click)="openEditForm()"
+    (click)="editExercise()"
     class="absolute top-2 right-2 z-10 flex justify-center items-center border border-[--green-color] rounded-full w-6 h-6"
   >
     <i class="pi pi-pencil" style="font-size: .75rem; color: #00B085"></i>
@@ -16,7 +16,7 @@
 
   <!-- Card-Content -->
   <div class="py-3 space-y-2">
-    <h3 class="text-xl font-bold">{{ exercise.name }}</h3>
-    <p class="text-gray-700">{{ exercise.category }}</p>
+    <p class="text-gray-700 h-6 max-h-6">{{ exercise.category | truncate: 10 }}</p>
+    <h3 class="text-xl font-bold h-12 max-h-12">{{ exercise.name | truncate:28 }}</h3>
   </div>
 </article>

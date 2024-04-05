@@ -9,14 +9,11 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 })
 export class ExerciseCardComponent {
 
-  @Input()
-  public exercise!: Exercise;
+  @Input() public exercise!: Exercise;
+  @Output() public onEditExercise: EventEmitter<Exercise> = new EventEmitter();
 
-  @Output()
-  public onEditForm: EventEmitter<Exercise> = new EventEmitter();
-
-  public openEditForm() {
-    this.onEditForm.emit( this.exercise );
+  public editExercise() {
+    this.onEditExercise.emit( this.exercise );
   }
 
 }

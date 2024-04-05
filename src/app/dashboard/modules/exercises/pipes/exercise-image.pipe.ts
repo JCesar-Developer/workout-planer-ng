@@ -4,7 +4,7 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 @Pipe({
   name: 'exerciseImage'
 })
-export class exerciseImagePipe implements PipeTransform {
+export class ExerciseImagePipe implements PipeTransform {
 
   transform( exercise: Exercise ): string {
 

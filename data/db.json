@@ -16,9 +16,9 @@
     },
     {
       "id": 3,
-      "name": "Exercise3",
-      "category": "Core",
+      "name": "Extensión oblicua sentado",
       "image": "./assets/images/exercises/exercise-3.gif",
+      "category": "Core",
       "alternativeImage": null
     },
     {
@@ -104,6 +104,13 @@
       "image": null,
       "category": "Pecho",
       "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/04/Press-de-banca-plano-con-barra.webp"
+    },
+    {
+      "id": 16,
+      "name": "Sentadilla con Barra",
+      "image": null,
+      "category": "Piernas",
+      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/sentadilla-completa-con-barra-init-pos-5075.png"
     }
   ]
 }
