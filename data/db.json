@@ -23,9 +23,9 @@
     },
     {
       "id": 4,
-      "name": "Exercise4",
-      "category": "Core",
+      "name": "Sentadilla con mancuerna",
       "image": "./assets/images/exercises/exercise-4.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
@@ -111,6 +111,20 @@
       "image": null,
       "category": "Piernas",
       "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/sentadilla-completa-con-barra-init-pos-5075.png"
+    },
+    {
+      "id": 17,
+      "name": "Jalón al Pecho en Polea Alta",
+      "image": null,
+      "category": "Espalda",
+      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/jalon-polea-alta-al-pecho-agarre-ancho-init-pos-5431.png"
+    },
+    {
+      "id": 18,
+      "name": "     ",
+      "image": null,
+      "category": "Core",
+      "alternativeImage": null
     }
   ]
 }

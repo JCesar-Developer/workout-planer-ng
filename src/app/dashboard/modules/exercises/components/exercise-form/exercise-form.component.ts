@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExercisesService } from '@dashboard/shared/services/exercises.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { CustomValidatorsService } from 'src/app/shared/services/customValidators.service';
 
 interface ExerciseForm {
   id: FormControl<number|null>;
@@ -19,18 +20,29 @@ interface ExerciseForm {
 })
 export class ExerciseFormComponent implements OnInit {
 
-  public exerciseForm: FormGroup = new FormGroup<ExerciseForm>({
-    id: new FormControl(null),
-    name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-    image: new FormControl(null),
-    category: new FormControl<Category>(Category.CORE, { nonNullable: true }),
-    alternativeImage: new FormControl<string|null>(null),
+  // TODO: No entiendo la diferencia entre usar FormGroup y FormBuilder
+  // public exerciseForm: FormGroup = new FormGroup<ExerciseForm>({
+  //   id: new FormControl(null),
+  //   name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+  //   image: new FormControl(null),
+  //   category: new FormControl<Category>(Category.CORE, { nonNullable: true }),
+  //   alternativeImage: new FormControl<string|null>(null),
+  // });
+
+  public exerciseForm: FormGroup = this.fb.group<ExerciseForm>({
+    id: this.fb.control(null),
+    name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
+    image: this.fb.control(null),
+    category: this.fb.control(Category.CORE, { nonNullable: true }),
+    alternativeImage: this.fb.control(null),
   });
 
   constructor(
     private exercisesService: ExercisesService,
-    public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig,
+    private ref: DynamicDialogRef,
+    private config: DynamicDialogConfig,
+    private fb: FormBuilder,
+    private customValidators: CustomValidatorsService,
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +67,8 @@ export class ExerciseFormComponent implements OnInit {
           return 'Este campo es requerido';
         case 'minlength':
           return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
+        case 'whitespace':
+          return 'Este campo no puede contener solo espacios en blanco';
         default:
           return null;
       }
@@ -72,8 +86,7 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   public get categories(): Category[] {
-    const filteredCategories = Object.values(Category).filter(category => category !== Category.ALL);
-    return filteredCategories;
+    return Object.values(Category).filter(category => category !== Category.ALL);
   }
 
 
@@ -88,25 +101,32 @@ export class ExerciseFormComponent implements OnInit {
     }
 
     if( this.exerciseId ) {
-      this.exercisesService.update(this.currentExercise)
-      .subscribe({
-        next: exercise => {
-          this.ref.close({
-            status: 'success',
-            message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
-          });
-        },
-        error: error => {
-          this.ref.close({
-            status: 'error',
-            message: { severity: 'error', summary: 'Error', detail: error.message },
-          });
-        }
-      });
-
+      this.onUpdate( this.currentExercise );
       return;
     }
 
+    this.onSave( this.currentExercise );
+  }
+
+  private onUpdate( exercise: Exercise ): void {
+    this.exercisesService.update(this.currentExercise)
+    .subscribe({
+      next: exercise => {
+        this.ref.close({
+          status: 'success',
+          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
+        });
+      },
+      error: error => {
+        this.ref.close({
+          status: 'error',
+          message: { severity: 'error', summary: 'Error', detail: error.message },
+        });
+      }
+    });
+  }
+
+  private onSave( exercise: Exercise ): void {
     this.exercisesService.save(this.currentExercise)
     .subscribe({
       next: exercise => {

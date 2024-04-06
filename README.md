@@ -9,42 +9,47 @@
 
 # TODO-LIST
 
-✅❌👉❗
+✅❌👉⚠️❗⏸️
 
 [] Animación para hacer más suave la transición entre páginas.
 
 ### EXERCISES MODULE
 [✅] Aislar PAGE HEADER en su propio módulo.
 [✅] Aislar PAGE LIST en su propio módulo.
-[] Agregar Linter & Prettier 
+[✅] Explorar FORMGROUPS, FORMCONTROLS, FORMBUILDERS. 
+[] Agregar Linter & Prettier. ❗
+
 [] Explorar cargas diferidas en Angular.
-[] Explorar FORMGROUPS, FORMCONTROLS, FORMBUILDERS.
 [] Explorar COMPOSABLE ARCHITECTURE en Angular.
-[] Proveer MessageService a nivel de Páginas.
+[❌] Proveer MessageService a nivel de Páginas.
 
 ##### PAGE HEADER
-[✅] Add ➡️ search-bar.
-[✅] Add ➡️ Button add new exercise.
-[✅] Create ➡️ Tags to select different exercises.
-[] Agregar validación al Autocomplete.
+[✅] Add 👉 search-bar.
+[✅] Add 👉 Button add new exercise.
+[✅] Create 👉 Tags to select different exercises.
+[⏸️] Agregar validación al Autocomplete.
 
 ##### PAGE LIST
-[] Agregar paginación al formulario. 
+[⏸️] Agregar paginación al formulario. 
 
 ##### EXERCISE CARD
-[✅] Improve ➡️ the exercise-card presentation.
+[✅] Improve 👉 the exercise-card presentation.
 [✅] Arreglar el tamaño de las tarjetas cuando el título es demasiado grande.
   [✅] Tamaño fijo para texto.
   [✅] Tamaño fijo para Categoría.
 
 
 ##### FORM MODEL
-[✅] Create ➡️ Model to add new exercise.
+[✅] Create 👉 Model to add new exercise.
 [✅] Validaciones. (No aceptar si está sin nombre).
 [❌] Agregar debouncer al URL alternativo.
 [✅] La imagen del formulario es más grande de lo normal.
+[✅] Cambiar el FormControl por un FormBuilder.
+[⚠️] Asegurarse que el NAME-INPUT, no acepta strings vacios.
+[⚠️] Asegurarse que el NAME-INPUT, no exista previamente.
+
 [] Almacenar imágenes en entorno local.
-[] Asegurarse que el NAME-INPUT, no acepta strings vacios.
+
 
   OK 
   [✅] Mostrar snackbar tras la insersión del ejercicio. 
@@ -52,7 +57,7 @@
   [✅] Refrescar el listado para mostrar nuevo ejercicio el primero. 
   
   NO:
-  [] Colorear la ADVERTENCIA que muestra el error de validación del formulario. ❗❗❗
+  [✅] Colorear la ADVERTENCIA que muestra el error de validación del formulario.
   [✅] Manejo del error.
   [✅] Mostrar snackbar que muestre error.
 
@@ -72,5 +77,5 @@
   [✅] Notificar que el ejercicio se eliminó correctamente 
 
 ###### TEST:
-[] Estudiar Karma + Jasmine.
-[] Crear test unitarios y E2E tests.
+[⚠️] Estudiar Karma + Jasmine.
+[⚠️] Crear test unitarios y E2E tests.
