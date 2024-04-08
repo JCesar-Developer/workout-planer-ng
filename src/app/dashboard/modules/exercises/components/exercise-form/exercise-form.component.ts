@@ -52,7 +52,7 @@ export class ExerciseFormComponent implements OnInit {
     }
   }
 
-  public isValidField( field: string ): boolean | null {
+  public isInvalidInput( field: string ): boolean | null {
     return this.exerciseForm.controls[field].errors && this.exerciseForm.controls[field].touched;
   }
 
@@ -97,6 +97,7 @@ export class ExerciseFormComponent implements OnInit {
   public onSubmit() {
     if( this.exerciseForm.invalid ) {
       this.exerciseForm.markAllAsTouched();
+      this.exerciseForm.valueChanges.subscribe( value => console.log(value) );
       return;
     }
 

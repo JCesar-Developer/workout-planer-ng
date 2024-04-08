@@ -1,5 +1,5 @@
-<ul class="pt-5 card-list">
-  <li *ngFor="let exercise of exercises" class="flex justify-center">
+<ul data-testId="card-list" class="pt-5 card-list">
+  <li *ngFor="let exercise of exercises" data-testId="card-item" class="flex justify-center">
     <exercise-card
       (onEditExercise)="openExerciseForm( $event )"
       [exercise]="exercise"

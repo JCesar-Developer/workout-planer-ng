@@ -20,13 +20,17 @@
           pInputText
           type="text"
           class="p-fluid w-full"
-          [class]="isValidField('name') ? 'ng-dirty' : ''"
+          [class]="isInvalidInput('name') ? 'ng-dirty' : ''"
           placeholder="Nombre del ejercicio"
           formControlName="name"
         />
 
         <!-- Error messages -->
-        <span *ngIf="isValidField('name')" class="-mt-3 text-sm text-red-400">
+        <span
+          *ngIf="isInvalidInput('name')"
+          class="-mt-3 text-sm text-red-400"
+          data-testId="error-message"
+        >
           {{ getErrorMessage('name') }}
         </span>
 
