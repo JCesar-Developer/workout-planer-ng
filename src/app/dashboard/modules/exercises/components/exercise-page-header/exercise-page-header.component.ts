@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExercisesService } from '@dashboard/shared/services/exercises.service';
+import { ExerciseHttpService } from '@dashboard/shared/services/exercises-http.service';
 
 @Component({
   selector: 'exercise-page-header',
@@ -11,7 +11,7 @@ export class ExercisePageHeaderComponent {
   @Input() title!: string;
 
   constructor(
-    private exercisesService: ExercisesService,
+    private exercisesService: ExerciseHttpService,
   ) { }
 
   //Autocomplete component

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IExerciseService } from '../interfaces/exercise-service.interface';
 
 import type { Exercise } from '../interfaces/exercise.interface';
 import { environments } from 'src/environments/environments';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class ExercisesService {
+export class ExerciseHttpService implements IExerciseService {
 
   private baseUrl: string = environments.baseUrl;
 
@@ -17,6 +18,7 @@ export class ExercisesService {
     return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises`);
   }
 
+  //GET SUGGESTIONS
   public getExercisesSuggestions( term: string ): Observable<Exercise[]> {
     return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises?q=${ term }&_limit=6`);
   }

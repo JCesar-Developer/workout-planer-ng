@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExercisesService } from '@dashboard/shared/services/exercises.service';
+// import { ExerciseHttpService } from '@dashboard/shared/services/exercises-http.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/exercises-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { tap } from 'rxjs';
 import { CustomValidatorsService } from 'src/app/shared/services/customValidators.service';
+
+type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
 interface ExerciseForm {
   id: FormControl<number|null>;
@@ -20,16 +24,7 @@ interface ExerciseForm {
 })
 export class ExerciseFormComponent implements OnInit {
 
-  // TODO: No entiendo la diferencia entre usar FormGroup y FormBuilder
-  // public exerciseForm: FormGroup = new FormGroup<ExerciseForm>({
-  //   id: new FormControl(null),
-  //   name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-  //   image: new FormControl(null),
-  //   category: new FormControl<Category>(Category.CORE, { nonNullable: true }),
-  //   alternativeImage: new FormControl<string|null>(null),
-  // });
-
-  public exerciseForm: FormGroup = this.fb.group<ExerciseForm>({
+  public exerciseForm: FormGroup<ExerciseForm> = this.fb.group<ExerciseForm>({
     id: this.fb.control(null),
     name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
     image: this.fb.control(null),
@@ -38,11 +33,12 @@ export class ExerciseFormComponent implements OnInit {
   });
 
   constructor(
-    private exercisesService: ExercisesService,
+    // private exercisesService: ExerciseHttpService,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
+    private exerciseStoreService: ExerciseStoreService,
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +48,14 @@ export class ExerciseFormComponent implements OnInit {
     }
   }
 
-  public isInvalidInput( field: string ): boolean | null {
-    return this.exerciseForm.controls[field].errors && this.exerciseForm.controls[field].touched;
+  public isInvalidInput( field: FormControls ): boolean | null {
+    return this.exerciseForm.controls[field]?.errors && this.exerciseForm.controls[field]?.touched || null;
   }
 
-  public getErrorMessage( field: string ): string | null {
+  public getErrorMessage( field: FormControls ): string | null {
     if( !this.exerciseForm.controls[field] ) return null;
 
-    const errors = this.exerciseForm.controls[field].errors || {};
+    const errors = this.exerciseForm.controls[field]?.errors || {};
 
     for( const key of Object.keys(errors) ) {
       switch( key ) {
@@ -78,6 +74,7 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   public get exerciseId() {
+    // console.log('Cambio detectado');
     return this.exerciseForm.get('id')?.value;
   }
 
@@ -109,59 +106,51 @@ export class ExerciseFormComponent implements OnInit {
     this.onSave( this.currentExercise );
   }
 
-  private onUpdate( exercise: Exercise ): void {
-    this.exercisesService.update(this.currentExercise)
-    .subscribe({
-      next: exercise => {
-        this.ref.close({
+  private onSave( exercise: Exercise ): void {
+    this.exerciseStoreService.save(exercise).pipe(
+      tap(success => {
+        if( success ) this.ref.close({
           status: 'success',
-          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
-        });
-      },
-      error: error => {
-        this.ref.close({
+          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" creado con éxito` },
+        })
+        else this.ref.close({
           status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: error.message },
-        });
-      }
-    });
+          message: { severity: 'error', summary: 'Error', detail: 'Error al crear el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
+        })
+      })
+    ).subscribe()
   }
 
-  private onSave( exercise: Exercise ): void {
-    this.exercisesService.save(this.currentExercise)
-    .subscribe({
-      next: exercise => {
-        this.ref.close({
+  private onUpdate( exercise: Exercise ): void {
+    this.exerciseStoreService.update(this.currentExercise).pipe(
+      tap(success => {
+        if( success ) this.ref.close({
           status: 'success',
-          message: { severity: 'success', summary: 'Success', detail: `Ejercicio ${ exercise.name } guardado con éxito` },
-        });
-      },
-      error: error => {
-        this.ref.close({
+          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
+        })
+        else this.ref.close({
           status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: error.message },
-        });
-      }
-    });
-  }
+          message: { severity: 'error', summary: 'Error', detail: 'Error al actualizar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
+        })
+      })
+    ).subscribe()
+
+  };
 
   public onDelete( exerciseId: number ) {
     const exerciseName = this.exerciseForm.get('name')?.value;
 
-    this.exercisesService.delete(exerciseId)
-    .subscribe({
-      next: () => {
-        this.ref.close({
+    this.exerciseStoreService.delete(exerciseId).pipe(
+      tap(success => {
+        if( success ) this.ref.close({
           status: 'success',
           message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exerciseName }" eliminado con éxito` },
-        });
-      },
-      error: error => {
-        this.ref.close({
+        })
+        else this.ref.close({
           status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: error.message },
-        });
-      }
-    });
+          message: { severity: 'error', summary: 'Error', detail: 'Error al eliminar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
+        })
+      })
+    ).subscribe();
   }
 }

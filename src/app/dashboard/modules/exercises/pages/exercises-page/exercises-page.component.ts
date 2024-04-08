@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { type Exercise, Category } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExercisesService } from '@dashboard/shared/services/exercises.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/exercises-store.service';
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 
 import { MessageService, Message } from 'primeng/api';
@@ -18,14 +18,13 @@ export class ExercisesPageComponent implements OnInit {
 
   public title: string = 'Lista de ejercicios';
 
-  //SUBIR ESTO AL STORE PROPIO.
   public exercises: Exercise[] = [];
   public categories: Category[] = Object.values(Category);
 
   constructor(
-    private exercisesService: ExercisesService,
     private messageService: MessageService,
     private dialogService: DialogService,
+    private exercisesStore: ExerciseStoreService,
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +32,7 @@ export class ExercisesPageComponent implements OnInit {
   }
 
   private setExercises(): void {
-    this.exercisesService.getExercises()
+    this.exercisesStore.getHttpExercises()
       .subscribe( exercises => this.exercises = exercises );
   }
 
@@ -46,16 +45,14 @@ export class ExercisesPageComponent implements OnInit {
       dismissableMask: true,
     });
 
-    this.ref.onClose
-    .pipe(
+    this.ref.onClose.pipe(
       tap( resp => {
-        if( !resp ) return;
-        if (resp.status === 'success') this.showAlert( resp.message );
+        if ( !resp ) return;
+        else if (resp.status === 'success') this.showAlert( resp.message );
         else if (resp.status === 'error') this.showAlert( resp.message );
       }),
-    )
-    .subscribe(() => {
-      this.setExercises();
+    ).subscribe(() => {
+      this.exercises = this.exercisesStore.getExercises();
     });
   }
 

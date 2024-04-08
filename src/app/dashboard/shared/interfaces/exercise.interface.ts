@@ -3,7 +3,7 @@ export interface Exercise {
   name:     string;
   category: Category;
   image:    string;
-  alternativeImage?: string;
+  alternativeImage?: string|null;
 }
 
 export enum Category {
