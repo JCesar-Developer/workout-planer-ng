@@ -16,7 +16,7 @@
 
   <!-- Card-Content -->
   <div class="py-3 space-y-2">
-    <p class="text-gray-700 h-6 max-h-6">{{ exercise.category | truncate: 10 }}</p>
-    <h3 class="text-xl font-bold h-12 max-h-12">{{ exercise.name | truncate:28 }}</h3>
+    <p data-testId="exercise-category" class="text-gray-700 h-6 max-h-6">{{ exercise.category | truncate: 10 }}</p>
+    <h3 data-testId="exercise-name" class="text-xl font-bold h-12 max-h-12">{{ exercise.name | truncate:28 }}</h3>
   </div>
 </article>
