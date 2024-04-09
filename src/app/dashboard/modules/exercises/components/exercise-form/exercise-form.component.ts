@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-// import { ExerciseHttpService } from '@dashboard/shared/services/exercises-http.service';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercises-store.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { tap } from 'rxjs';
@@ -11,7 +10,7 @@ import { CustomValidatorsService } from 'src/app/shared/services/customValidator
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
 interface ExerciseForm {
-  id: FormControl<number|null>;
+  id: FormControl<string|null>;
   name: FormControl<string|null>;
   image?: FormControl<string|null>;
   category: FormControl<Category>;
@@ -33,7 +32,6 @@ export class ExerciseFormComponent implements OnInit {
   });
 
   constructor(
-    // private exercisesService: ExerciseHttpService,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private fb: FormBuilder,
@@ -72,6 +70,19 @@ export class ExerciseFormComponent implements OnInit {
 
     return null;
   }
+
+  // private getErrorMessage( key: string ): string | null {
+  //   switch( key ) {
+  //     case 'required':
+  //       return 'Este campo es requerido';
+  //     case 'minlength':
+  //       return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
+  //     case 'whitespace':
+  //       return 'Este campo no puede contener solo espacios en blanco';
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   public get exerciseId() {
     // console.log('Cambio detectado');
@@ -137,7 +148,7 @@ export class ExerciseFormComponent implements OnInit {
 
   };
 
-  public onDelete( exerciseId: number ) {
+  public onDelete( exerciseId: string ) {
     const exerciseName = this.exerciseForm.get('name')?.value;
 
     this.exerciseStoreService.delete(exerciseId).pipe(

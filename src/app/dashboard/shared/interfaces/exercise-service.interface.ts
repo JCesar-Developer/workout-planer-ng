@@ -6,5 +6,5 @@ export interface IExerciseService {
   // getExercisesSuggestions(term: string): Observable<Exercise[]>;
   save(exercise: Exercise): Observable<boolean> | Observable<Exercise>;
   update(exercise: Exercise): Observable<boolean> | Observable<Exercise>;
-  delete(exerciseId: number): Observable<boolean> | Observable<Exercise>;
+  delete(exerciseId: string): Observable<boolean> | Observable<Exercise>;
 }

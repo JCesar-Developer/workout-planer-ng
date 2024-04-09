@@ -6,6 +6,7 @@
     "paths": {
       "@data/*": ["data/*"],
       "@store/*": ["store/*"],
+      "@shared/*": ["src/app/shared/*"],
       "@primeng/*": ["src/app/prime-ng/*"],
       "@dashboard/*": ["src/app/dashboard/*"],
       "@exercises/*": ["src/app/dashboard/modules/exercises/*"],

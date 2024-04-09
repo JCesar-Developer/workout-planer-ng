@@ -1,119 +1,119 @@
 {
   "exercises": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Lunge con Mancuernas",
       "image": "./assets/images/exercises/exercise-1.gif",
       "category": "Piernas",
       "alternativeImage": null
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Elevación frontal en polea baja",
       "image": "./assets/images/exercises/exercise-2.gif",
       "category": "Pecho",
       "alternativeImage": null
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Extensión oblicua sentado",
       "image": "./assets/images/exercises/exercise-3.gif",
       "category": "Core",
       "alternativeImage": null
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Sentadilla con mancuerna",
       "image": "./assets/images/exercises/exercise-4.gif",
       "category": "Piernas",
       "alternativeImage": null
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Exercise5",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-5.gif",
       "alternativeImage": null
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Exercise6",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-6.gif",
       "alternativeImage": null
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Exercise7",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-7.gif",
       "alternativeImage": null
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Exercise8",
       "category": "Pecho",
       "image": "./assets/images/exercises/exercise-8.gif",
       "alternativeImage": null
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Exercise9",
       "category": "Piernas",
       "image": "./assets/images/exercises/exercise-9.gif",
       "alternativeImage": null
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Exercise10",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-10.gif",
       "alternativeImage": null
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Exercise11",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-11.gif",
       "alternativeImage": null
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Exercise12",
       "category": "Core",
       "image": "./assets/images/exercises/exercise-12.gif",
       "alternativeImage": null
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Ejercicio Cuello",
       "image": null,
       "category": "Core",
       "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/estiramiento-para-el-cuello-init-pos-1837.png"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Elevaciones laterales en Polea Baja",
       "image": null,
       "category": "Pecho",
       "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/12/Elevaciones-laterales-en-polea.webp"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Press plano con barra en Banco",
       "image": null,
       "category": "Pecho",
       "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/04/Press-de-banca-plano-con-barra.webp"
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Sentadilla con Barra",
       "image": null,
       "category": "Piernas",
       "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/sentadilla-completa-con-barra-init-pos-5075.png"
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Jalón al Pecho en Polea Alta",
       "image": null,
       "category": "Espalda",

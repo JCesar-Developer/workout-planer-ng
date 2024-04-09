@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { type Exercise, Category } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercises-store.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 
 import { MessageService, Message } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-exercises-page',
@@ -17,15 +17,17 @@ export class ExercisesPageComponent implements OnInit {
   ref?: DynamicDialogRef;
 
   public title: string = 'Lista de ejercicios';
-
   public exercises: Exercise[] = [];
   public categories: Category[] = Object.values(Category);
+  private $exercises: Subscription;
 
   constructor(
     private messageService: MessageService,
     private dialogService: DialogService,
     private exercisesStore: ExerciseStoreService,
-  ) { }
+  ){
+    this.$exercises = this.exercisesStore.getExercises().subscribe( exercises => this.exercises = exercises );
+  }
 
   ngOnInit(): void {
     this.setExercises();
@@ -51,9 +53,7 @@ export class ExercisesPageComponent implements OnInit {
         else if (resp.status === 'success') this.showAlert( resp.message );
         else if (resp.status === 'error') this.showAlert( resp.message );
       }),
-    ).subscribe(() => {
-      this.exercises = this.exercisesStore.getExercises();
-    });
+    ).subscribe();
   }
 
   public showAlert( message: Message ) {
@@ -61,8 +61,7 @@ export class ExercisesPageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.ref) {
-      this.ref.close();
-    }
+    if (this.ref) this.ref.close();
+    if (this.$exercises) this.$exercises.unsubscribe();
   }
 }

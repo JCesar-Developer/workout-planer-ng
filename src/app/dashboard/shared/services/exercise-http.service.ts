@@ -34,7 +34,7 @@ export class ExerciseHttpService implements IExerciseService {
   }
 
   //DELETE
-  public delete( exerciseId: number ): Observable<Exercise> {
+  public delete( exerciseId: string ): Observable<Exercise> {
     return this.http.delete<Exercise>(`${ this.baseUrl }/exercises/${ exerciseId }`);
   }
 

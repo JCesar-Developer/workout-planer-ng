@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseHttpService } from '@dashboard/shared/services/exercises-http.service';
+import { ExerciseHttpService } from '@dashboard/shared/services/exercise-http.service';
 
 @Component({
   selector: 'exercise-page-header',
