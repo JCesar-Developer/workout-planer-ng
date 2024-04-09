@@ -40,10 +40,23 @@ export class ExerciseFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if( this.config.data) {
+    if( this.config.data ) {
       const exercise = this.config.data.exercise;
       this.exerciseForm.patchValue( exercise );
     }
+  }
+
+  public get exerciseId() {
+    //TODO: console.log('Cambio detectado');
+    return this.exerciseForm.get('id')?.value;
+  }
+
+  public get currentExercise(): Exercise {
+    return this.exerciseForm.value as Exercise;
+  }
+
+  public get categories(): Category[] {
+    return Object.values(Category).filter(category => category !== Category.ALL);
   }
 
   public isInvalidInput( field: FormControls ): boolean | null {
@@ -83,24 +96,6 @@ export class ExerciseFormComponent implements OnInit {
   //       return null;
   //   }
   // }
-
-  public get exerciseId() {
-    // console.log('Cambio detectado');
-    return this.exerciseForm.get('id')?.value;
-  }
-
-  public get currentExercise(): Exercise {
-    return this.exerciseForm.value as Exercise;
-  }
-
-  public get categories(): Category[] {
-    return Object.values(Category).filter(category => category !== Category.ALL);
-  }
-
-
-  public closeDialog() {
-    this.ref.close();
-  }
 
   public onSubmit() {
     if( this.exerciseForm.invalid ) {
@@ -163,5 +158,10 @@ export class ExerciseFormComponent implements OnInit {
         })
       })
     ).subscribe();
+  }
+
+
+  public closeDialog() {
+    this.ref.close();
   }
 }

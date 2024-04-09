@@ -1,0 +1,9 @@
+<span class="p-fluid w-full">
+  <p-autoComplete
+    [suggestions]="filteredExercises"
+    (completeMethod)="filterExercise($event)"
+    (onSelect)="onSelectExercise($event)"
+    [minLength]="0"
+    field="name"
+  ></p-autoComplete>
+</span>

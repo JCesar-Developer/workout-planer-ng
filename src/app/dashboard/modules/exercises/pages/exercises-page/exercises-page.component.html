@@ -1,5 +1,4 @@
 <div class="m-8">
-
   <p-toast></p-toast>
 
   <section class="p-8 bg-white rounded-xl shadow-lg divide-y divide-teal-400">
@@ -7,15 +6,13 @@
     <!-- PAGE-HEADER -->
     <exercise-page-header
       [title]="title"
-      [categories]="categories"
-      (onOpenForm)="openExerciseForm()"
+      (openCreateForm)="openExerciseForm()"
     ></exercise-page-header>
 
     <!-- EXERCISES LIST -->
     <exercise-page-list
-      [exercises]="exercises"
-      (onEditForm)="openExerciseForm( $event )"
+      (openEditForm)="openExerciseForm( $event )"
     ></exercise-page-list>
-  </section>
 
+  </section>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { type Exercise, Category } from '@dashboard/shared/interfaces/exercise.interface';
+import { type Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 
@@ -12,31 +12,17 @@ import { Subscription, tap } from 'rxjs';
   templateUrl: './exercises-page.component.html',
   providers: [MessageService]
 })
-export class ExercisesPageComponent implements OnInit {
+export class ExercisesPageComponent {
 
   ref?: DynamicDialogRef;
 
   public title: string = 'Lista de ejercicios';
   public exercises: Exercise[] = [];
-  public categories: Category[] = Object.values(Category);
-  private $exercises: Subscription;
 
   constructor(
     private messageService: MessageService,
     private dialogService: DialogService,
-    private exercisesStore: ExerciseStoreService,
-  ){
-    this.$exercises = this.exercisesStore.getExercises().subscribe( exercises => this.exercises = exercises );
-  }
-
-  ngOnInit(): void {
-    this.setExercises();
-  }
-
-  private setExercises(): void {
-    this.exercisesStore.getHttpExercises()
-      .subscribe( exercises => this.exercises = exercises );
-  }
+  ){}
 
   public openExerciseForm( exercise?: Exercise ) {
     this.ref = this.dialogService.open(ExerciseFormComponent, {
@@ -56,12 +42,11 @@ export class ExercisesPageComponent implements OnInit {
     ).subscribe();
   }
 
-  public showAlert( message: Message ) {
+  private showAlert( message: Message ) {
     this.messageService.add( message );
   }
 
   ngOnDestroy() {
     if (this.ref) this.ref.close();
-    if (this.$exercises) this.$exercises.unsubscribe();
   }
 }

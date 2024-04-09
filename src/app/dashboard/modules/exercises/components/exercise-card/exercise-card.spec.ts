@@ -7,7 +7,7 @@ import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interf
 describe('ExerciseCardComponent', () => {
   let component: ExerciseCardComponent;
   let fixture: ComponentFixture<ExerciseCardComponent>;
-  const EXERCISE_MODEL = { id: 1, name: 'Exercise 1', category: Category.CORE, image: 'image1.jpg', alternativeImage: 'alternative-image1.jpg',};
+  const EXERCISE_MODEL = { id: '1', name: 'Exercise 1', category: Category.CORE, image: 'image1.jpg', alternativeImage: 'alternative-image1.jpg',};
 
   beforeEach(() => {
     TestBed.configureTestingModule({

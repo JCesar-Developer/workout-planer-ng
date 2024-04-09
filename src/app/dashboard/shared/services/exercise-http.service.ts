@@ -18,11 +18,6 @@ export class ExerciseHttpService implements IExerciseService {
     return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises`);
   }
 
-  //GET SUGGESTIONS
-  public getExercisesSuggestions( term: string ): Observable<Exercise[]> {
-    return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises?q=${ term }&_limit=6`);
-  }
-
   //SAVE
   public save( exercise: Exercise ): Observable<Exercise> {
     return this.http.post<Exercise>(`${ this.baseUrl }/exercises`, exercise);
