@@ -21,16 +21,6 @@ export class ExerciseStoreService implements IExerciseService {
     this.$exercises = new BehaviorSubject<Exercise[]>(this.exercises);
   }
 
-
-
-  public getHttpExercises(): Observable<Exercise[]> {
-    if( this.exercises.length > 0 ) return of(this.exercises);
-
-    return this.exercisesHttpService.getExercises().pipe(
-      tap( exercises => this.exercises = exercises )
-    )
-  }
-
   // SEARCH -------------------------------------------------------------------------------------
   public getExercisesSuggestions(term: string): Exercise[] {
     if(!term) {
@@ -43,7 +33,7 @@ export class ExerciseStoreService implements IExerciseService {
     return suggestions;
   }
 
-  public getExerciseCategories(): string[] {
+  public getExerciseCategories(): Category[] {
     return Object.values(Category);
   }
 
@@ -62,9 +52,20 @@ export class ExerciseStoreService implements IExerciseService {
   }
 
   // CRUD -------------------------------------------------------------------------------------
-  public getExercises(): Observable<Exercise[]> {
-    if( this.exercises.length > 0 ) return of(this.exercises);
+  public getAll(): Observable<Exercise[]> {
+    if( this.exercises.length === 0 ) {
+      this.getHttpExercises();
+    }
+
     return this.$exercises.asObservable();
+  }
+
+  private getHttpExercises(): void {
+    this.exercisesHttpService.getAll()
+      .subscribe( exercises => {
+        this.exercises = exercises;
+        this.$exercises.next(exercises)
+      });
   }
 
   public save(exercise: Exercise): Observable<boolean> {

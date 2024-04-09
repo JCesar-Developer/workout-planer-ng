@@ -7,12 +7,14 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 export class ExerciseImagePipe implements PipeTransform {
 
   transform( exercise: Exercise ): string {
-
     if ( exercise.id && exercise.image ) {
       return exercise.image;
     }
 
-    if ( !exercise.image && exercise.alternativeImage ) {
+    if (
+      !exercise.image &&
+      exercise.alternativeImage
+    ) {
       return exercise.alternativeImage
     }
 

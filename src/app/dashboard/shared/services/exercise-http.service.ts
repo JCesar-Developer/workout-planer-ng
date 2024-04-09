@@ -14,7 +14,8 @@ export class ExerciseHttpService implements IExerciseService {
   constructor( private http: HttpClient ) { }
 
   //GET ALL
-  public getExercises(): Observable<Exercise[]> {
+  public getAll(): Observable<Exercise[]> {
+    console.log('GET EXERCISES');
     return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises`);
   }
 

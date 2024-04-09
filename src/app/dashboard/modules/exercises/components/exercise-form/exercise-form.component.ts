@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { tap } from 'rxjs';
+import { Subscription, debounceTime, tap } from 'rxjs';
 import { CustomValidatorsService } from 'src/app/shared/services/customValidators.service';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
@@ -21,8 +21,11 @@ interface ExerciseForm {
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
 })
-export class ExerciseFormComponent implements OnInit {
+export class ExerciseFormComponent implements OnInit, OnDestroy {
 
+  public categories: Category[];
+  public currentExercise: Exercise = {} as Exercise;
+  public exerciseId: string | null = null;
   public exerciseForm: FormGroup<ExerciseForm> = this.fb.group<ExerciseForm>({
     id: this.fb.control(null),
     name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
@@ -30,6 +33,7 @@ export class ExerciseFormComponent implements OnInit {
     category: this.fb.control(Category.CORE, { nonNullable: true }),
     alternativeImage: this.fb.control(null),
   });
+  private altImgSubscription?: Subscription;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -37,70 +41,68 @@ export class ExerciseFormComponent implements OnInit {
     private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
     private exerciseStoreService: ExerciseStoreService,
-  ) {}
+  ) {
+    this.categories = exerciseStoreService.getExerciseCategories();
+    this.setFormIfDataExists();
+    this.setCurrentExercise();
+  }
 
   ngOnInit(): void {
-    if( this.config.data ) {
+    this.altImgSubscription = this.exerciseForm.get('alternativeImage')?.valueChanges
+      .pipe(
+        debounceTime(300),
+      ).subscribe( altImg => {
+        this.currentExercise.alternativeImage = altImg;
+        this.setCurrentExercise();
+      });
+  }
+
+  private setFormIfDataExists(): void {
+    if( this.config.data.exercise ) {
       const exercise = this.config.data.exercise;
       this.exerciseForm.patchValue( exercise );
+      this.exerciseId = exercise.id;
     }
   }
 
-  public get exerciseId() {
-    //TODO: console.log('Cambio detectado');
-    return this.exerciseForm.get('id')?.value;
-  }
-
-  public get currentExercise(): Exercise {
-    return this.exerciseForm.value as Exercise;
-  }
-
-  public get categories(): Category[] {
-    return Object.values(Category).filter(category => category !== Category.ALL);
+  private setCurrentExercise(): void {
+    this.currentExercise = this.exerciseForm.value as Exercise;
   }
 
   public isInvalidInput( field: FormControls ): boolean | null {
     return this.exerciseForm.controls[field]?.errors && this.exerciseForm.controls[field]?.touched || null;
   }
 
-  public getErrorMessage( field: FormControls ): string | null {
+  public getErrorMessages( field: FormControls ): string | null {
     if( !this.exerciseForm.controls[field] ) return null;
 
     const errors = this.exerciseForm.controls[field]?.errors || {};
 
     for( const key of Object.keys(errors) ) {
-      switch( key ) {
-        case 'required':
-          return 'Este campo es requerido';
-        case 'minlength':
-          return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
-        case 'whitespace':
-          return 'Este campo no puede contener solo espacios en blanco';
-        default:
-          return null;
-      }
+      return this.getErrorMessage( key, errors );
     }
 
     return null;
   }
 
-  // private getErrorMessage( key: string ): string | null {
-  //   switch( key ) {
-  //     case 'required':
-  //       return 'Este campo es requerido';
-  //     case 'minlength':
-  //       return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
-  //     case 'whitespace':
-  //       return 'Este campo no puede contener solo espacios en blanco';
-  //     default:
-  //       return null;
-  //   }
-  // }
+  private getErrorMessage( key: string, errors: ValidationErrors ): string | null {
+    switch( key ) {
+      case 'required':
+        return 'Este campo es requerido';
+      case 'minlength':
+        return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
+      case 'whitespace':
+        return 'Este campo no puede contener solo espacios en blanco';
+      default:
+        return null;
+    }
+  }
 
   public onSubmit() {
+    this.setCurrentExercise();
+
     if( this.exerciseForm.invalid ) {
       this.exerciseForm.markAllAsTouched();
-      this.exerciseForm.valueChanges.subscribe( value => console.log(value) );
       return;
     }
 
@@ -160,8 +162,11 @@ export class ExerciseFormComponent implements OnInit {
     ).subscribe();
   }
 
-
   public closeDialog() {
     this.ref.close();
+  }
+
+  ngOnDestroy(): void {
+    this.altImgSubscription?.unsubscribe();
   }
 }

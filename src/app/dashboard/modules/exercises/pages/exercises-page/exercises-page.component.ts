@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { type Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 
 import { MessageService, Message } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-exercises-page',
@@ -33,13 +31,14 @@ export class ExercisesPageComponent {
       dismissableMask: true,
     });
 
-    this.ref.onClose.pipe(
-      tap( resp => {
+    this.ref.onClose
+    .subscribe({
+      next: ( resp ) => {
         if ( !resp ) return;
         else if (resp.status === 'success') this.showAlert( resp.message );
         else if (resp.status === 'error') this.showAlert( resp.message );
-      }),
-    ).subscribe();
+      },
+    });
   }
 
   private showAlert( message: Message ) {

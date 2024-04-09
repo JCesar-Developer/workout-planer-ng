@@ -30,9 +30,9 @@
     },
     {
       "id": "5",
-      "name": "Exercise5",
-      "category": "Core",
+      "name": "Estiramiento de cuadriceps recostado",
       "image": "./assets/images/exercises/exercise-5.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
