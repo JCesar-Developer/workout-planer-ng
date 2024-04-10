@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class ExerciseHttpService implements IExerciseService {
 
-  private baseUrl: string = environments.baseUrl;
+  public baseUrl: string = environments.baseUrl;
 
   constructor( private http: HttpClient ) { }
 

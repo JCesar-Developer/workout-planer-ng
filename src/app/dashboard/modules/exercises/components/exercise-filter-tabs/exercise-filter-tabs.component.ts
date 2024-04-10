@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Category } from '@dashboard/shared/interfaces/exercise.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.
   ]
 })
 export class ExerciseFilterTabsComponent {
-  public categories: string[] = []
+  public categories: Category[] = []
 
   constructor(
     private exerciseStoreService: ExerciseStoreService,
@@ -16,7 +17,7 @@ export class ExerciseFilterTabsComponent {
     this.categories = this.exerciseStoreService.getExerciseCategories();
   }
 
-  public onFilterByCategory( category: string ) {
-    this.exerciseStoreService.getExercisesByCategory(category);
+  public onFilterByCategory( category: Category ) {
+    this.exerciseStoreService.filterExercisesByCategory(category);
   }
 }

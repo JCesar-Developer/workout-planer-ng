@@ -13,11 +13,11 @@ export class ExerciseSearchbarComponent {
     private exerciseStoreService: ExerciseStoreService,
   ) {}
 
-  public filterExercise( event: any ) {
-    this.filteredExercises = this.exerciseStoreService.getExercisesSuggestions(event.query);
+  public filterExercise({ query } : { query: string }): void {
+    this.filteredExercises = this.exerciseStoreService.getExercisesSuggestions(query);
   }
 
-  public onSelectExercise( { name } : { name: string }) {
-    this.exerciseStoreService.getExercisesSuggestions(name)[0];
+  public onSelectExercise({ name } : { name: string }): void {
+    this.exerciseStoreService.getExercisesSuggestions(name);
   }
 }

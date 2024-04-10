@@ -9,11 +9,17 @@ describe('ExerciseCardComponent', () => {
   let fixture: ComponentFixture<ExerciseCardComponent>;
   const EXERCISE_MODEL = { id: '1', name: 'Exercise 1', category: Category.CORE, image: 'image1.jpg', alternativeImage: 'alternative-image1.jpg',};
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ExerciseCardComponent, ExerciseImagePipe, TruncatePipe],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [
+        ExerciseCardComponent,
+        ExerciseImagePipe,
+        TruncatePipe
+      ],
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ExerciseCardComponent);
     component = fixture.componentInstance;
   });

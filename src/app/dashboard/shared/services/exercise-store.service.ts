@@ -37,7 +37,7 @@ export class ExerciseStoreService implements IExerciseService {
     return Object.values(Category);
   }
 
-  public getExercisesByCategory(category: string): void {
+  public filterExercisesByCategory(category: string): void {
     if(this.currentCategory === category) return;
 
     if(category === Category.ALL) {

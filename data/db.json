@@ -58,9 +58,9 @@
     },
     {
       "id": "9",
-      "name": "Exercise9",
-      "category": "Piernas",
+      "name": "Elevación frontal con rotación de barra",
       "image": "./assets/images/exercises/exercise-9.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {

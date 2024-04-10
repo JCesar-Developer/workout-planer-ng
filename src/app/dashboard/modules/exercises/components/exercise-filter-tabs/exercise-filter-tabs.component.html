@@ -1,9 +1,10 @@
 <ul class="flex flex-row gap-2">
-  <a *ngFor="let category of categories" href="/exercises">
-    <button (click)="onFilterByCategory(category); $event.preventDefault()">
-      <p-chip
-        [label]="category"
-      ></p-chip>
-    </button>
-  </a>
+  <li
+    data-testId="filter-tab"
+    *ngFor="let category of categories"
+    (click)="onFilterByCategory(category)"
+    class="cursor-pointer"
+  >
+    <p-chip [label]="category"></p-chip>
+  </li>
 </ul>
