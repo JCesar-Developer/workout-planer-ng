@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
+import { ExerciseFormHandler } from '@exercises/helpers/exercise-form-handler.helper';
 
-import { MessageService, Message } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-exercises-page',
@@ -12,7 +12,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class ExercisesPageComponent {
 
-  ref?: DynamicDialogRef;
+  private formHandler: ExerciseFormHandler;
 
   public title: string = 'Lista de ejercicios';
   public exercises: Exercise[] = [];
@@ -20,32 +20,12 @@ export class ExercisesPageComponent {
   constructor(
     private messageService: MessageService,
     private dialogService: DialogService,
-  ){}
-
-  public openExerciseForm( exercise?: Exercise ) {
-    this.ref = this.dialogService.open(ExerciseFormComponent, {
-      data: { exercise },
-      header: ( exercise ) ? 'Editar Ejercicio' : 'Crear Ejercicio',
-      width: '50vw',
-      height: '50vh',
-      dismissableMask: true,
-    });
-
-    this.ref.onClose
-    .subscribe({
-      next: ( resp ) => {
-        if ( !resp ) return;
-        else if (resp.status === 'success') this.showAlert( resp.message );
-        else if (resp.status === 'error') this.showAlert( resp.message );
-      },
-    });
+  ){
+    this.formHandler = new ExerciseFormHandler(dialogService, messageService);
   }
 
-  private showAlert( message: Message ) {
-    this.messageService.add( message );
+  public openExerciseForm(exercise?: Exercise) {
+    this.formHandler.onOpenForm(exercise);
   }
 
-  ngOnDestroy() {
-    if (this.ref) this.ref.close();
-  }
 }
