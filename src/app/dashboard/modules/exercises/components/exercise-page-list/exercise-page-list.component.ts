@@ -11,7 +11,7 @@ export class ExercisePageListComponent implements OnDestroy {
 
   @Output() openEditForm: EventEmitter<Exercise> = new EventEmitter();
   public exercises: Exercise[] = [];
-  private $exercises: Subscription;
+  public $exercises: Subscription;
 
   constructor(
     private exercisesStore: ExerciseStoreService,

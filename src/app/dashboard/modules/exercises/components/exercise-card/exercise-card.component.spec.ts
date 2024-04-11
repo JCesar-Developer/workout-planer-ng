@@ -60,6 +60,8 @@ describe('ExerciseCardComponent', () => {
     button.click();
 
     expect(editExerciseSpy).toHaveBeenCalled();
+
+    editExerciseSpy.calls.reset();
   });
 
   it('should emit the exercise after click on edit button', () => {
@@ -72,5 +74,7 @@ describe('ExerciseCardComponent', () => {
     button.click();
 
     expect(editExerciseSpy).toHaveBeenCalledWith(inputExercise);
+
+    editExerciseSpy.calls.reset();
   });
 });

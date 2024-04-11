@@ -4,7 +4,7 @@ import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interf
 import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { Subscription, debounceTime, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { CustomValidatorsService } from 'src/app/shared/services/customValidators.service';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
@@ -33,7 +33,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     category: this.fb.control(Category.CORE, { nonNullable: true }),
     alternativeImage: this.fb.control(null),
   });
-  private altImgSubscription?: Subscription;
+  private $altImg?: Subscription;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -48,21 +48,19 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.altImgSubscription = this.exerciseForm.get('alternativeImage')?.valueChanges
-      .pipe(
-        debounceTime(300),
-      ).subscribe( altImg => {
+    this.$altImg = this.exerciseForm.get('alternativeImage')?.valueChanges
+      .subscribe( altImg => {
         this.currentExercise.alternativeImage = altImg;
         this.setCurrentExercise();
       });
   }
 
   private setFormIfDataExists(): void {
-    if( this.config.data.exercise ) {
-      const exercise = this.config.data.exercise;
-      this.exerciseForm.patchValue( exercise );
-      this.exerciseId = exercise.id;
-    }
+    if (!this.config.data || !this.config.data.exercise) return;
+
+    const exercise = this.config.data.exercise;
+    this.exerciseForm.patchValue( exercise );
+    this.exerciseId = exercise.id;
   }
 
   private setCurrentExercise(): void {
@@ -70,9 +68,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   public isInvalidInput( field: FormControls ): boolean | null {
+    //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
     return this.exerciseForm.controls[field]?.errors && this.exerciseForm.controls[field]?.touched || null;
   }
 
+  //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
   public getErrorMessages( field: FormControls ): string | null {
     if( !this.exerciseForm.controls[field] ) return null;
 
@@ -167,6 +167,6 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.altImgSubscription?.unsubscribe();
+    this.$altImg?.unsubscribe();
   }
 }

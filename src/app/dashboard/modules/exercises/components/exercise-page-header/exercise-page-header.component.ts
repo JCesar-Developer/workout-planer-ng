@@ -7,9 +7,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ExercisePageHeaderComponent {
 
   @Input() title: string = 'Title goes here';
-  @Output() openCreateForm: EventEmitter<undefined> = new EventEmitter();
+  @Output() openCreateForm: EventEmitter<void> = new EventEmitter();
 
-  public openForm(): void {
+  public onOpenForm(): void {
     this.openCreateForm.emit();
   }
 }

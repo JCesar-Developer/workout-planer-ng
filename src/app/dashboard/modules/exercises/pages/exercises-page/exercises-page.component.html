@@ -6,12 +6,12 @@
     <!-- PAGE-HEADER -->
     <exercise-page-header
       [title]="title"
-      (openCreateForm)="openExerciseForm()"
+      (openCreateForm)="onOpenExerciseForm()"
     ></exercise-page-header>
 
     <!-- EXERCISES LIST -->
     <exercise-page-list
-      (openEditForm)="openExerciseForm( $event )"
+      (openEditForm)="onOpenExerciseForm( $event )"
     ></exercise-page-list>
 
   </section>

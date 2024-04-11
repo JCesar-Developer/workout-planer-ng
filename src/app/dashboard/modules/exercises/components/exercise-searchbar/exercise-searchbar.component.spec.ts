@@ -39,12 +39,14 @@ describe('ExerciseSearchbarComponent', () => {
 
   //Use-case: Searching exercises ---
   it('filterExercise method should interact with the getExercisesSuggestions method from the service', () => {
-    spyOn(exerciseStoreService, 'getExercisesSuggestions');
+    const getSuggestionsSpy = spyOn(exerciseStoreService, 'getExercisesSuggestions');
 
     const query = 'Test';
     component.filterExercise({ query });
 
-    expect(exerciseStoreService.getExercisesSuggestions).toHaveBeenCalledWith(query);
+    expect(getSuggestionsSpy).toHaveBeenCalledWith(query);
+
+    getSuggestionsSpy.calls.reset();
   });
 
   it('autocomplete input should trigger the completeMethod method when input is changed', () => {
@@ -56,6 +58,8 @@ describe('ExerciseSearchbarComponent', () => {
     fixture.detectChanges();
 
     expect(spyFilterMethod).toHaveBeenCalledWith({ query: 'test' });
+
+    spyFilterMethod.calls.reset();
   });
 
   it('filteredExercises variable should be updated with the response from the getExercisesSuggestions method after call the filterExercise method', () => {
@@ -67,17 +71,21 @@ describe('ExerciseSearchbarComponent', () => {
     component.filterExercise({ query });
 
     expect(component.filteredExercises).toEqual(mockExercises);
+
+    (exerciseStoreService.getExercisesSuggestions as jasmine.Spy).and.callThrough();
   });
 
   //Use-case: Selecting a search option from selector ---
   it('onSelectExercise method should be called after select the exercise', () => {
-    spyOn(component, 'onSelectExercise');
+    const selectExerciseSpy = spyOn(component, 'onSelectExercise');
 
     const name = 'Exercise1';
     const selectedSuggestion = { name };
     component.onSelectExercise(selectedSuggestion);
 
-    expect(component.onSelectExercise).toHaveBeenCalledWith(selectedSuggestion);
+    expect(selectExerciseSpy).toHaveBeenCalledWith(selectedSuggestion);
+
+    selectExerciseSpy.calls.reset();
   });
 
 });

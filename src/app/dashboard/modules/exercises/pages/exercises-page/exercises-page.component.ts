@@ -13,9 +13,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class ExercisesPageComponent {
 
   private formHandler: ExerciseFormHandler;
-
   public title: string = 'Lista de ejercicios';
-  public exercises: Exercise[] = [];
 
   constructor(
     private messageService: MessageService,
@@ -24,8 +22,8 @@ export class ExercisesPageComponent {
     this.formHandler = new ExerciseFormHandler(dialogService, messageService);
   }
 
-  public openExerciseForm(exercise?: Exercise) {
-    this.formHandler.onOpenForm(exercise);
+  public onOpenExerciseForm(exercise?: Exercise) {
+    this.formHandler.openForm(exercise);
   }
 
 }

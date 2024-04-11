@@ -4,6 +4,7 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
 import { MessageService, Message } from 'primeng/api';
 
+//TODO: Abstrear más este helper para que sea más genérico y pueda ser reutilizado en otros componentes.
 export class ExerciseFormHandler {
 
   ref?: DynamicDialogRef;
@@ -13,7 +14,7 @@ export class ExerciseFormHandler {
     private messageService: MessageService,
   ) {}
 
-  public onOpenForm(exercise?: Exercise) {
+  public openForm(exercise?: Exercise) {
     this.ref = this.dialogService.open(ExerciseFormComponent, {
       data: { exercise },
       header: (exercise) ? 'Editar Ejercicio' : 'Crear Ejercicio',

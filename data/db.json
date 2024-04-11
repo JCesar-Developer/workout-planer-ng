@@ -37,9 +37,9 @@
     },
     {
       "id": "6",
-      "name": "Exercise6",
-      "category": "Core",
+      "name": "Exercise6A",
       "image": "./assets/images/exercises/exercise-6.gif",
+      "category": "Core",
       "alternativeImage": null
     },
     {

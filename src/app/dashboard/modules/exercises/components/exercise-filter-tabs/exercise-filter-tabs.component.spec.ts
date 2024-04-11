@@ -37,6 +37,8 @@ describe('ExerciseFilterTabsComponent', () => {
     spyOn(exerciseStoreService, 'getExerciseCategories').and.returnValue(categories);
 
     expect(component.categories).toEqual(categories);
+
+    (exerciseStoreService.getExerciseCategories as jasmine.Spy).and.callThrough();
   });
 
   it('should render categories in the view', () => {
@@ -48,26 +50,32 @@ describe('ExerciseFilterTabsComponent', () => {
     tabs.forEach((tab, index) => {
       expect(tab.textContent).toContain(categories[index]);
     });
+
+    (exerciseStoreService.getExerciseCategories as jasmine.Spy).and.callThrough();
   });
 
   it('should dispatch onFilterByCategory method after click on filter button', () => {
-    spyOn(component, 'onFilterByCategory');
+    const filterSpy = spyOn(component, 'onFilterByCategory');
 
     const tabs = compiled.querySelectorAll('[data-testId="filter-tab"]');
     tabs.forEach(tab => {
       (tab as HTMLElement).click();
-      expect(component.onFilterByCategory).toHaveBeenCalled();
+      expect(filterSpy).toHaveBeenCalled();
     });
+
+    filterSpy.calls.reset();
   });
 
   it('should call onFilterByCategory method of ExerciseStoreService with argument of clicked button', () => {
-    spyOn(exerciseStoreService, 'filterExercisesByCategory');
+    const filterSpy = spyOn(exerciseStoreService, 'filterExercisesByCategory');
 
     const indexCategorySelected: number = 0;
     const tab: HTMLElement = compiled.querySelectorAll('[data-testId="filter-tab"]')[indexCategorySelected] as HTMLElement;
     tab.click();
 
-    expect(exerciseStoreService.filterExercisesByCategory).toHaveBeenCalledWith(component.categories[indexCategorySelected]);
+    expect(filterSpy).toHaveBeenCalledWith(component.categories[indexCategorySelected]);
+
+    filterSpy.calls.reset();
   });
 
 });
