@@ -8,8 +8,10 @@
       "@store/*": ["store/*"],
       "@shared/*": ["src/app/shared/*"],
       "@primeng/*": ["src/app/prime-ng/*"],
+
       "@dashboard/*": ["src/app/dashboard/*"],
       "@exercises/*": ["src/app/dashboard/modules/exercises/*"],
+      "@workouts/*": ["src/app/dashboard/modules/workouts/*"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

@@ -70,7 +70,7 @@ describe('ExerciseSearchbarComponent', () => {
     const query = 'Exercise';
     component.filterExercise({ query });
 
-    expect(component.filteredExercises).toEqual(mockExercises);
+    expect(component.suggestedExercises).toEqual(mockExercises);
 
     (exerciseStoreService.getExercisesSuggestions as jasmine.Spy).and.callThrough();
   });

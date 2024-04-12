@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { IExerciseService } from '../interfaces/exercise-service.interface';
+import { IHttpService } from '../../interfaces/http.interface';
 
-import { Exercise, Category } from '../interfaces/exercise.interface';
-import { ExerciseHttpService } from './exercise-http.service';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
+import { Exercise, Category } from '../../interfaces/exercise.interface';
+import { ExerciseHttpService } from '../http-services/exercise-http.service';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 import { IdGenerator } from '@shared/plugins/uuid.plugin';
 
 
 @Injectable({providedIn: 'root'})
-export class ExerciseStoreService implements IExerciseService {
+export class ExerciseStoreService {
 
   private exercises: Exercise[] = [];
   private currentCategory: string;

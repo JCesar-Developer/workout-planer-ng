@@ -1,5 +1,21 @@
 <dashboard-main-container title="Lista de Workouts">
 
+  <section class="flex row gap-5" header>
+    <!--  header-search-bar -->
+    <span class="w-full">
+      <workout-searchbar></workout-searchbar>
+    </span>
 
+    <!-- header-btn-open-form -->
+    <span class="p-fluid w-52">
+      <p-button
+        (click)="onOpenForm()"
+        label="Nuevo Workout"
+        styleClass="p-button-secondary"
+      ></p-button>
+    </span>
+  </section>
+
+  <workout-list body></workout-list>
 
 </dashboard-main-container>

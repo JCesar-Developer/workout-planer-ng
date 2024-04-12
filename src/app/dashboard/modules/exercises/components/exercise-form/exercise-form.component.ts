@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { Subscription, tap } from 'rxjs';

@@ -1,0 +1,21 @@
+<section>
+  <ng-container *ngIf="workouts.length !== 0; else noWorkouts">
+    <ng-container *ngFor="let workout of workouts">
+      <workout-card [workout]="workout"></workout-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noWorkouts>
+    <p class="text-xl text-teal-500">
+      Aún no hay ningún workout añadido a la lista.
+    </p>
+    <p class="text-teal-600">
+      Añade tus workouts favoritos para empezar a entrenar.
+    </p>
+  </ng-template>
+</section>
+
+
+<!-- <pre *ngFor="let workout of workouts">
+  {{ workout | json }}
+</pre> -->

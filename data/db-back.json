@@ -1,17 +1,288 @@
 {
-  "exercises":
-  [
-    { "id": 1, "name": "Exercise1", "category": "Pecho", "image": "./assets/images/exercises/exercise-1.gif", "alternativeImage": null },
-    { "id": 2, "name": "Exercise2", "category": "Piernas", "image": "./assets/images/exercises/exercise-2.gif", "alternativeImage": null },
-    { "id": 3, "name": "Exercise3", "category": "Core", "image": "./assets/images/exercises/exercise-3.gif", "alternativeImage": null },
-    { "id": 4, "name": "Exercise4", "category": "Core", "image": "./assets/images/exercises/exercise-4.gif", "alternativeImage": null },
-    { "id": 5, "name": "Exercise5", "category": "Core", "image": "./assets/images/exercises/exercise-5.gif", "alternativeImage": null },
-    { "id": 6, "name": "Exercise6", "category": "Core", "image": "./assets/images/exercises/exercise-6.gif", "alternativeImage": null },
-    { "id": 7, "name": "Exercise7", "category": "Core", "image": "./assets/images/exercises/exercise-7.gif", "alternativeImage": null },
-    { "id": 8, "name": "Exercise8", "category": "Pecho", "image": "./assets/images/exercises/exercise-8.gif", "alternativeImage": null },
-    { "id": 9, "name": "Exercise9", "category": "Piernas", "image": "./assets/images/exercises/exercise-9.gif", "alternativeImage": null },
-    { "id": 10, "name": "Exercise10", "category": "Core", "image": "./assets/images/exercises/exercise-10.gif", "alternativeImage": null },
-    { "id": 11, "name": "Exercise11", "category": "Core", "image": "./assets/images/exercises/exercise-11.gif", "alternativeImage": null },
-    { "id": 12, "name": "Exercise12", "category": "Core", "image": "./assets/images/exercises/exercise-12.gif", "alternativeImage": null }
+  "exercises": [
+    {
+      "id": "1",
+      "name": "Exercise1",
+      "category": "Pecho",
+      "image": "./assets/images/exercises/exercise-1.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "2",
+      "name": "Exercise2",
+      "category": "Piernas",
+      "image": "./assets/images/exercises/exercise-2.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "3",
+      "name": "Exercise3",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-3.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "4",
+      "name": "Exercise4",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-4.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "5",
+      "name": "Exercise5",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-5.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "6",
+      "name": "Exercise6",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-6.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "7",
+      "name": "Exercise7",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-7.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "8",
+      "name": "Exercise8",
+      "category": "Pecho",
+      "image": "./assets/images/exercises/exercise-8.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "9",
+      "name": "Exercise9",
+      "category": "Piernas",
+      "image": "./assets/images/exercises/exercise-9.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "10",
+      "name": "Exercise10",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-10.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "11",
+      "name": "Exercise11",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-11.gif",
+      "alternativeImage": null
+    },
+    {
+      "id": "12",
+      "name": "Exercise12",
+      "category": "Core",
+      "image": "./assets/images/exercises/exercise-12.gif",
+      "alternativeImage": null
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "name": "Pecho",
+      "duration": "120",
+      "exercises": [
+        {
+          "id": "1",
+          "name": "Exercise1",
+          "category": "Pecho",
+          "image": "./assets/images/exercises/exercise-1.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "2",
+          "name": "Exercise2",
+          "category": "Piernas",
+          "image": "./assets/images/exercises/exercise-2.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "3",
+          "name": "Exercise3",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-3.gif",
+          "alternativeImage": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Piernas",
+      "duration": "115",
+      "exercises": [
+        {
+          "id": "4",
+          "name": "Exercise4",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-4.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "5",
+          "name": "Exercise5",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-5.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "6",
+          "name": "Exercise6",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-6.gif",
+          "alternativeImage": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Core",
+      "duration": "110",
+      "exercises": [
+        {
+          "id": "7",
+          "name": "Exercise7",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-7.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "8",
+          "name": "Exercise8",
+          "category": "Pecho",
+          "image": "./assets/images/exercises/exercise-8.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "9",
+          "name": "Exercise9",
+          "category": "Piernas",
+          "image": "./assets/images/exercises/exercise-9.gif",
+          "alternativeImage": null
+        }
+      ]
+    }
+  ],
+  "registers": [
+    {
+      "id": 1,
+      "workout": {
+        "id": 1,
+        "name": "Pecho",
+        "duration": "120",
+        "exercises": [
+          {
+            "id": "1",
+            "name": "Exercise1",
+            "category": "Pecho",
+            "image": "./assets/images/exercises/exercise-1.gif",
+            "alternativeImage": null
+          },
+          {
+            "id": "2",
+            "name": "Exercise2",
+            "category": "Piernas",
+            "image": "./assets/images/exercises/exercise-2.gif",
+            "alternativeImage": null
+          },
+          {
+            "id": "3",
+            "name": "Exercise3",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-3.gif",
+            "alternativeImage": null
+          }
+        ]
+      },
+      "date": "2022-05-10 09:00:00",
+      "exercisesDone": [
+        {
+          "exercise": {
+            "id": "1",
+            "name": "Exercise1",
+            "category": "Pecho",
+            "image": "./assets/images/exercises/exercise-1.gif",
+            "alternativeImage": null
+          },
+          "weight": 50,
+          "reps": 12
+        },
+        {
+          "exercise": {
+            "id": "2",
+            "name": "Exercise2",
+            "category": "Piernas",
+            "image": "./assets/images/exercises/exercise-2.gif",
+            "alternativeImage": null
+          },
+          "weight": 0,
+          "reps": 18
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "workout": {
+        "id": 2,
+        "name": "Piernas",
+        "duration": "115",
+        "exercises": [
+          {
+            "id": "4",
+            "name": "Exercise4",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-4.gif",
+            "alternativeImage": null
+          },
+          {
+            "id": "5",
+            "name": "Exercise5",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-5.gif",
+            "alternativeImage": null
+          },
+          {
+            "id": "6",
+            "name": "Exercise6",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-6.gif",
+            "alternativeImage": null
+          }
+        ]
+      },
+      "date": "2022-06-10 09:00:00",
+      "exercisesDone": [
+        {
+          "exercise": {
+            "id": "4",
+            "name": "Exercise4",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-4.gif",
+            "alternativeImage": null
+          },
+          "weight": 20,
+          "reps": 12
+        },
+        {
+          "exercise": {
+            "id": "5",
+            "name": "Exercise5",
+            "category": "Core",
+            "image": "./assets/images/exercises/exercise-5.gif",
+            "alternativeImage": null
+          },
+          "weight": 10,
+          "reps": 18
+        }
+      ]
+    }
   ]
 }

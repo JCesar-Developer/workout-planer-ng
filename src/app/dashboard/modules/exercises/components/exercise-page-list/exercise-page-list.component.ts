@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { Subscription } from 'rxjs';
 
 @Component({

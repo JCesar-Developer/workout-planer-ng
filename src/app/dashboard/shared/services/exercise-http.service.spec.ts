@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 
-import { ExerciseHttpService } from "./exercise-http.service";
+import { ExerciseHttpService } from "../http-services/exercise-http.service";
 import { type Exercise, Category } from "@dashboard/shared/interfaces/exercise.interface";
 
 describe("ExerciseHttpService", () => {

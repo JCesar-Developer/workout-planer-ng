@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IExerciseService } from '../interfaces/exercise-service.interface';
+import { IHttpService } from '../../interfaces/http.interface';
 
-import type { Exercise } from '../interfaces/exercise.interface';
+import type { Exercise } from '../../interfaces/exercise.interface';
 import { environments } from 'src/environments/environments';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class ExerciseHttpService implements IExerciseService {
+export class ExerciseHttpService implements IHttpService<Exercise> {
 
   public baseUrl: string = environments.baseUrl;
 
@@ -15,7 +15,6 @@ export class ExerciseHttpService implements IExerciseService {
 
   //GET ALL
   public getAll(): Observable<Exercise[]> {
-    console.log('GET EXERCISES');
     return this.http.get<Exercise[]>(`${ this.baseUrl }/exercises`);
   }
 
