@@ -1,6 +1,19 @@
-<article
-  *ngIf="workout"
+<article class="border border-gray-100 rounded-lg p-4 shadow-md">
+  <div class="flex flex-col gap-5">
 
->
+    <header class="flex flex-row justify-between items-end">
+      <h3 class="text-2xl font-bold leading-4">{{ workout.name }}</h3>
+      <span class="text-lg font-thin">{{ workout.duration }} min</span>
+    </header>
 
+    <section class="flex flex-row gap-2">
+      <!-- <article
+        class="border border-gray-400 rounded-lg p-2"
+        *ngFor="let exercise of workout.exercises">
+        <img width="150" [src]="exercise.image" [alt]="exercise.name">
+        <h4 class="text-xl font-medium">{{ exercise.name }}</h4>
+      </article> -->
+    </section>
+
+  </div>
 </article>

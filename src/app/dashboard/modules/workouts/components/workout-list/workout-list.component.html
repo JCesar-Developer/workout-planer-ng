@@ -1,9 +1,12 @@
 <section>
-  <ng-container *ngIf="workouts.length !== 0; else noWorkouts">
-    <ng-container *ngFor="let workout of workouts">
+  <div
+    class="space-y-3"
+    *ngIf="workouts.length !== 0; else noWorkouts"
+  >
+    <div *ngFor="let workout of workouts">
       <workout-card [workout]="workout"></workout-card>
-    </ng-container>
-  </ng-container>
+    </div>
+  </div>
 
   <ng-template #noWorkouts>
     <p class="text-xl text-teal-500">
