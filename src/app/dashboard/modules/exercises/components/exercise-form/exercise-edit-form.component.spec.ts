@@ -10,9 +10,15 @@ import { ExerciseImagePipe } from "../../pipes/exercise-image.pipe";
 import { DropdownModule } from "primeng/dropdown";
 import { ButtonModule } from "primeng/button";
 
-describe('ExerciseFormComponent', () => {
+describe('ExerciseFormComponent whit previous data', () => {
 
-  const exerciseMock = { id: '1', name: 'Exercise 1', category: Category.CHEST, image: './assets/images/exercises/exercise-1.gif' };
+  const exerciseMock: Exercise = {
+    id: '1',
+    name: 'Exercise 1',
+    category: Category.CHEST,
+    image: './assets/images/exercises/exercise-1.gif',
+    alternativeImage: null,
+  };
 
   let component: ExerciseFormComponent;
   let fixture: ComponentFixture<ExerciseFormComponent>;
@@ -33,8 +39,11 @@ describe('ExerciseFormComponent', () => {
         FormBuilder,
         ExerciseStoreService,
         DynamicDialogRef,
-        DynamicDialogConfig,
-        CustomValidatorsService
+        CustomValidatorsService,
+        {
+          provide: DynamicDialogConfig,
+          useValue: { data: { exercise: exerciseMock } }
+        },
       ]
     }).compileComponents();
   });
@@ -50,37 +59,22 @@ describe('ExerciseFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  //El formulario debería crearse con los campos vacíos cuando no se le pasa un ejercicio.
-  it('should create the form with empty fields when no exercise is passed', () => {
-    expect(component.exerciseForm.value).toEqual({
-      id: null,
-      name: null,
-      image: null,
-      category: Category.CORE,
-      alternativeImage: null,
-    });
-  });
-
+  //INICIALIZACIÓN ---
   //El formulario debería crearse con los campos llenos cuando se le pasa un ejercicio.
   it('should create the form with filled fields when an exercise is passed', () => {
-    TestBed.overrideProvider(DynamicDialogConfig, { useValue: { data: { exercise: exerciseMock } } });
-
-    fixture = TestBed.createComponent(ExerciseFormComponent);
-    component = fixture.componentInstance;
-
-    fixture.detectChanges();
-
     expect(component.exerciseForm.value).toEqual(exerciseMock);
   });
 
+  //La variable CurrentExercise debería ser igual al ejercicio que se le pasa a través del config data.
+  it('should set currentExercise to the exercise passed through config data', () => {
+    expect(component.currentExercise).toEqual(exerciseMock);
+  });
+
+  //VALIDACIONES
+
+  //CRUD
+  //Update
+
+  //Delete
+
 });
-
-
-//INICIALIZACIÓN
-
-//La variable CurrentExercise debería ser igual a null cuando no se le pasa un ejercicio.
-//La variable CurrentExercise debería ser igual al ejercicio que se le pasa a través del config data.
-
-//VALIDACIONES
-
-//CRUD
