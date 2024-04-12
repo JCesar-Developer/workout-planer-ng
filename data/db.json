@@ -65,9 +65,9 @@
     },
     {
       "id": "10",
-      "name": "Exercise10",
-      "category": "Core",
+      "name": "Flexiones de triceps de rodillas",
       "image": "./assets/images/exercises/exercise-10.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {
@@ -79,9 +79,9 @@
     },
     {
       "id": "12",
-      "name": "Exercise12",
-      "category": "Core",
+      "name": "Sentadilla con mancuernas",
       "image": "./assets/images/exercises/exercise-12.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {

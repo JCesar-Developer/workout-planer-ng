@@ -1,32 +1,24 @@
-<header class="mb-5">
-  <!-- header-title -->
-  <h1 class="text-3xl font-bold text-[--primary-color]">
-    {{ title | uppercase }}
-  </h1>
+<section class="space-y-3">
+  <!-- FIRST-ROW -->
+  <div class="flex row gap-5">
+    <!--  header-search-bar -->
+    <span class="w-full">
+      <exercise-searchbar></exercise-searchbar>
+    </span>
 
-  <div class="my-3">
-    <div class="flex row gap-5">
+    <!-- header-btn-open-form -->
+    <span class="p-fluid w-52">
+      <p-button
+        (click)="onOpenForm()"
+        label="Nuevo Ejercicio"
+        styleClass="p-button-secondary"
+      ></p-button>
+    </span>
 
-      <!--  header-search-bar -->
-      <div class="w-full">
-        <exercise-searchbar></exercise-searchbar>
-      </div>
-
-      <!-- header-btn-open-form -->
-      <span class="p-fluid w-52">
-        <p-button
-          (click)="onOpenForm()"
-          label="Nuevo Ejercicio"
-          styleClass="p-button-secondary"
-        ></p-button>
-      </span>
-
-    </div>
   </div>
 
-  <!-- header-select-category-chips -->
+  <!-- SECOND-ROW: filter-tabs -->
   <div class="w-full">
     <exercise-filter-tabs></exercise-filter-tabs>
   </div>
-
-</header>
+</section>
