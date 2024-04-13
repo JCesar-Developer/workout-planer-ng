@@ -1,4 +1,5 @@
 <section>
+  <!-- If there're workouts -->
   <div
     class="space-y-3"
     *ngIf="workouts.length !== 0; else noWorkouts"
@@ -8,17 +9,9 @@
     </div>
   </div>
 
+  <!-- If there aren't workouts -->
   <ng-template #noWorkouts>
-    <p class="text-xl text-teal-500">
-      Aún no hay ningún workout añadido a la lista.
-    </p>
-    <p class="text-teal-600">
-      Añade tus workouts favoritos para empezar a entrenar.
-    </p>
+    <p class="text-xl text-teal-500">Aún no hay ningún workout añadido a la lista.</p>
+    <p class="text-teal-600">Añade tus workouts favoritos para empezar a entrenar.</p>
   </ng-template>
 </section>
-
-
-<!-- <pre *ngFor="let workout of workouts">
-  {{ workout | json }}
-</pre> -->

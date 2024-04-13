@@ -146,6 +146,27 @@
           "category": "Core",
           "image": "./assets/images/exercises/exercise-3.gif",
           "alternativeImage": null
+        },
+        {
+          "id": "1",
+          "name": "Exercise1",
+          "category": "Pecho",
+          "image": "./assets/images/exercises/exercise-1.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "2",
+          "name": "Exercise2",
+          "category": "Piernas",
+          "image": "./assets/images/exercises/exercise-2.gif",
+          "alternativeImage": null
+        },
+        {
+          "id": "3",
+          "name": "Exercise3",
+          "category": "Core",
+          "image": "./assets/images/exercises/exercise-3.gif",
+          "alternativeImage": null
         }
       ]
     },

@@ -1,19 +1,43 @@
-<article class="border border-gray-100 rounded-lg p-4 shadow-md">
-  <div class="flex flex-col gap-5">
+<article class="border border-gray-150 rounded-2xl shadow-lg">
+  <div class="flex flex-col pt-4 p-5 gap-4">
 
     <header class="flex flex-row justify-between items-end">
-      <h3 class="text-2xl font-bold leading-4">{{ workout.name }}</h3>
-      <span class="text-lg font-thin">{{ workout.duration }} min</span>
+      <!-- NAME & DURATION -->
+      <div class="flex flex-row items-end">
+        <h3 class="text-3xl font-medium">{{ workout.name }}&nbsp;</h3>
+        <span class="font-thin leading-7">- {{ workout.duration }} min</span>
+      </div>
+
+      <!-- EDIT & DELETE BTN -->
+      <div class="space-x-2">
+        <p-button icon="pi pi-pencil" styleClass="p-button-sm p-button-secondary"></p-button>
+        <p-button icon="pi pi-trash" styleClass="p-button-sm p-button-danger"></p-button>
+      </div>
     </header>
 
-    <section class="flex flex-row gap-2">
-      <!-- <article
-        class="border border-gray-400 rounded-lg p-2"
-        *ngFor="let exercise of workout.exercises">
-        <img width="150" [src]="exercise.image" [alt]="exercise.name">
-        <h4 class="text-xl font-medium">{{ exercise.name }}</h4>
-      </article> -->
-    </section>
+    <hr>
+
+    <ng-container *ngIf="workout.exercises.length > 6; else noCarousel">
+
+      <p-carousel [value]="workout.exercises" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
+        <ng-template let-exercise pTemplate="item">
+          <div class="mx-2 max-w-32">
+            <exercise-card [exercise]="exercise"></exercise-card>
+          </div>
+        </ng-template>
+      </p-carousel>
+
+    </ng-container>
+
+    <ng-template #noCarousel>
+      <div class="flex flex-row justify-start gap-4">
+        <ng-container *ngFor="let exercise of workout.exercises; let i = index">
+          <div class="max-w-32">
+            <exercise-card [exercise]="exercise"></exercise-card>
+          </div>
+        </ng-container>
+      </div>
+    </ng-template>
 
   </div>
 </article>

@@ -8,6 +8,7 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 export class ExerciseCardComponent {
 
   @Input() public exercise!: Exercise;
+  @Input() public showCategory: boolean = false;
   @Output() public onEditExercise: EventEmitter<Exercise> = new EventEmitter();
 
   public editExercise(): void {

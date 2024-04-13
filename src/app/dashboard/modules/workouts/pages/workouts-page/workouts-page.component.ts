@@ -13,6 +13,4 @@ export class WorkoutsPageComponent {
     console.log('Open form');
   }
 
-
-
 }
