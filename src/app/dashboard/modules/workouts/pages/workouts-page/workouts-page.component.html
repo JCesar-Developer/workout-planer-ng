@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <dashboard-main-container title="Lista de Workouts">
 
   <section class="flex row gap-5" header>
@@ -8,11 +10,7 @@
 
     <!-- header-btn-open-form -->
     <span class="p-fluid w-52">
-      <p-button
-        (click)="onOpenForm()"
-        label="Nuevo Workout"
-        styleClass="p-button-secondary"
-      ></p-button>
+      <workout-open-form-btn></workout-open-form-btn>
     </span>
   </section>
 

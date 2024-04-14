@@ -16,16 +16,16 @@
     },
     {
       "id": "3",
-      "name": "Extensión oblicua sentado",
-      "image": "./assets/images/exercises/exercise-3.gif",
+      "name": "Exercise3",
       "category": "Core",
+      "image": "./assets/images/exercises/exercise-3.gif",
       "alternativeImage": null
     },
     {
       "id": "4",
-      "name": "Sentadilla con mancuerna",
+      "name": "Exercise4",
       "image": "./assets/images/exercises/exercise-4.gif",
-      "category": "Piernas",
+      "category": "Core",
       "alternativeImage": null
     },
     {
@@ -73,8 +73,8 @@
     {
       "id": "11",
       "name": "Exercise11",
-      "category": "Core",
       "image": "./assets/images/exercises/exercise-11.gif",
+      "category": "Core",
       "alternativeImage": null
     },
     {
@@ -83,13 +83,6 @@
       "image": "./assets/images/exercises/exercise-12.gif",
       "category": "Piernas",
       "alternativeImage": null
-    },
-    {
-      "id": "13",
-      "name": "Ejercicio Cuello",
-      "image": null,
-      "category": "Core",
-      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/estiramiento-para-el-cuello-init-pos-1837.png"
     },
     {
       "id": "14",

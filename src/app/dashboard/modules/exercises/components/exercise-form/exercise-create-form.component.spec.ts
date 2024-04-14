@@ -53,7 +53,7 @@ describe('ExerciseFormComponent whit previous data', () => {
   //INICIALIZACIÓN ---
   //El formulario debería crearse con los campos vacíos cuando no se le pasa un ejercicio.
   it('should create the form with empty fields when no exercise is passed', () => {
-    expect(component.exerciseForm.value).toEqual({
+    expect(component.form.value).toEqual({
       id: null,
       name: null,
       image: null,

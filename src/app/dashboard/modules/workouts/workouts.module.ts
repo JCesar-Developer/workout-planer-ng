@@ -10,18 +10,25 @@ import { WorkoutSearchbarComponent } from './components/workout-searchbar/workou
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
 import { WorkoutCardComponent } from './components/workout-card/workout-card.component';
 
+import { MessageService } from 'primeng/api';
+import { WorkoutOpenFormBtnComponent } from './components/workout-open-form-btn/workout-open-form-btn.component';
+
 @NgModule({
   declarations: [
     WorkoutsPageComponent,
     WorkoutSearchbarComponent,
     WorkoutListComponent,
     WorkoutCardComponent,
+    WorkoutOpenFormBtnComponent,
   ],
   imports: [
     CommonModule,
     WorkoutsRoutingModule,
     DashboardSharedModule,
     PrimeNgModule,
-  ]
+  ],
+  providers: [
+    MessageService,
+  ],
 })
 export class WorkoutsModule { }

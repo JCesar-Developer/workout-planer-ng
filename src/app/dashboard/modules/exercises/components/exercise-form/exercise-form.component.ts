@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { FormComponent } from '@dashboard/shared/interfaces/form-component.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
@@ -21,12 +22,12 @@ interface ExerciseForm {
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
 })
-export class ExerciseFormComponent implements OnInit, OnDestroy {
+export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<Exercise> {
 
   public categories: Category[];
   public currentExercise: Exercise = {} as Exercise;
   public exerciseId: string | null = null;
-  public exerciseForm: FormGroup<ExerciseForm> = this.fb.group<ExerciseForm>({
+  public form: FormGroup<ExerciseForm> = this.fb.group<ExerciseForm>({
     id: this.fb.control(null),
     name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
     image: this.fb.control(null),
@@ -48,7 +49,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.$altImg = this.exerciseForm.get('alternativeImage')?.valueChanges
+    this.$altImg = this.form.get('alternativeImage')?.valueChanges
       .subscribe( altImg => {
         this.currentExercise.alternativeImage = altImg;
         this.setCurrentExercise();
@@ -56,27 +57,27 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   private setFormIfDataExists(): void {
-    if (!this.config.data || !this.config.data.exercise) return;
+    if (!this.config.data || !this.config.data.model) return;
 
-    const exercise = this.config.data.exercise;
-    this.exerciseForm.patchValue( exercise );
+    const exercise = this.config.data.model;
+    this.form.patchValue( exercise );
     this.exerciseId = exercise.id;
   }
 
   private setCurrentExercise(): void {
-    this.currentExercise = this.exerciseForm.value as Exercise;
+    this.currentExercise = this.form.value as Exercise;
   }
 
   public isInvalidInput( field: FormControls ): boolean | null {
     //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
-    return this.exerciseForm.controls[field]?.errors && this.exerciseForm.controls[field]?.touched || null;
+    return this.form.controls[field]?.errors && this.form.controls[field]?.touched || null;
   }
 
   //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
   public getErrorMessages( field: FormControls ): string | null {
-    if( !this.exerciseForm.controls[field] ) return null;
+    if( !this.form.controls[field] ) return null;
 
-    const errors = this.exerciseForm.controls[field]?.errors || {};
+    const errors = this.form.controls[field]?.errors || {};
 
     for( const key of Object.keys(errors) ) {
       return this.getErrorMessage( key, errors );
@@ -101,20 +102,20 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   public onSubmit() {
     this.setCurrentExercise();
 
-    if( this.exerciseForm.invalid ) {
-      this.exerciseForm.markAllAsTouched();
+    if( this.form.invalid ) {
+      this.form.markAllAsTouched();
       return;
     }
 
     if( this.exerciseId ) {
-      this.onUpdate( this.currentExercise );
+      this.update( this.currentExercise );
       return;
     }
 
-    this.onSave( this.currentExercise );
+    this.save( this.currentExercise );
   }
 
-  private onSave( exercise: Exercise ): void {
+  public save( exercise: Exercise ): void {
     this.exerciseStoreService.save(exercise).pipe(
       tap(success => {
         if( success ) this.ref.close({
@@ -129,7 +130,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     ).subscribe()
   }
 
-  private onUpdate( exercise: Exercise ): void {
+  public update( exercise: Exercise ): void {
     this.exerciseStoreService.update(this.currentExercise).pipe(
       tap(success => {
         if( success ) this.ref.close({
@@ -146,7 +147,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   };
 
   public onDelete( exerciseId: string ) {
-    const exerciseName = this.exerciseForm.get('name')?.value;
+    this.delete( exerciseId );
+  }
+
+  public delete( exerciseId: string ) {
+    const exerciseName = this.form.get('name')?.value;
 
     this.exerciseStoreService.delete(exerciseId).pipe(
       tap(success => {

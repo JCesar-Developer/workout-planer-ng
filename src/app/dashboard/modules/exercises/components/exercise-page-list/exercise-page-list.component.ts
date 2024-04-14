@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 })
 export class ExercisePageListComponent implements OnDestroy {
 
-  @Output() openEditForm: EventEmitter<Exercise> = new EventEmitter();
   public exercises: Exercise[] = [];
   public $exercises: Subscription;
 
@@ -18,10 +17,6 @@ export class ExercisePageListComponent implements OnDestroy {
   ) {
     this.$exercises = this.exercisesStore.getAll()
     .subscribe( exercises => this.exercises = exercises );
-  }
-
-  public openExerciseForm( exercise?: Exercise ) {
-    this.openEditForm.emit( exercise );
   }
 
   ngOnDestroy(): void {

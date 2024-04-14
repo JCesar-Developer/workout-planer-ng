@@ -13,6 +13,8 @@ import { ExercisePageListComponent } from './components/exercise-page-list/exerc
 import { ExerciseSearchbarComponent } from './components/exercise-searchbar/exercise-searchbar.component';
 import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/exercise-filter-tabs.component';
 
+import { MessageService } from 'primeng/api';
+
 @NgModule({
   declarations: [
     ExercisesPageComponent,
@@ -28,6 +30,9 @@ import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/e
     PrimeNgModule,
     ExercisesRoutingModule,
     DashboardSharedModule,
+  ],
+  providers: [
+    MessageService,
   ]
 })
 export class ExercisesModule { }

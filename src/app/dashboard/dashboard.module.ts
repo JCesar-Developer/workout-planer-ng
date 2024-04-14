@@ -9,6 +9,7 @@ import { PrimeNgModule } from '@primeng/prime-ng.module';
 import { DashboardLayoutComponent } from './layout/dashboard-layout.component';
 import { DashboardHeaderComponent } from './shared/components/dashboard-header/dashboard-header.component';
 import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar/dashboard-sidebar.component';
+// import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar
     RouterModule,
     SharedModule,
     PrimeNgModule,
-  ]
+  ],
+  // providers: [
+  //   MessageService,
+  // ]
 })
 export class DashboardModule { }

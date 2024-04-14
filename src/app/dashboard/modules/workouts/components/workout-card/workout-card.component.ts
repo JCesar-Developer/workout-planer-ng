@@ -27,7 +27,7 @@ export class WorkoutCardComponent implements OnInit {
         numVisible: 6,
         numScroll: 1
       }
-  ];
+    ];
   }
 
 }

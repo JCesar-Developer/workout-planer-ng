@@ -83,7 +83,7 @@ describe("ExercisePageHeaderComponent", () => {
   it('should emit an event with undefined value when openForm is called', () => {
     const emitSpy = spyOn(component.openCreateForm, 'emit');
 
-    component.onOpenForm();
+    component.onOpenExerciseForm();
 
     expect(emitSpy).toHaveBeenCalledWith();
 

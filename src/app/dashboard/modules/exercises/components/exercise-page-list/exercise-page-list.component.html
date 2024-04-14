@@ -2,7 +2,6 @@
   <li *ngFor="let exercise of exercises" data-testId="card-item" class="flex justify-center">
     <exercise-card
       [showCategory]="true"
-      (onEditExercise)="openExerciseForm( $event )"
       [exercise]="exercise"
     ></exercise-card>
   </li>

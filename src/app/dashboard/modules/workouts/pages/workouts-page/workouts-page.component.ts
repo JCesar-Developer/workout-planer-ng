@@ -7,10 +7,5 @@ import { Workout } from '@dashboard/shared/interfaces/workout-interface';
 })
 export class WorkoutsPageComponent {
 
-  public workouts: Workout[] = []
-
-  public onOpenForm(): void {
-    console.log('Open form');
-  }
 
 }

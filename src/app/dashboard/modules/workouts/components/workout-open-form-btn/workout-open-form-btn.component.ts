@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
+import { ExerciseFormComponent } from '@dashboard/modules/exercises/components/exercise-form/exercise-form.component';
+import { ExerciseFormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import { ExerciseFormHandler } from '../../../../helpers/exercise-form-handler.helper';
 
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'exercise-page-header',
-  templateUrl: './exercise-page-header.component.html',
+  selector: 'workout-open-form-btn',
+  templateUrl: './workout-open-form-btn.component.html',
 })
-export class ExercisePageHeaderComponent {
+export class WorkoutOpenFormBtnComponent {
 
   private formHandler: ExerciseFormHandler<Exercise>;
 
@@ -22,7 +22,8 @@ export class ExercisePageHeaderComponent {
     this.formHandler = new ExerciseFormHandler( dialogService, messageService, ExerciseFormComponent );
   }
 
-  public onOpenExerciseForm(): void {
+  public onOpenForm(): void {
     this.formHandler.openForm();
   }
+
 }

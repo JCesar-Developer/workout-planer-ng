@@ -62,7 +62,7 @@ describe('ExerciseFormComponent whit previous data', () => {
   //INICIALIZACIÓN ---
   //El formulario debería crearse con los campos llenos cuando se le pasa un ejercicio.
   it('should create the form with filled fields when an exercise is passed', () => {
-    expect(component.exerciseForm.value).toEqual(exerciseMock);
+    expect(component.form.value).toEqual(exerciseMock);
   });
 
   //La variable CurrentExercise debería ser igual al ejercicio que se le pasa a través del config data.
