@@ -1,12 +1,12 @@
 import { Category } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseFormHandler } from './exercise-form-handler.helper';
+import { FormHandler } from './exercise-form-handler.helper';
 import { of } from 'rxjs';
 
 describe('ExerciseFormHandler', () => {
 
   const exerciseMock = { id: '1', name: 'Exercise 1', category: Category.CHEST, image: './assets/images/exercises/exercise-1.gif' };
 
-  let handler: ExerciseFormHandler;
+  let handler: FormHandler;
   let dialogServiceMock: any;
   let messageServiceMock: any;
 
@@ -17,7 +17,7 @@ describe('ExerciseFormHandler', () => {
     });
 
     messageServiceMock = jasmine.createSpyObj('MessageService', ['add']);
-    handler = new ExerciseFormHandler(dialogServiceMock, messageServiceMock);
+    handler = new FormHandler(dialogServiceMock, messageServiceMock);
   });
 
   //Verificar que la clase se puede instanciar correctamente.

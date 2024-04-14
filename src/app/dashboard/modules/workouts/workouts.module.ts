@@ -12,6 +12,10 @@ import { WorkoutCardComponent } from './components/workout-card/workout-card.com
 
 import { MessageService } from 'primeng/api';
 import { WorkoutOpenFormBtnComponent } from './components/workout-open-form-btn/workout-open-form-btn.component';
+import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { WorkoutCardCarouselComponent } from './components/workout-card-carousel/workout-card-carousel.component';
+import { AppSharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,16 @@ import { WorkoutOpenFormBtnComponent } from './components/workout-open-form-btn/
     WorkoutListComponent,
     WorkoutCardComponent,
     WorkoutOpenFormBtnComponent,
+    WorkoutFormComponent,
+    WorkoutCardCarouselComponent,
   ],
   imports: [
     CommonModule,
-    WorkoutsRoutingModule,
     DashboardSharedModule,
     PrimeNgModule,
+    ReactiveFormsModule,
+    WorkoutsRoutingModule,
+    AppSharedModule,
   ],
   providers: [
     MessageService,

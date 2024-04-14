@@ -17,27 +17,7 @@
 
     <hr>
 
-    <ng-container *ngIf="workout.exercises.length > 6; else noCarousel">
-
-      <p-carousel [value]="workout.exercises" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
-        <ng-template let-exercise pTemplate="item">
-          <div class="mx-2 max-w-32">
-            <exercise-card [exercise]="exercise"></exercise-card>
-          </div>
-        </ng-template>
-      </p-carousel>
-
-    </ng-container>
-
-    <ng-template #noCarousel>
-      <div class="flex flex-row justify-start gap-4">
-        <ng-container *ngFor="let exercise of workout.exercises; let i = index">
-          <div class="max-w-32">
-            <exercise-card [exercise]="exercise"></exercise-card>
-          </div>
-        </ng-container>
-      </div>
-    </ng-template>
+    <workout-card-carousel [exercises]="workout.exercises"></workout-card-carousel>
 
   </div>
 </article>

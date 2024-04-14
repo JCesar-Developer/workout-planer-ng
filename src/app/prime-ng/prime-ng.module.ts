@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { CarouselModule } from 'primeng/carousel';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   exports: [
@@ -24,6 +25,7 @@ import { CarouselModule } from 'primeng/carousel';
     InputTextModule,
     ToastModule,
     CarouselModule,
+    InputNumberModule,
   ]
 })
 export class PrimeNgModule { }

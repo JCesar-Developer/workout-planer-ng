@@ -2,11 +2,7 @@ import { Type } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService, Message } from 'primeng/api';
 
-// import { Exercise as T } from '@dashboard/shared/interfaces/exercise.interface';
-
-
-//TODO: Abstrear más este helper para que sea más genérico y pueda ser reutilizado en otros componentes.
-export class ExerciseFormHandler<T = any> {
+export class FormHandler<T = any> {
 
   ref?: DynamicDialogRef;
 
@@ -16,13 +12,14 @@ export class ExerciseFormHandler<T = any> {
     private formComponent: Type<any>,
   ) {}
 
-  public openForm( model?: T ) {
+  public openForm( model?: T, title?: string ) {
     this.ref = this.dialogService.open( this.formComponent, {
       data: { model },
-      header: ( model ) ? 'Editar Ejercicio' : 'Crear Ejercicio',
+      header: ( title ) ? title : 'Formulario',
       width: '50vw',
       height: '50vh',
       dismissableMask: true,
+      maximizable: true,
     });
 
     this.ref.onClose

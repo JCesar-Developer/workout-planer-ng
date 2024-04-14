@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { ExerciseFormComponent } from '@dashboard/modules/exercises/components/exercise-form/exercise-form.component';
-import { ExerciseFormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
-import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Workout } from '@dashboard/shared/interfaces/workout-interface';
+import { FormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
+import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -13,17 +13,17 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class WorkoutOpenFormBtnComponent {
 
-  private formHandler: ExerciseFormHandler<Exercise>;
+  private formHandler: FormHandler<Workout>;
 
   constructor(
     private messageService: MessageService,
     private dialogService: DialogService,
   ) {
-    this.formHandler = new ExerciseFormHandler( dialogService, messageService, ExerciseFormComponent );
+    this.formHandler = new FormHandler( dialogService, messageService, WorkoutFormComponent );
   }
 
   public onOpenForm(): void {
-    this.formHandler.openForm();
+    this.formHandler.openForm( undefined, 'Crear Rutina' );
   }
 
 }

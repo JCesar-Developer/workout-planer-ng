@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
+import { AppSharedModule } from '../shared/shared.module';
 import { PrimeNgModule } from '@primeng/prime-ng.module';
 
 import { DashboardLayoutComponent } from './layout/dashboard-layout.component';
@@ -21,7 +21,7 @@ import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar
     CommonModule,
     DashboardRoutingModule,
     RouterModule,
-    SharedModule,
+    AppSharedModule,
     PrimeNgModule,
   ],
   // providers: [

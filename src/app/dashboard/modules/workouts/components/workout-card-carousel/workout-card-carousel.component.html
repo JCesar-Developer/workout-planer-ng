@@ -1,0 +1,25 @@
+<!-- IF-LESS THAN 6: LIST OF CARDS -->
+<ng-container *ngIf="exercises.length <= 6; else carousel">
+
+  <div class="flex flex-row justify-start gap-4">
+    <ng-container *ngFor="let exercise of exercises; let i = index">
+      <div class="max-w-32">
+        <exercise-card [exercise]="exercise"></exercise-card>
+      </div>
+    </ng-container>
+  </div>
+
+</ng-container>
+
+<!-- IF-MORE THAN 6: CAROUSEL OF CARDS -->
+<ng-template #carousel>
+
+  <p-carousel [value]="exercises" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
+    <ng-template let-exercise pTemplate="item">
+      <div class="mx-2 max-w-32">
+        <exercise-card [exercise]="exercise"></exercise-card>
+      </div>
+    </ng-template>
+  </p-carousel>
+
+</ng-template>
