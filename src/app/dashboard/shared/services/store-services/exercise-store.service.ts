@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IHttpService } from '../../interfaces/http.interface';
 
 import { Exercise, Category } from '../../interfaces/exercise.interface';
 import { ExerciseHttpService } from '../http-services/exercise-http.service';

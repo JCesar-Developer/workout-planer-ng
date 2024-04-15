@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
+import { FormHandlerService } from '@shared/services/form-handler.service';
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 
 import { MessageService } from 'primeng/api';
@@ -13,14 +13,14 @@ import { WorkoutFormConfig } from '../../helpers/workout-form.config';
 })
 export class WorkoutOpenFormBtnComponent implements OnInit {
 
-  private formHandler: FormHandler;
+  private formHandler: FormHandlerService;
   private workoutFormConfig?: WorkoutFormConfig;
 
   constructor(
     private messageService: MessageService,
     private dialogService: DialogService,
   ) {
-    this.formHandler = new FormHandler( dialogService, messageService, WorkoutFormComponent );
+    this.formHandler = new FormHandlerService( dialogService, messageService, WorkoutFormComponent );
   }
 
   ngOnInit(): void {

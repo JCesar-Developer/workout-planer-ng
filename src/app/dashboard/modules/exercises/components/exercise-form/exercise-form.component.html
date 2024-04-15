@@ -55,7 +55,7 @@
       <!-- Buttons -->
       <div class="flex flex-row justify-between gap-4">
         <span *ngIf="exerciseId; else closeBtn" class="p-fluid w-full">
-          <p-button (onClick)="onDelete( exerciseId )" styleClass="p-button-danger p-button-sm" label="Eliminar"></p-button>
+          <p-button (onClick)="onDelete()" styleClass="p-button-danger p-button-sm" label="Eliminar"></p-button>
         </span>
 
         <ng-template #closeBtn>

@@ -1,5 +1,5 @@
 import { Category } from '@dashboard/shared/interfaces/exercise.interface';
-import { FormHandler } from './exercise-form-handler.helper';
+import { FormHandler } from '../../dashboard/helpers/exercise-form-handler.helper';
 import { of } from 'rxjs';
 
 describe('ExerciseFormHandler', () => {

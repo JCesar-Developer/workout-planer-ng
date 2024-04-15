@@ -1,8 +1,11 @@
-import { Type } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService, Message } from 'primeng/api';
 
-export class FormHandler {
+@Injectable({
+  providedIn: 'root',
+})
+export class FormHandlerService {
 
   ref?: DynamicDialogRef;
 

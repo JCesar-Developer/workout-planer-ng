@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Category } from '@dashboard/shared/interfaces/exercise.interface';
 
-import { FormComponent } from '@dashboard/shared/interfaces/form-component.interface';
+import { Category } from '@dashboard/shared/interfaces/exercise.interface';
 import { Workout } from '@dashboard/shared/interfaces/workout-interface';
 
 @Component({
   selector: 'workout-form',
   templateUrl: './workout-form.component.html',
 })
-export class WorkoutFormComponent implements FormComponent<Workout> {
+export class WorkoutFormComponent {
 
   public form: FormGroup = this.fb.group({});
   public filteredWorkouts: Workout = {

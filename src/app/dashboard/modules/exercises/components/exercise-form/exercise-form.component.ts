@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { FormComponent } from '@dashboard/shared/interfaces/form-component.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
+import { CustomValidatorsService } from '@shared/services/custom-validators.service';
+import { InputErrorMessageService, ErrorMessageMap } from '@shared/services/input-error-message.service'
+import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.helper';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { Subscription, tap } from 'rxjs';
-import { CustomValidatorsService } from 'src/app/shared/services/customValidators.service';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
@@ -22,18 +24,15 @@ interface ExerciseForm {
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
 })
-export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<Exercise> {
+export class ExerciseFormComponent implements OnInit, OnDestroy {
 
-  public categories: Category[];
   public currentExercise: Exercise = {} as Exercise;
-  public exerciseId: string | null = null;
-  public form: FormGroup<ExerciseForm> = this.fb.group<ExerciseForm>({
-    id: this.fb.control(null),
-    name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
-    image: this.fb.control(null),
-    category: this.fb.control(Category.CORE, { nonNullable: true }),
-    alternativeImage: this.fb.control(null),
-  });
+  public categories: Category[];
+  public exerciseId?: string;
+
+  public form!: FormGroup<ExerciseForm>;
+  public formActions: ExerciseFormActions;
+
   private $altImg?: Subscription;
 
   constructor(
@@ -42,13 +41,17 @@ export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<E
     private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
     private exerciseStoreService: ExerciseStoreService,
+    private errorMessageService: InputErrorMessageService,
   ) {
     this.categories = exerciseStoreService.getExerciseCategories();
-    this.setFormIfDataExists();
-    this.setCurrentExercise();
+    this.formActions = new ExerciseFormActions( ref, exerciseStoreService );
   }
 
   ngOnInit(): void {
+    this.setForm();
+    this.fillFormIfDataExists();
+    this.setCurrentExercise();
+
     this.$altImg = this.form.get('alternativeImage')?.valueChanges
       .subscribe( altImg => {
         this.currentExercise.alternativeImage = altImg;
@@ -56,7 +59,22 @@ export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<E
       });
   }
 
-  private setFormIfDataExists(): void {
+  ngOnDestroy(): void {
+    this.$altImg?.unsubscribe();
+  }
+
+  //GETTERS & SETTERS ---
+  private setForm(): void {
+    this.form = this.fb.group<ExerciseForm>({
+      id: this.fb.control(null),
+      name: this.fb.control(null, [Validators.required, Validators.minLength(3), this.customValidators.noWhitespace ]),
+      image: this.fb.control(null),
+      category: this.fb.control(Category.CORE, { nonNullable: true }),
+      alternativeImage: this.fb.control(null),
+    })
+  }
+
+  private fillFormIfDataExists(): void {
     if (!this.config.data || !this.config.data.model) return;
 
     const exercise = this.config.data.model;
@@ -68,37 +86,26 @@ export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<E
     this.currentExercise = this.form.value as Exercise;
   }
 
+  //VALIDATIONS ---
+  private errorMessagesMap: ErrorMessageMap = {
+    'required': () => 'Este campo es requerido',
+    'minlength': (errors?: ValidationErrors) => `Este campo debe tener al menos ${errors ? errors['minlength'].requiredLength : 0} caracteres`,
+    'whitespace': () => 'Este campo no puede contener solo espacios en blanco',
+  };
+
   public isInvalidInput( field: FormControls ): boolean | null {
-    //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
-    return this.form.controls[field]?.errors && this.form.controls[field]?.touched || null;
+    return this.errorMessageService.isValidField( this.form, field );
   }
 
-  //TODO: Se puede abstraer en un servicio para reutilizar en otros componentes.
   public getErrorMessages( field: FormControls ): string | null {
-    if( !this.form.controls[field] ) return null;
-
-    const errors = this.form.controls[field]?.errors || {};
-
-    for( const key of Object.keys(errors) ) {
-      return this.getErrorMessage( key, errors );
-    }
-
-    return null;
+    return this.errorMessageService.getErrorMessage({
+      form: this.form,
+      field,
+      errorMessageMap: this.errorMessagesMap,
+    });
   }
 
-  private getErrorMessage( key: string, errors: ValidationErrors ): string | null {
-    switch( key ) {
-      case 'required':
-        return 'Este campo es requerido';
-      case 'minlength':
-        return `Este campo debe tener al menos ${ errors[key].requiredLength } caracteres`;
-      case 'whitespace':
-        return 'Este campo no puede contener solo espacios en blanco';
-      default:
-        return null;
-    }
-  }
-
+  //SUBMIT ---
   public onSubmit() {
     this.setCurrentExercise();
 
@@ -108,70 +115,20 @@ export class ExerciseFormComponent implements OnInit, OnDestroy, FormComponent<E
     }
 
     if( this.exerciseId ) {
-      this.update( this.currentExercise );
+      this.formActions.update( this.currentExercise );
       return;
     }
 
-    this.save( this.currentExercise );
+    this.formActions.save( this.currentExercise );
   }
 
-  public save( exercise: Exercise ): void {
-    this.exerciseStoreService.save(exercise).pipe(
-      tap(success => {
-        if( success ) this.ref.close({
-          status: 'success',
-          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" creado con éxito` },
-        })
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al crear el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
-      })
-    ).subscribe()
-  }
-
-  public update( exercise: Exercise ): void {
-    this.exerciseStoreService.update(this.currentExercise).pipe(
-      tap(success => {
-        if( success ) this.ref.close({
-          status: 'success',
-          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
-        })
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al actualizar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
-      })
-    ).subscribe()
-
-  };
-
-  public onDelete( exerciseId: string ) {
-    this.delete( exerciseId );
-  }
-
-  public delete( exerciseId: string ) {
-    const exerciseName = this.form.get('name')?.value;
-
-    this.exerciseStoreService.delete(exerciseId).pipe(
-      tap(success => {
-        if( success ) this.ref.close({
-          status: 'success',
-          message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exerciseName }" eliminado con éxito` },
-        })
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al eliminar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
-      })
-    ).subscribe();
+  public onDelete() {
+    if( !this.exerciseId ) return;
+    this.formActions.delete( this.exerciseId, this.currentExercise.name );
   }
 
   public closeDialog() {
     this.ref.close();
   }
 
-  ngOnDestroy(): void {
-    this.$altImg?.unsubscribe();
-  }
 }
