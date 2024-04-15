@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 import { FormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
@@ -26,7 +26,13 @@ export class ExerciseCardComponent {
   }
 
   public onOpenExerciseForm() {
-    this.formHandler.openForm( this.exercise, 'Editar Ejercicio' );
+    this.formHandler.openForm({
+      data: { model: this.exercise },
+      header: 'Editar ejercicio',
+      width: '50vw',
+      height: '50vh',
+      dismissableMask: true,
+    });
   }
 
 }

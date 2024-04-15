@@ -23,6 +23,12 @@ export class ExercisePageHeaderComponent {
   }
 
   public onOpenExerciseForm(): void {
-    this.formHandler.openForm( undefined, 'Crear Ejercicio' );
+    this.formHandler.openForm({
+      data: { model: undefined },
+      header: 'Editar ejercicio',
+      width: '50vw',
+      height: '50vh',
+      dismissableMask: true,
+    });
   }
 }

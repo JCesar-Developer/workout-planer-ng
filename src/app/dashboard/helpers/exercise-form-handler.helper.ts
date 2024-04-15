@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService, Message } from 'primeng/api';
 
 export class FormHandler<T = any> {
@@ -12,15 +12,8 @@ export class FormHandler<T = any> {
     private formComponent: Type<any>,
   ) {}
 
-  public openForm( model?: T, title?: string ) {
-    this.ref = this.dialogService.open( this.formComponent, {
-      data: { model },
-      header: ( title ) ? title : 'Formulario',
-      width: '50vw',
-      height: '50vh',
-      dismissableMask: true,
-      maximizable: true,
-    });
+  public openForm( config: DynamicDialogConfig ) {
+    this.ref = this.dialogService.open( this.formComponent, config);
 
     this.ref.onClose
     .subscribe({

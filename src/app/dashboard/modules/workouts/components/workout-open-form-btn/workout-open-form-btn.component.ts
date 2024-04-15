@@ -23,7 +23,13 @@ export class WorkoutOpenFormBtnComponent {
   }
 
   public onOpenForm(): void {
-    this.formHandler.openForm( undefined, 'Crear Rutina' );
+    this.formHandler.openForm({
+      data: { model: undefined },
+      header: 'Editar ejercicio',
+      width: '50vw',
+      height: '50vh',
+      dismissableMask: true,
+    });
   }
 
 }
