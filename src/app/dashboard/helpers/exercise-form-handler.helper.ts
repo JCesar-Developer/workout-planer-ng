@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService, Message } from 'primeng/api';
 
-export class FormHandler<T = any> {
+export class FormHandler {
 
   ref?: DynamicDialogRef;
 

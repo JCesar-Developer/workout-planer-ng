@@ -14,6 +14,7 @@ import { ExerciseSearchbarComponent } from './components/exercise-searchbar/exer
 import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/exercise-filter-tabs.component';
 
 import { MessageService } from 'primeng/api';
+import { ExerciseOpenFormBtnComponent } from './components/exercise-open-form-btn/exercise-open-form-btn.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MessageService } from 'primeng/api';
     ExercisePageListComponent,
     ExerciseSearchbarComponent,
     ExerciseFilterTabsComponent,
+    ExerciseOpenFormBtnComponent,
   ],
   imports: [
     ReactiveFormsModule,

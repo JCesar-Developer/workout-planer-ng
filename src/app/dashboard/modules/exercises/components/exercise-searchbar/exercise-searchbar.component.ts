@@ -13,7 +13,7 @@ export class ExerciseSearchbarComponent {
     private exerciseStoreService: ExerciseStoreService,
   ) {}
 
-  public filterExercise({ query } : { query: string }): void {
+  public onFilterExercise({ query } : { query: string }): void {
     this.suggestedExercises = this.exerciseStoreService.getExercisesSuggestions(query);
   }
 

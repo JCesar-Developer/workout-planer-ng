@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 import { FormHandler } from '@dashboard/helpers/exercise-form-handler.helper';
@@ -6,17 +6,19 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ExerciseFormConfig } from '@dashboard/modules/exercises/helpers/exercise-form.config';
 
 @Component({
   selector: 'exercise-card',
   templateUrl: './exercise-card.component.html',
 })
-export class ExerciseCardComponent {
+export class ExerciseCardComponent implements OnInit {
 
   @Input() public exercise!: Exercise;
   @Input() public showCategory: boolean = false;
 
-  private formHandler: FormHandler<Exercise>;
+  private formHandler: FormHandler;
+  private exerciseFormConfig?: ExerciseFormConfig;
 
   constructor(
     private messageService: MessageService,
@@ -25,14 +27,13 @@ export class ExerciseCardComponent {
     this.formHandler = new FormHandler(dialogService, messageService, ExerciseFormComponent);
   }
 
+  ngOnInit(): void {
+    this.exerciseFormConfig = new ExerciseFormConfig(this.exercise);
+  }
+
   public onOpenExerciseForm() {
-    this.formHandler.openForm({
-      data: { model: this.exercise },
-      header: 'Editar ejercicio',
-      width: '50vw',
-      height: '50vh',
-      dismissableMask: true,
-    });
+    if (!this.exerciseFormConfig) return;
+    this.formHandler.openForm( this.exerciseFormConfig.formConfig );
   }
 
 }

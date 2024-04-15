@@ -5,8 +5,6 @@ import { ExerciseStoreService } from '@dashboard/shared/services/store-services/
 @Component({
   selector: 'exercise-filter-tabs',
   templateUrl: './exercise-filter-tabs.component.html',
-  styles: [
-  ]
 })
 export class ExerciseFilterTabsComponent {
   public categories: Category[] = []

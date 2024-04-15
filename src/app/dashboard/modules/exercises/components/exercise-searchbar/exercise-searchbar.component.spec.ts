@@ -42,7 +42,7 @@ describe('ExerciseSearchbarComponent', () => {
     const getSuggestionsSpy = spyOn(exerciseStoreService, 'getExercisesSuggestions');
 
     const query = 'Test';
-    component.filterExercise({ query });
+    component.onFilterExercise({ query });
 
     expect(getSuggestionsSpy).toHaveBeenCalledWith(query);
 
@@ -68,7 +68,7 @@ describe('ExerciseSearchbarComponent', () => {
     spyOn(exerciseStoreService, 'getExercisesSuggestions').and.returnValue(mockExercises);
 
     const query = 'Exercise';
-    component.filterExercise({ query });
+    component.onFilterExercise({ query });
 
     expect(component.suggestedExercises).toEqual(mockExercises);
 
