@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { Workout } from '@dashboard/shared/interfaces/workout-interface';
+import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'workout-card',
@@ -8,5 +11,25 @@ import { Workout } from '@dashboard/shared/interfaces/workout-interface';
 export class WorkoutCardComponent {
 
   @Input() workout!: Workout;
+  public exercises?: Exercise[];
+
+  private exercisesSubs$?: Subscription;
+
+  constructor(
+    public exerciseStoreService: ExerciseStoreService,
+  ) { }
+
+  ngOnInit(): void {
+    this.setExercises();
+  }
+
+  ngOnDestroy(): void {
+    if( this.exercisesSubs$ ) this.exercisesSubs$?.unsubscribe();
+  }
+
+  private setExercises(): void {
+    this.exercisesSubs$ = this.exerciseStoreService.getExerciseByIds(this.workout.exercises)
+      .subscribe( exercises => this.exercises = exercises );
+  }
 
 }

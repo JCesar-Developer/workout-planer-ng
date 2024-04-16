@@ -12,7 +12,7 @@ export class ExerciseFilterTabsComponent {
   constructor(
     private exerciseStoreService: ExerciseStoreService,
   ) {
-    this.categories = this.exerciseStoreService.getExerciseCategories();
+    this.categories = this.exerciseStoreService.exerciseCategories;
   }
 
   public onFilterByCategory( category: Category ) {

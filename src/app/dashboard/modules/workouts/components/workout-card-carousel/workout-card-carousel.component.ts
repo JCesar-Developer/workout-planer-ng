@@ -1,34 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+
+interface ResponsiveOptions {
+  breakpoint: string;
+  numVisible: number;
+  numScroll: number;
+}
 
 @Component({
   selector: 'workout-card-carousel',
   templateUrl: './workout-card-carousel.component.html',
 })
-export class WorkoutCardCarouselComponent implements OnInit {
+export class WorkoutCardCarouselComponent {
 
-  @Input() exercises!: Exercise[];
-  public responsiveOptions: any[] = [];
+  @Input() exercises?: Exercise[];
+  @Input() editableCards?: boolean = false;
+
+  public responsiveOptions!: ResponsiveOptions[];
 
   ngOnInit(): void {
     this.responsiveOptions = [
       {
         breakpoint: '2400px',
-        numVisible: 8,
-        numScroll: 1
-      },
-      {
-        breakpoint: '1920px',
         numVisible: 7,
         numScroll: 1
       },
       {
-        breakpoint: '1440px',
+        breakpoint: '1920px',
         numVisible: 6,
         numScroll: 1
       }
     ];
   }
-
 
 }

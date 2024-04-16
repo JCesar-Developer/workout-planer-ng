@@ -1,0 +1,23 @@
+<section class="flex flex-col gap-5">
+  <div class="flex flex-row gap-5">
+    <!-- Workout-category -->
+    <label class="p-fluid w-1/3">
+      <span class="font-sans cursor-pointer">Categoría</span>
+      <p-dropdown [options]="categories" (onChange)="onFilterByCategory( $event )"></p-dropdown>
+    </label>
+
+    <!-- Workout-level -->
+    <label class="p-fluid w-full">
+      <span class="font-sans cursor-pointer">Filtrar ejercicio por nombre</span>
+      <input
+        type="text"
+        pInputText
+        placeholder="Nombre del ejercicio"
+        [formControl]="filterTextControl"
+      />
+    </label>
+  </div>
+
+  <!-- EXERCISE-CAROUSEL-SELECTOR  -->
+  <workout-card-carousel [exercises]="filteredExercises"></workout-card-carousel>
+</section>

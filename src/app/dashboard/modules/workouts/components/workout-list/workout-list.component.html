@@ -1,16 +1,17 @@
 <section>
-  <!-- <div class="border border-gray-200 rounded-xl p-8 mb-10">
+  <div class="border border-gray-200 rounded-xl p-8 mb-10">
     <workout-form></workout-form>
-  </div> -->
+  </div>
 
   <!-- If there're workouts -->
   <div
-    class="space-y-3"
+    class="flex flex-col gap-7"
     *ngIf="workouts.length !== 0; else noWorkouts"
   >
-    <div *ngFor="let workout of workouts">
-      <workout-card [workout]="workout"></workout-card>
-    </div>
+    <workout-card
+      *ngFor="let workout of workouts"
+      [workout]="workout"
+    ></workout-card>
   </div>
 
   <!-- If there aren't workouts -->

@@ -15,7 +15,8 @@ import { ExerciseFormConfig } from '@dashboard/modules/exercises/helpers/exercis
 export class ExerciseCardComponent implements OnInit {
 
   @Input() public exercise!: Exercise;
-  @Input() public showCategory: boolean = false;
+  @Input() public editable?: boolean = false;
+  // @Input() public showCategory: boolean = false;
 
   private formHandler: FormHandlerService;
   private exerciseFormConfig?: ExerciseFormConfig;

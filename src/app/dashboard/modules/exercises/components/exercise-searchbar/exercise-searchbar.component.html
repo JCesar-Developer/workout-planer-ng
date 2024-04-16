@@ -1,8 +1,8 @@
 <span class="p-fluid w-full">
   <p-autoComplete
     [suggestions]="suggestedExercises"
-    (completeMethod)="onFilterExercise($event)"
-    (onSelect)="onSelectExercise($event)"
+    (completeMethod)="onRequireSuggestions($event)"
+    (onSelect)="onSelectSuggestion($event)"
     [minLength]="0"
     field="name"
   ></p-autoComplete>

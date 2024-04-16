@@ -16,6 +16,7 @@ import { WorkoutFormComponent } from './components/workout-form/workout-form.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutCardCarouselComponent } from './components/workout-card-carousel/workout-card-carousel.component';
 import { AppSharedModule } from '@shared/shared.module';
+import { WorkoutFormSelectorComponent } from './components/workout-form-selector/workout-form-selector.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AppSharedModule } from '@shared/shared.module';
     WorkoutOpenFormBtnComponent,
     WorkoutFormComponent,
     WorkoutCardCarouselComponent,
+    WorkoutFormSelectorComponent,
   ],
   imports: [
     CommonModule,

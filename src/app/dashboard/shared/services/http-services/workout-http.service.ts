@@ -15,8 +15,6 @@ export class WorkoutHttpService implements IHttpService<Workout> {
 
   //GET ALL
   public getAll(): Observable<Workout[]> {
-    console.log('Entramos');
-
     return this.http.get<Workout[]>(`${ this.baseUrl }/workouts`);
   }
 

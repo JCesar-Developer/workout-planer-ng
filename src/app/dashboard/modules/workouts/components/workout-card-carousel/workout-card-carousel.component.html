@@ -1,25 +1,65 @@
-<!-- IF-LESS THAN 6: LIST OF CARDS -->
-<ng-container *ngIf="exercises.length <= 6; else carousel">
+<!-- IF-NO EXERCISES: LOADING -->
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
 
-  <div class="flex flex-row justify-start gap-4">
-    <ng-container *ngFor="let exercise of exercises; let i = index">
-      <div class="max-w-32">
-        <exercise-card [exercise]="exercise"></exercise-card>
+<!-- IF-EXERCISES LOADED -->
+<ng-container *ngIf="exercises; else loading">
+
+  <!-- IF: show-list -->
+  <ng-container *ngIf="exercises.length <= 6; else showCarousel">
+    <div class="rounded-3xl py-8 px-12 pb-12 bg-slate-100 shadow-inner">
+      <div class="flex flex-row">
+        <!-- <div class="w-1/6"> -->
+          <exercise-card
+            *ngFor="let exercise of exercises"
+            class="exercise-card w-1/6"
+            [editable]="editableCards"
+            [exercise]="exercise"
+          ></exercise-card>
+        <!-- </div> -->
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
+
+  <!-- ELSE: show-carousel -->
+  <ng-template #showCarousel>
+    <div class="rounded-3xl pt-8 bg-slate-100 shadow-inner">
+      <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+        <ng-template let-exercise pTemplate="item">
+
+          <!-- <div class="max-w-56 3xl:max-w-max"> -->
+            <exercise-card
+              class="exercise-card"
+              [editable]="editableCards"
+              [exercise]="exercise"
+            ></exercise-card>
+          <!-- </div> -->
+
+        </ng-template>
+      </p-carousel>
+    </div>
+  </ng-template>
 
 </ng-container>
 
-<!-- IF-MORE THAN 6: CAROUSEL OF CARDS -->
-<ng-template #carousel>
+<style>
+.exercise-card {
+  article {
+    margin-block: 2px;
+    margin-inline: 10px;
+  }
 
-  <p-carousel [value]="exercises" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
-    <ng-template let-exercise pTemplate="item">
-      <div class="mx-2 max-w-32">
-        <exercise-card [exercise]="exercise"></exercise-card>
-      </div>
-    </ng-template>
-  </p-carousel>
+  h3 {
+    margin-top: 0 !important;
 
-</ng-template>
+    @media (max-width: 1680px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 1440px) {
+      font-size: 14px;
+    }
+  }
+}
+</style>

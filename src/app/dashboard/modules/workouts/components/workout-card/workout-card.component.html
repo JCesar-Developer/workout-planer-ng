@@ -17,7 +17,10 @@
 
     <hr>
 
-    <workout-card-carousel [exercises]="workout.exercises"></workout-card-carousel>
+    <workout-card-carousel
+      [editableCards]="true"
+      [exercises]="exercises">
+    </workout-card-carousel>
 
   </div>
 </article>

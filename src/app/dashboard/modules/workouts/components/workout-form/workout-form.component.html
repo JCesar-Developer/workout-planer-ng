@@ -1,45 +1,32 @@
-<form class="flex flex-col gap-5" (submit)="onSubmit()" [formGroup]="form">
+<form class="flex flex-col" (submit)="onSubmit()" [formGroup]="form">
 
   <!-- EXERCISE-INPUT-SELECTORS -->
-  <section class="flex flex-col gap-2">
-    <div class="flex flex-row gap-5">
-      <!-- Workout-name -->
-      <label class="p-fluid w-full">
-        <span class="font-sans cursor-pointer">Nombre de la rutina</span>
-        <input type="text" pInputText />
-      </label>
+  <section class="flex flex-row gap-5 mb-2">
+    <!-- Workout-name -->
+    <label class="p-fluid w-full">
+      <span class="font-sans cursor-pointer">Nombre de la rutina
+        <span class="text-gray-500">*</span>
+      </span>
+      <input type="text" required pInputText formControlName="name" placeholder="Nombre de la rutina"/>
+    </label>
 
-      <!-- Workout-duration -->
-      <label class="p-fluid w-1/4">
-        <span class="font-sans cursor-pointer">Duración</span>
-        <input type="text" pInputText />
-      </label>
-    </div>
-
-    <div class="flex flex-row gap-5">
-      <!-- Workout-category -->
-      <label class="p-fluid w-1/3">
-        <span class="font-sans cursor-pointer">Categoría</span>
-        <p-dropdown [options]="['a', 'b', 'c']"></p-dropdown>
-      </label>
-
-      <!-- Workout-level -->
-      <label class="p-fluid w-full">
-        <span class="font-sans cursor-pointer">Nombre</span>
-        <input type="text" pInputText />
-      </label>
-    </div>
+    <!-- Workout-duration -->
+    <label class="p-fluid w-1/4">
+      <span class="font-sans cursor-pointer">Duración
+        <span class="text-gray-500">*</span>
+      </span>
+      <input type="text" pInputText formControlName="duration" />
+    </label>
   </section>
 
-  <!-- EXERCISE-CAROUSEL-SELECTOR  -->
-  <section>
-    <workout-card-carousel [exercises]="filteredWorkouts.exercises"></workout-card-carousel>
-  </section>
+  <workout-form-selector></workout-form-selector>
 
   <!-- FORM-EXERCISE-INPUT -->
+  <!-- TODO: CORREGIR MÁRGENES -->
+
   <section>
     <article class="flex flex-row items-center border-b border-gray-300 p-8 gap-4">
-      <img width="80" class="shadow-md rounded-md" [src]="filteredWorkouts.exercises[0].image" alt="">
+      <img width="80" class="shadow-md rounded-md" src="" alt="">
       <div class="flex-grow">
         <p class="text-gray-700">Core</p>
         <h5 class="text-2xl font-medium">{{'Exercise 1' | truncate:20 }}</h5>

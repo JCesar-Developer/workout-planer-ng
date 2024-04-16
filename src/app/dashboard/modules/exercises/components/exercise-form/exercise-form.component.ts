@@ -43,7 +43,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private exerciseStoreService: ExerciseStoreService,
     private errorMessageService: InputErrorMessageService,
   ) {
-    this.categories = exerciseStoreService.getExerciseCategories();
+    this.categories = exerciseStoreService.exerciseCategories;
     this.formActions = new ExerciseFormActions( ref, exerciseStoreService );
   }
 

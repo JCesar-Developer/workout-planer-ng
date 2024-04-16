@@ -10,14 +10,18 @@ export class ExerciseSearchbarComponent {
   public suggestedExercises: Exercise[] = [];
 
   constructor(
-    private exerciseStoreService: ExerciseStoreService,
+    private exerciseStore: ExerciseStoreService,
   ) {}
 
-  public onFilterExercise({ query } : { query: string }): void {
-    this.suggestedExercises = this.exerciseStoreService.getExercisesSuggestions(query);
+  public onRequireSuggestions({ query } : { query: string }): void {
+    this.suggestedExercises = this.exerciseStore.getExercisesSuggestions(query);
+
+    if( this.suggestedExercises.length === 0 ) this.exerciseStore.setCurrentExercises([]);
+    else this.exerciseStore.setCurrentExercises( this.suggestedExercises );
   }
 
-  public onSelectExercise({ name } : { name: string }): void {
-    this.exerciseStoreService.getExercisesSuggestions(name);
+  public onSelectSuggestion({ name } : { name: string }): void {
+    this.suggestedExercises = this.exerciseStore.getExercisesSuggestions(name);
+    this.exerciseStore.setCurrentExercises( this.suggestedExercises );
   }
 }
