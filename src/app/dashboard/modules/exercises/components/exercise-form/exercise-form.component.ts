@@ -3,12 +3,13 @@ import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } fro
 import { Subscription } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { InputErrorMessageService, ErrorMessageMap } from '@shared/services/input-error-message.service'
 import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.helper';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
@@ -40,11 +41,12 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
-    private exerciseStoreService: ExerciseStoreService,
-    private errorMessageService: InputErrorMessageService,
+    private exerciseHttp: ExerciseHttpService,
+    private exerciseStore: ExerciseStoreService,
+    private inputErrorMessages: InputErrorMessageService,
   ) {
-    this.categories = exerciseStoreService.exerciseCategories;
-    this.formActions = new ExerciseFormActions( ref, exerciseStoreService );
+    this.categories = Object.values(Category);
+    this.formActions = new ExerciseFormActions( ref, this.exerciseHttp, this.exerciseStore );
   }
 
   ngOnInit(): void {
@@ -53,9 +55,8 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     this.setCurrentExercise();
 
     this.$altImg = this.form.get('alternativeImage')?.valueChanges
-      .subscribe( altImg => {
-        this.currentExercise.alternativeImage = altImg;
-        this.setCurrentExercise();
+      .subscribe(() => {
+        Promise.resolve().then(() => this.setCurrentExercise());
       });
   }
 
@@ -94,11 +95,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   };
 
   public isInvalidInput( field: FormControls ): boolean | null {
-    return this.errorMessageService.isValidField( this.form, field );
+    return this.inputErrorMessages.isValidField( this.form, field );
   }
 
   public getErrorMessages( field: FormControls ): string | null {
-    return this.errorMessageService.getErrorMessage({
+    return this.inputErrorMessages.getErrorMessage({
       form: this.form,
       field,
       errorMessageMap: this.errorMessagesMap,

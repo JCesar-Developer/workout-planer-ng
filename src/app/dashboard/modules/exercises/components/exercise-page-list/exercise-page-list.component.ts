@@ -15,7 +15,7 @@ export class ExercisePageListComponent implements OnDestroy {
   constructor(
     private exercisesStore: ExerciseStoreService,
   ) {
-    this.$exercises = this.exercisesStore.currentExercises
+    this.$exercises = this.exercisesStore.getCurrentExercises$()
       .subscribe( exercises => this.exercises = exercises );
   }
 

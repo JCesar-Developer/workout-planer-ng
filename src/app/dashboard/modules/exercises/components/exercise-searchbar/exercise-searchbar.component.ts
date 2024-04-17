@@ -14,14 +14,30 @@ export class ExerciseSearchbarComponent {
   ) {}
 
   public onRequireSuggestions({ query } : { query: string }): void {
-    this.suggestedExercises = this.exerciseStore.getExercisesSuggestions(query);
+    if( !query ) {
+      this.suggestedExercises = [];
+      this.exerciseStore.setCurrentExercisesAllExercises();
+      return;
+    }
+
+    this.suggestedExercises = this.getExerciseSuggestions(query);
 
     if( this.suggestedExercises.length === 0 ) this.exerciseStore.setCurrentExercises([]);
     else this.exerciseStore.setCurrentExercises( this.suggestedExercises );
   }
 
   public onSelectSuggestion({ name } : { name: string }): void {
-    this.suggestedExercises = this.exerciseStore.getExercisesSuggestions(name);
+    this.suggestedExercises = this.getExerciseSuggestions(name);
     this.exerciseStore.setCurrentExercises( this.suggestedExercises );
   }
+
+  private getExerciseSuggestions(term: string): Exercise[] {
+    let suggestions: Exercise[] = []
+
+    if(!term) return suggestions;
+
+    suggestions = this.exerciseStore.getExercisesByName(term);
+    return suggestions;
+  }
+
 }

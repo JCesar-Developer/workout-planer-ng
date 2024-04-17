@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Exercise } from "@dashboard/shared/interfaces/exercise.interface"
 import { ExerciseHttpService } from "@dashboard/shared/services/http-services/exercise-http.service"
 import { ExerciseStoreService } from "@dashboard/shared/services/store-services/exercise-store.service"
@@ -5,7 +6,10 @@ import { DynamicDialogRef } from "primeng/dynamicdialog"
 
 import { tap } from "rxjs"
 
-export class ExerciseFormActions {
+@Injectable({
+  providedIn: 'root'
+})
+export class ExerciseFormActionsService {
   constructor(
     private ref: DynamicDialogRef,
     private exerciseHttp: ExerciseHttpService,
@@ -66,6 +70,4 @@ export class ExerciseFormActions {
       })
     ).subscribe();
   }
-
-
 }

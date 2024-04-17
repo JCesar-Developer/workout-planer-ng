@@ -4,14 +4,17 @@ import { IHttpService } from '../../interfaces/http.interface';
 
 import type { Exercise } from '../../interfaces/exercise.interface';
 import { environments } from 'src/environments/environments';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
+import { IdGenerator } from '@shared/plugins/uuid.plugin';
 
 @Injectable({providedIn: 'root'})
 export class ExerciseHttpService implements IHttpService<Exercise> {
 
   public baseUrl: string = environments.baseUrl;
 
-  constructor( private http: HttpClient ) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   //GET ALL
   public getAll(): Observable<Exercise[]> {
@@ -19,18 +22,31 @@ export class ExerciseHttpService implements IHttpService<Exercise> {
   }
 
   //SAVE
-  public save( exercise: Exercise ): Observable<Exercise> {
-    return this.http.post<Exercise>(`${ this.baseUrl }/exercises`, exercise);
+  public save( exercise: Exercise ): Observable<boolean> {
+    exercise.id = IdGenerator.generateId();
+    return this.http.post<Exercise>(`${ this.baseUrl }/exercises`, exercise)
+    .pipe(
+      map(() => true ),
+      catchError(() => of(false))
+    );
   }
 
   //UPDATE
-  public update( exercise: Exercise ): Observable<Exercise> {
-    return this.http.put<Exercise>(`${ this.baseUrl }/exercises/${ exercise.id }`, exercise);
+  public update( exercise: Exercise ): Observable<boolean> {
+    return this.http.put<Exercise>(`${ this.baseUrl }/exercises/${ exercise.id }`, exercise)
+      .pipe(
+        map(() => true ),
+        catchError(() => of(false))
+      );
   }
 
   //DELETE
-  public delete( exerciseId: string ): Observable<Exercise> {
-    return this.http.delete<Exercise>(`${ this.baseUrl }/exercises/${ exerciseId }`);
+  public delete( exerciseId: string ): Observable<boolean> {
+    return this.http.delete<Exercise>(`${ this.baseUrl }/exercises/${ exerciseId }`)
+      .pipe(
+        map(() => true ),
+        catchError(() => of(false))
+      );
   }
 
 }

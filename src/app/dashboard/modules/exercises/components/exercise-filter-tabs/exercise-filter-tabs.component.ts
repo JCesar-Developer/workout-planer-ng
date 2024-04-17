@@ -8,14 +8,24 @@ import { ExerciseStoreService } from '@dashboard/shared/services/store-services/
 })
 export class ExerciseFilterTabsComponent {
   public categories: Category[] = []
+  private currentCategory: Category = Category.ALL;
 
   constructor(
-    private exerciseStoreService: ExerciseStoreService,
+    private exerciseStore: ExerciseStoreService,
   ) {
-    this.categories = this.exerciseStoreService.exerciseCategories;
+    this.categories = Object.values(Category);
   }
 
   public onFilterByCategory( category: Category ) {
-    this.exerciseStoreService.filterExercisesByCategory(category);
+    if( this.currentCategory === category ) return;
+
+    this.currentCategory = category;
+
+    if( category === Category.ALL )
+      this.exerciseStore.setCurrentExercisesAllExercises();
+    else {
+      const filteredExercises = this.exerciseStore.getExercisesByCategory( category );
+      this.exerciseStore.setCurrentExercises( filteredExercises );
+    }
   }
 }

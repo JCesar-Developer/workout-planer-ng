@@ -67,39 +67,39 @@ export class workoutStoreService {
       });
   }
 
-  public save(exercise: Workout): Observable<boolean> {
-    exercise.id = IdGenerator.generateId();
-    return this.workoutHttpService.save(exercise).pipe(
-      map(() => {
-        this.workouts.push(exercise);
-        this.$workout.next(this.workouts);
-        return true;
-      }),
-      catchError(() => of(false))
-    );
-  }
+  // public save(exercise: Workout): Observable<boolean> {
+  //   exercise.id = IdGenerator.generateId();
+  //   return this.workoutHttpService.save(exercise).pipe(
+  //     map(() => {
+  //       this.workouts.push(exercise);
+  //       this.$workout.next(this.workouts);
+  //       return true;
+  //     }),
+  //     catchError(() => of(false))
+  //   );
+  // }
 
-  public update(exercise: Workout): Observable<boolean> {
-    return this.workoutHttpService.update(exercise).pipe(
-      map(() => {
-        const index = this.workouts.findIndex( e => e.id === exercise.id );
-        this.workouts[index] = exercise;
-        this.$workout.next(this.workouts);
-        return true;
-      }),
-      catchError(() => of(false))
-    );
-  }
+  // public update(exercise: Workout): Observable<boolean> {
+  //   return this.workoutHttpService.update(exercise).pipe(
+  //     map(() => {
+  //       const index = this.workouts.findIndex( e => e.id === exercise.id );
+  //       this.workouts[index] = exercise;
+  //       this.$workout.next(this.workouts);
+  //       return true;
+  //     }),
+  //     catchError(() => of(false))
+  //   );
+  // }
 
-  public delete(exerciseId: string): Observable<boolean> {
-    return this.workoutHttpService.delete(exerciseId).pipe(
-      map(() => {
-        this.workouts = this.workouts.filter( e => e.id !== exerciseId );
-        this.$workout.next(this.workouts);
-        return true;
-      }),
-      catchError(() => of(false))
-    );
-  }
+  // public delete(exerciseId: string): Observable<boolean> {
+  //   return this.workoutHttpService.delete(exerciseId).pipe(
+  //     map(() => {
+  //       this.workouts = this.workouts.filter( e => e.id !== exerciseId );
+  //       this.$workout.next(this.workouts);
+  //       return true;
+  //     }),
+  //     catchError(() => of(false))
+  //   );
+  // }
 
 }

@@ -28,8 +28,9 @@ export class WorkoutCardComponent {
   }
 
   private setExercises(): void {
-    this.exercisesSubs$ = this.exerciseStoreService.getExerciseByIds(this.workout.exercises)
-      .subscribe( exercises => this.exercises = exercises );
+    // this.exercisesSubs$ = this.exerciseStoreService.getExercisesById(this.workout.exercises)
+    //   .subscribe( exercises => this.exercises = exercises );
+    this.exercises = this.exerciseStoreService.getExercisesById(this.workout.exercises);
   }
 
 }
