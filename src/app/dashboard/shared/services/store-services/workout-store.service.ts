@@ -7,18 +7,29 @@ import { Workout } from '../../interfaces/workout-interface';
 
 
 @Injectable({providedIn: 'root'})
-export class workoutStoreService {
+export class WorkoutStoreService {
 
   private workouts: Workout[] = [];
-  // private currentCategory: string;
-  private $workout: BehaviorSubject<Workout[]>;
+  private currentWorkouts$: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[]>(this.workouts);
 
-  constructor(
-    private workoutHttpService: WorkoutHttpService,
-  ) {
-    // this.currentCategory = Category.ALL;
-    this.$workout = new BehaviorSubject<Workout[]>(this.workouts);
+  public initializeWorkoutStore( workouts: Workout[] ): void {
+    this.workouts = workouts;
+    this.currentWorkouts$.next(workouts);
   }
+
+  public get allWorkouts(): Workout[] {
+    return this.workouts;
+  }
+
+  public getCurrentWorkouts$(): Observable<Workout[]> {
+    return this.currentWorkouts$.asObservable();
+  }
+
+  // constructor(
+  //   private workoutHttpService: WorkoutHttpService,
+  // ) {
+  //   this.$workout
+  // }
 
   // SEARCH -------------------------------------------------------------------------------------
   // public getExercisesSuggestions(term: string): Exercise[] {
@@ -51,21 +62,21 @@ export class workoutStoreService {
   // }
 
   // CRUD -------------------------------------------------------------------------------------
-  public getAll(): Observable<Workout[]> {
-    if( this.workouts.length === 0 ) {
-      this.getHttpWorkouts();
-    }
+  // public getAll(): Observable<Workout[]> {
+  //   if( this.workouts.length === 0 ) {
+  //     this.getHttpWorkouts();
+  //   }
 
-    return this.$workout.asObservable();
-  }
+  //   return this.$workout.asObservable();
+  // }
 
-  private getHttpWorkouts(): void {
-    this.workoutHttpService.getAll()
-      .subscribe( workouts => {
-        this.workouts = workouts;
-        this.$workout.next(workouts)
-      });
-  }
+  // private getHttpWorkouts(): void {
+  //   this.workoutHttpService.getAll()
+  //     .subscribe( workouts => {
+  //       this.workouts = workouts;
+  //       this.$workout.next(workouts)
+  //     });
+  // }
 
   // public save(exercise: Workout): Observable<boolean> {
   //   exercise.id = IdGenerator.generateId();

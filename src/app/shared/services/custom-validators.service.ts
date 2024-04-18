@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({providedIn: 'root'})
 export class CustomValidatorsService {
@@ -8,6 +8,16 @@ export class CustomValidatorsService {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
+  }
+
+  public atLeastTwoExercises(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const exercises = (control.get('categorizedExercises') as FormArray).controls;
+      if (!exercises || exercises.length < 2) {
+        return { atLeastTwoExercises: true };
+      }
+      return null;
+    };
   }
 
 }

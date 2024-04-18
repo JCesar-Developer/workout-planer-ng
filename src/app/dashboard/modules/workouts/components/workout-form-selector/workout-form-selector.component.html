@@ -19,5 +19,43 @@
   </div>
 
   <!-- EXERCISE-CAROUSEL-SELECTOR  -->
-  <workout-card-carousel [exercises]="filteredExercises"></workout-card-carousel>
+  <workout-card-carousel
+    [exercises]="filteredExercises"
+    [clickableCards]="true"
+    (emitExercise)="onEmitSelectExercise($event)"
+    ></workout-card-carousel>
 </section>
+
+<style>
+  workout-card-carousel {
+    /* exercise-card > article {
+      border: solid 1px red;
+    } */
+
+    exercise-card > article::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      transition: background 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      color: transparent;
+      backdrop-filter: blur(0px);
+      border-radius: 8px;
+    }
+
+    exercise-card > article:hover::after  {
+      content: "➕";
+      color: gray;
+      background: rgba(136, 194, 150, 0.35);
+      cursor: pointer;
+      backdrop-filter: blur(2px);
+    }
+  }
+</style>

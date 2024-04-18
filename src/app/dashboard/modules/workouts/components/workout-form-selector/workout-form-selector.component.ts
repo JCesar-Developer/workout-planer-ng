@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
@@ -10,6 +10,9 @@ import { Subscription, debounceTime } from 'rxjs';
   templateUrl: './workout-form-selector.component.html',
 })
 export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
+
+  @Output()
+  private selectedExercise: EventEmitter<Exercise> = new EventEmitter<Exercise>();
 
   public categories: Category[];
   public filteredExercises?: Exercise[];
@@ -25,9 +28,11 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
     private exerciseStore: ExerciseStoreService,
   ) {
     this.categories = Object.values(Category);
-    this.exerciseSubs$ = exerciseStore.getCurrentExercises$().subscribe((exercises) => {
-      this.filteredExercises = exercises;
-    });
+    this.exerciseStore.setCurrentExercisesAllExercises();
+    this.exerciseSubs$ = this.exerciseStore.getCurrentExercises$()
+      .subscribe((exercises) => {
+        this.filteredExercises = exercises;
+      });
   }
 
   ngOnInit(): void {
@@ -45,6 +50,7 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
     if( this.filterControlSubs$ ) this.filterControlSubs$.unsubscribe();
   }
 
+  //Filter
   public onFilterByName( value: string ) {
     this.nameToFilter = value;
     this.filterByNameAndCategory({
@@ -59,6 +65,10 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
       name: this.nameToFilter,
       category: this.categoryToFilter,
     })
+  }
+
+  public onEmitSelectExercise(exercise: Exercise): void {
+    this.selectedExercise.emit(exercise);
   }
 
   private filterByNameAndCategory({ name, category }: {  name?: string, category?: Category }): void {
@@ -90,9 +100,15 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
     }
 
     if(category) {
-      filteredExercises = this.exerciseStore.getExercisesByCategory(category);
-      this.exerciseStore.setCurrentExercises(filteredExercises);
-      return;
+      if( category === Category.ALL ) {
+        this.exerciseStore.setCurrentExercisesAllExercises();
+        return;
+      }
+      else {
+        filteredExercises = this.exerciseStore.getExercisesByCategory(category);
+        this.exerciseStore.setCurrentExercises(filteredExercises);
+        return;
+      }
     }
   }
 

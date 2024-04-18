@@ -95,7 +95,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   };
 
   public isInvalidInput( field: FormControls ): boolean | null {
-    return this.inputErrorMessages.isValidField( this.form, field );
+    return this.inputErrorMessages.isInvalidField( this.form, field );
   }
 
   public getErrorMessages( field: FormControls ): string | null {

@@ -72,9 +72,9 @@
     },
     {
       "id": "11",
-      "name": "Exercise11",
+      "name": "Zancada trasera",
       "image": "./assets/images/exercises/exercise-11.gif",
-      "category": "Core",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
@@ -111,6 +111,13 @@
       "image": null,
       "category": "Espalda",
       "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/jalon-polea-alta-al-pecho-agarre-ancho-init-pos-5431.png"
+    },
+    {
+      "id": "ccf0954a-dfae-4ad7-bda5-39a91954caf7",
+      "name": "Dominadas supinas",
+      "image": null,
+      "category": "Espalda",
+      "alternativeImage": "https://i.blogs.es/d9578d/dominadas/1366_2000.jpg"
     }
   ],
   "workouts": [
@@ -119,8 +126,18 @@
       "name": "Pecho",
       "duration": "120",
       "exercises": [
-        "1",
-        "2"
+        {
+          "exerciseId": "1",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "2",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        }
       ]
     },
     {
@@ -128,13 +145,54 @@
       "name": "Piernas",
       "duration": "115",
       "exercises": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
+        {
+          "exerciseId": "3",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "4",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "5",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "6",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "7",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "8",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "9",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "10",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        }
       ]
     }
   ],

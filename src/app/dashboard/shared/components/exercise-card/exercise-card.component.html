@@ -1,4 +1,7 @@
-<article class="p-2 border bg-white border-gray-100 shadow-md rounded-lg relative">
+<article
+  class="p-2 border bg-white border-gray-100 shadow-md rounded-lg relative aspect-[2/3]"
+  (click)="clickable ? onEmitExercise() : null"
+>
   <!-- Delete icon -->
   <button
     *ngIf="editable"
@@ -18,6 +21,6 @@
   <!-- Card-Content -->
   <div class="py-3 space-y-2">
     <p data-testId="exercise-category" class="text-gray-700 h-6 max-h-6">{{ exercise.category | truncate: 10 }}</p>
-    <h3 data-testId="exercise-name" class="text-xl font-bold h-16 overflow-hidden">{{ exercise.name | truncate:28 }}</h3>
+    <h3 data-testId="exercise-name" class="text-xl font-bold h-14 overflow-hidden">{{ exercise.name | truncate:28 }}</h3>
   </div>
 </article>

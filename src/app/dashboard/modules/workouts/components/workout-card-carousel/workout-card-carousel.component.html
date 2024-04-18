@@ -5,42 +5,57 @@
 
 <!-- IF-EXERCISES LOADED -->
 <ng-container *ngIf="exercises; else loading">
+  <div class="rounded-3xl bg-slate-100 shadow-inner">
 
-  <!-- IF: show-list -->
-  <ng-container *ngIf="exercises.length <= 6; else showCarousel">
-    <div class="rounded-3xl py-8 px-12 pb-12 bg-slate-100 shadow-inner">
-      <div class="flex flex-row">
-        <!-- <div class="w-1/6"> -->
-          <exercise-card
-            *ngFor="let exercise of exercises"
-            class="exercise-card w-1/6"
-            [editable]="editableCards"
-            [exercise]="exercise"
-          ></exercise-card>
-        <!-- </div> -->
-      </div>
-    </div>
-  </ng-container>
+    <!-- IF: show-list -->
+    <ng-container *ngIf="exercises.length <= 6; else showCarousel">
+      <div class="py-8 px-12 pb-12 ">
+        <div class="flex flex-row">
 
-  <!-- ELSE: show-carousel -->
-  <ng-template #showCarousel>
-    <div class="rounded-3xl pt-8 bg-slate-100 shadow-inner">
-      <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-        <ng-template let-exercise pTemplate="item">
-
-          <!-- <div class="max-w-56 3xl:max-w-max"> -->
+          <ng-container *ngIf="exercises.length !== 0; else noExercises">
             <exercise-card
-              class="exercise-card"
-              [editable]="editableCards"
+              *ngFor="let exercise of exercises"
+              class="exercise-card w-1/6"
               [exercise]="exercise"
+              [editable]="editableCards"
+              [clickable]="clickableCards"
+              (emitExercise)="onEmitExercise($event)"
             ></exercise-card>
-          <!-- </div> -->
+          </ng-container>
 
-        </ng-template>
-      </p-carousel>
-    </div>
-  </ng-template>
+          <ng-template #noExercises>
+            <div class="w-full relative">
+              <div class="w-1/6 aspect-[2/3] -mb-[26px] relative"></div>
+              <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                No hay ejercicios disponibles
+              </span>
+            </div>
+          </ng-template>
 
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- ELSE: show-carousel -->
+    <ng-template #showCarousel>
+      <div class="pt-8">
+        <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+          <ng-template let-exercise pTemplate="item">
+
+              <exercise-card
+                class="exercise-card"
+                [exercise]="exercise"
+                [editable]="editableCards"
+                [clickable]="clickableCards"
+                (emitExercise)="onEmitExercise($event)"
+              ></exercise-card>
+
+          </ng-template>
+        </p-carousel>
+      </div>
+    </ng-template>
+
+  </div>
 </ng-container>
 
 <style>

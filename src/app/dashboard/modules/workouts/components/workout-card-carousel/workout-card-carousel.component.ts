@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
 interface ResponsiveOptions {
@@ -15,6 +15,8 @@ export class WorkoutCardCarouselComponent {
 
   @Input() exercises?: Exercise[];
   @Input() editableCards?: boolean = false;
+  @Input() clickableCards?: boolean = false;
+  @Output() emitExercise: EventEmitter<Exercise> = new EventEmitter();
 
   public responsiveOptions!: ResponsiveOptions[];
 
@@ -31,6 +33,11 @@ export class WorkoutCardCarouselComponent {
         numScroll: 1
       }
     ];
+  }
+
+  public onEmitExercise(exercise: Exercise) {
+    if( !this.clickableCards ) return;
+    this.emitExercise.emit(exercise);
   }
 
 }

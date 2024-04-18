@@ -1,31 +1,30 @@
 import { Injectable } from '@angular/core';
 
 import { Exercise, Category } from '../../interfaces/exercise.interface';
-import { BehaviorSubject, Observable, filter, map, take } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-//TODO: Refactorizar todo esto
 @Injectable({providedIn: 'root'})
 export class ExerciseStoreService {
 
   private exercisesStore: Exercise[] = [];
   private currentExercises$: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>(this.exercisesStore);
 
-  public initializeStore( exercises: Exercise[] ) {
+  public initializeStore( exercises: Exercise[] ): void {
     this.setExercisesStore( exercises );
     this.setCurrentExercises( exercises );
   }
 
   // SETTERS ---
-  public setExercisesStore(exercises: Exercise[]) {
+  private setExercisesStore(exercises: Exercise[]): void {
     this.exercisesStore = exercises;
   }
 
-  public setCurrentExercisesAllExercises() {
-    this.currentExercises$.next(this.exercisesStore);
+  public setCurrentExercises(exercises: Exercise[]): void {
+    this.currentExercises$.next(exercises);
   }
 
-  public setCurrentExercises(exercises: Exercise[]) {
-    this.currentExercises$.next(exercises);
+  public setCurrentExercisesAllExercises(): void {
+    this.currentExercises$.next(this.exercisesStore);
   }
 
   // GETTERS ---
@@ -58,18 +57,18 @@ export class ExerciseStoreService {
   }
 
   // CRUD ---
-  public addNewExercise(exercise: Exercise) {
+  public addNewExercise(exercise: Exercise): void {
     this.exercisesStore.push(exercise);
     this.currentExercises$.next(this.exercisesStore);
   }
 
-  public updateExercise(exercise: Exercise) {
+  public updateExercise(exercise: Exercise): void {
     const index = this.exercisesStore.findIndex( e => e.id === exercise.id );
     this.exercisesStore[index] = exercise;
     this.currentExercises$.next(this.exercisesStore);
   }
 
-  public deleteExercise(exerciseId: string) {
+  public deleteExercise(exerciseId: string): void {
     this.exercisesStore = this.exercisesStore.filter( e => e.id !== exerciseId );
     this.currentExercises$.next(this.exercisesStore);
   }

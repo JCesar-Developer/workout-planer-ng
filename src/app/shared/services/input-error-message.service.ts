@@ -14,7 +14,7 @@ export interface ErrorMap {
 @Injectable({providedIn: 'root'})
 export class InputErrorMessageService {
 
-  public isValidField( form: FormGroup, field: string ) {
+  public isInvalidField( form: FormGroup, field: string ) {
     return form.controls[field].errors && form.controls[field].touched;
   }
 
