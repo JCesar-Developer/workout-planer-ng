@@ -1,116 +1,53 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { IdGenerator } from '@shared/plugins/uuid.plugin';
-import { WorkoutHttpService } from '../http-services/workout-http.service';
 import { Workout } from '../../interfaces/workout-interface';
 
-
+//TODO: Puedo crear un método que devuelva los ejercicios: EXERCISE, dentro de un workout.
 @Injectable({providedIn: 'root'})
 export class WorkoutStoreService {
 
-  private workouts: Workout[] = [];
-  private currentWorkouts$: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[]>(this.workouts);
+  private workoutsStore: Workout[] = [];
+  private currentWorkouts$: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[]>(this.workoutsStore);
 
   public initializeWorkoutStore( workouts: Workout[] ): void {
-    this.workouts = workouts;
+    this.workoutsStore = workouts;
     this.currentWorkouts$.next(workouts);
   }
 
+  //GETTERS ---
   public get allWorkouts(): Workout[] {
-    return this.workouts;
+    return this.workoutsStore;
   }
 
   public getCurrentWorkouts$(): Observable<Workout[]> {
     return this.currentWorkouts$.asObservable();
   }
 
-  // constructor(
-  //   private workoutHttpService: WorkoutHttpService,
-  // ) {
-  //   this.$workout
-  // }
+  // SETTERS ---
+  public setCurrentWorkouts$( workouts: Workout[] ): void {
+    this.currentWorkouts$.next(workouts);
+  }
 
-  // SEARCH -------------------------------------------------------------------------------------
-  // public getExercisesSuggestions(term: string): Exercise[] {
-  //   if(!term) {
-  //     this.$exercises.next(this.exercises);
-  //     return [];
-  //   }
+  public setCurrentWorkoutAllWorkouts( workout: Workout ): void {
+    this.currentWorkouts$.next( this.workoutsStore );
+  };
 
-  //   const suggestions: Exercise[] = this.exercises.filter( e => e.name.toLowerCase().includes(term.toLowerCase()) );
-  //   this.$exercises.next(suggestions);
-  //   return suggestions;
-  // }
+  // CRUD ---
+  public addNewWorkout( workout: Workout ): void {
+    this.workoutsStore.push(workout);
+    this.currentWorkouts$.next(this.workoutsStore);
+  }
 
-  // public getExerciseCategories(): Category[] {
-  //   return Object.values(Category);
-  // }
+  public updateWorkout( workout: Workout ): void {
+    const index = this.workoutsStore.findIndex( w => w.id === workout.id );
+    this.workoutsStore[index] = workout;
+    this.currentWorkouts$.next(this.workoutsStore);
+  }
 
-  // public filterExercisesByCategory(category: string): void {
-  //   if(this.currentCategory === category) return;
-
-  //   if(category === Category.ALL) {
-  //     this.currentCategory = Category.ALL;
-  //     this.$exercises.next(this.exercises);
-  //     return;
-  //   }
-
-  //   const filteredExercises = this.exercises.filter( e => e.category === category );
-  //   this.currentCategory = category;
-  //   this.$exercises.next(filteredExercises);
-  // }
-
-  // CRUD -------------------------------------------------------------------------------------
-  // public getAll(): Observable<Workout[]> {
-  //   if( this.workouts.length === 0 ) {
-  //     this.getHttpWorkouts();
-  //   }
-
-  //   return this.$workout.asObservable();
-  // }
-
-  // private getHttpWorkouts(): void {
-  //   this.workoutHttpService.getAll()
-  //     .subscribe( workouts => {
-  //       this.workouts = workouts;
-  //       this.$workout.next(workouts)
-  //     });
-  // }
-
-  // public save(exercise: Workout): Observable<boolean> {
-  //   exercise.id = IdGenerator.generateId();
-  //   return this.workoutHttpService.save(exercise).pipe(
-  //     map(() => {
-  //       this.workouts.push(exercise);
-  //       this.$workout.next(this.workouts);
-  //       return true;
-  //     }),
-  //     catchError(() => of(false))
-  //   );
-  // }
-
-  // public update(exercise: Workout): Observable<boolean> {
-  //   return this.workoutHttpService.update(exercise).pipe(
-  //     map(() => {
-  //       const index = this.workouts.findIndex( e => e.id === exercise.id );
-  //       this.workouts[index] = exercise;
-  //       this.$workout.next(this.workouts);
-  //       return true;
-  //     }),
-  //     catchError(() => of(false))
-  //   );
-  // }
-
-  // public delete(exerciseId: string): Observable<boolean> {
-  //   return this.workoutHttpService.delete(exerciseId).pipe(
-  //     map(() => {
-  //       this.workouts = this.workouts.filter( e => e.id !== exerciseId );
-  //       this.$workout.next(this.workouts);
-  //       return true;
-  //     }),
-  //     catchError(() => of(false))
-  //   );
-  // }
+  public deleteWorkout( workoutId: string ): void {
+    this.workoutsStore = this.workoutsStore.filter( w => w.id !== workoutId );
+    this.currentWorkouts$.next(this.workoutsStore);
+  }
 
 }

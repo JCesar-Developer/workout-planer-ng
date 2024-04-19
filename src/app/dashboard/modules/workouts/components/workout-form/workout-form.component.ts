@@ -5,6 +5,10 @@ import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { InputErrorMessageService } from '@shared/services/input-error-message.service';
 import { MessageService } from 'primeng/api';
+import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
+import { WorkoutStoreService } from '@dashboard/shared/services/store-services/workout-store.service';
 
 @Component({
   selector: 'workout-form',
@@ -15,12 +19,19 @@ export class WorkoutFormComponent implements OnInit {
   public form!: FormGroup;
   public exercises: Exercise[] = [];
 
+  public formActions: WorkoutFormActions;
+
   constructor(
+    private ref: DynamicDialogRef,
     private fb: FormBuilder,
     private customValidator: CustomValidatorsService,
     private inputErrorMessages: InputErrorMessageService,
     private messageService: MessageService,
-  ) { }
+    private workoutHttp: WorkoutHttpService,
+    private workoutStore: WorkoutStoreService,
+  ) {
+    this.formActions = new WorkoutFormActions( this.workoutHttp, this.workoutStore, this.messageService, this.ref );
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -42,7 +53,7 @@ export class WorkoutFormComponent implements OnInit {
     return this.inputErrorMessages.isInvalidField(this.form, field);
   }
 
-  public onAddNewExercise( exercise: Exercise ): void {
+  public onAddExerciseToForm( exercise: Exercise ): void {
     this.exercises.push( exercise );
     this.categorizedExercises.push(
       this.fb.group({
@@ -76,11 +87,14 @@ export class WorkoutFormComponent implements OnInit {
       return;
     }
 
+    //UPDATE
+    if( this.form.get('id')?.value ) {
+      this.formActions.update( this.form.value );
+      return;
+    }
 
-  }
-
-  public onDelete(modelId: string | number): void {
-    throw new Error('Method not implemented.');
+    //SAVE
+    this.formActions.save( this.form.value );
   }
 
 }

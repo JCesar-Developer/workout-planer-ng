@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
-import { FormHandlerService } from '@shared/services/form-handler.service';
+import { FormCreator } from '@shared/helpers/form-creator.helper';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import { ExerciseFormConfig } from '../../helpers/exercise-form-config.helper';
+import { ExerciseFormConfigurator } from '../../helpers/exercise-form-config.helper';
 
-import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -13,23 +12,23 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class ExerciseOpenFormBtnComponent {
 
-  private formHandler: FormHandlerService;
-  private exerciseFormConfig?: ExerciseFormConfig;
+  private formCreator?: FormCreator;
+  private formConfigurator?: ExerciseFormConfigurator;
 
   constructor(
-    private messageService: MessageService,
     private dialogService: DialogService,
   ) {
-    this.formHandler = new FormHandlerService( dialogService, messageService, ExerciseFormComponent);
   }
 
   ngOnInit(): void {
-    this.exerciseFormConfig = new ExerciseFormConfig();
+    this.formCreator = new FormCreator( this.dialogService, ExerciseFormComponent);
+    this.formConfigurator = new ExerciseFormConfigurator();
   }
 
-  public onOpenExerciseForm(): void {
-    if (!this.exerciseFormConfig) return;
-    this.formHandler.openForm( this.exerciseFormConfig.formConfig );
+  public onOpenForm(): void {
+    if (this.formCreator && this.formConfigurator) {
+      this.formCreator.openForm(this.formConfigurator.config);
+    }
   }
 
 }

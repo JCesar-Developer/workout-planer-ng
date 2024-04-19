@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
-import { FormHandlerService } from '@shared/services/form-handler.service';
+import { FormCreator } from '@shared/helpers/form-creator.helper';
 import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
 
-import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ExerciseFormConfig } from '@dashboard/modules/exercises/helpers/exercise-form-config.helper';
+import { ExerciseFormConfigurator } from '@dashboard/modules/exercises/helpers/exercise-form-config.helper';
 
 @Component({
   selector: 'exercise-card',
@@ -19,23 +18,20 @@ export class ExerciseCardComponent implements OnInit {
   @Input() public clickable?: boolean = false;
   @Output() public emitExercise: EventEmitter<Exercise> = new EventEmitter();
 
-  private formHandler: FormHandlerService;
-  private exerciseFormConfig?: ExerciseFormConfig;
+  private formCreator?: FormCreator;
+  private formConfigurator?: ExerciseFormConfigurator;
 
-  constructor(
-    private messageService: MessageService,
-    private dialogService: DialogService,
-  ){
-    this.formHandler = new FormHandlerService(dialogService, messageService, ExerciseFormComponent);
-  }
+  constructor( private dialogService: DialogService ){}
 
   ngOnInit(): void {
-    this.exerciseFormConfig = new ExerciseFormConfig(this.exercise);
+    this.formConfigurator = new ExerciseFormConfigurator(this.exercise);
+    this.formCreator = new FormCreator( this.dialogService, ExerciseFormComponent);
   }
 
-  public onOpenExerciseForm() {
-    if (!this.exerciseFormConfig) return;
-    this.formHandler.openForm( this.exerciseFormConfig.formConfig );
+  public onOpenForm() {
+    if (this.formCreator && this.formConfigurator) {
+      this.formCreator.openForm(this.formConfigurator.config);
+    }
   }
 
   onEmitExercise() {

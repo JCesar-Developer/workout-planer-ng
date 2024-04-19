@@ -3,7 +3,7 @@ export interface Workout {
   id: string;
   name: string;
   duration: number;
-  exercises: CategorizedExercise[];
+  categorizedExercises: CategorizedExercise[];
 }
 
 export interface CategorizedExercise {

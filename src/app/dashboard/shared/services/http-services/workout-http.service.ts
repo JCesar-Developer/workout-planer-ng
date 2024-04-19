@@ -22,9 +22,7 @@ export class WorkoutHttpService implements IHttpService<Workout> {
   public save( workout: Workout ): Observable<boolean> {
     return this.http.post<Workout>(`${ this.baseUrl }/workouts`, workout)
       .pipe(
-        map(() => {
-          return true;
-        }),
+        map(() => true ),
         catchError(() => of(false))
       );
   }
@@ -33,9 +31,7 @@ export class WorkoutHttpService implements IHttpService<Workout> {
   public update( workout: Workout ): Observable<boolean> {
     return this.http.put<Workout>(`${ this.baseUrl }/workouts/${ workout.id }`, workout)
       .pipe(
-        map(() => {
-          return true;
-        }),
+        map(() => true ),
         catchError(() => of(false))
       );
   }
@@ -44,9 +40,7 @@ export class WorkoutHttpService implements IHttpService<Workout> {
   public delete( workoutId: string ): Observable<boolean> {
     return this.http.delete<Workout>(`${ this.baseUrl }/workouts/${ workoutId }`)
       .pipe(
-        map(() => {
-          return true;
-        }),
+        map(() => true ),
         catchError(() => of(false))
       );
   }

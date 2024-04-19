@@ -10,6 +10,7 @@ import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.he
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
+import { MessageService } from 'primeng/api';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
@@ -37,16 +38,17 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   private $altImg?: Subscription;
 
   constructor(
-    private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
     private exerciseHttp: ExerciseHttpService,
     private exerciseStore: ExerciseStoreService,
+    private fb: FormBuilder,
     private inputErrorMessages: InputErrorMessageService,
+    private ref: DynamicDialogRef,
+    private messageService: MessageService,
   ) {
     this.categories = Object.values(Category);
-    this.formActions = new ExerciseFormActions( ref, this.exerciseHttp, this.exerciseStore );
+    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStore, this.messageService, this.ref );
   }
 
   ngOnInit(): void {

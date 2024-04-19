@@ -1,15 +1,17 @@
+import { tap } from "rxjs"
+import { DynamicDialogRef } from "primeng/dynamicdialog"
+
 import { Exercise } from "@dashboard/shared/interfaces/exercise.interface"
 import { ExerciseHttpService } from "@dashboard/shared/services/http-services/exercise-http.service"
 import { ExerciseStoreService } from "@dashboard/shared/services/store-services/exercise-store.service"
-import { DynamicDialogRef } from "primeng/dynamicdialog"
-
-import { tap } from "rxjs"
+import { MessageService } from "primeng/api"
 
 export class ExerciseFormActions {
   constructor(
-    private ref: DynamicDialogRef,
     private exerciseHttp: ExerciseHttpService,
     private exerciseStore: ExerciseStoreService,
+    private messageService: MessageService,
+    private ref?: DynamicDialogRef,
   ) {}
 
   public save( exercise: Exercise ): void {
@@ -17,15 +19,10 @@ export class ExerciseFormActions {
       tap(success => {
         if( success ){
           this.exerciseStore.addNewExercise(exercise);
-          this.ref.close({
-            status: 'success',
-            message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" creado con éxito` },
-          })
+          if( this.ref ) this.ref.close();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" creado con éxito` });
         }
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al crear el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
+        else this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' });
       })
     ).subscribe()
   }
@@ -35,15 +32,10 @@ export class ExerciseFormActions {
       tap(success => {
         if( success ) {
           this.exerciseStore.updateExercise(exercise);
-          this.ref.close({
-            status: 'success',
-            message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` },
-          })
+          if( this.ref ) this.ref.close();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Ejercicio "${ exercise.name }" actualizado con éxito` });
         }
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al actualizar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
+        else this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al actualizar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' });
       })
     ).subscribe()
 
@@ -54,15 +46,10 @@ export class ExerciseFormActions {
       tap(success => {
         if( success ){
           this.exerciseStore.deleteExercise(exerciseId);
-          this.ref.close({
-            status: 'success',
-            message: { severity: 'success', summary: 'Success', detail: `Ejercicio "${ exerciseName }" eliminado con éxito` },
-          })
+          if( this.ref ) this.ref.close();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: `Ejercicio "${ exerciseName }" eliminado con éxito` });
         }
-        else this.ref.close({
-          status: 'error',
-          message: { severity: 'error', summary: 'Error', detail: 'Error al eliminar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' },
-        })
+        else this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al eliminar el ejercicio, porfavor, revise su conexión a internet y vuelva a intentarlo' });
       })
     ).subscribe();
   }

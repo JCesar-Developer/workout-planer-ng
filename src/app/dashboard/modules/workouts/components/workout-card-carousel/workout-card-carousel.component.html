@@ -9,13 +9,13 @@
 
     <!-- IF: show-list -->
     <ng-container *ngIf="exercises.length <= 6; else showCarousel">
-      <div class="py-8 px-12 pb-12 ">
+      <div class="py-8 px-12 pb-12">
         <div class="flex flex-row">
 
           <ng-container *ngIf="exercises.length !== 0; else noExercises">
             <exercise-card
               *ngFor="let exercise of exercises"
-              class="exercise-card w-1/6"
+              class="exercise-card exercise-card__no-carousel w-1/6"
               [exercise]="exercise"
               [editable]="editableCards"
               [clickable]="clickableCards"
@@ -75,6 +75,12 @@
     @media (max-width: 1440px) {
       font-size: 14px;
     }
+  }
+}
+
+@media( min-width: 1921px ) {
+  .exercise-card.exercise-card__no-carousel {
+    width: 14.28%;
   }
 }
 </style>

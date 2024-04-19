@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormHandlerService } from '@shared/services/form-handler.service';
+import { FormCreator } from '@shared/helpers/form-creator.helper';
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 
-import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { WorkoutFormConfig } from '../../helpers/workout-form.config';
+import { WorkoutFormConfigurator } from '../../helpers/workout-form-config.helper';
 
 @Component({
   selector: 'workout-open-form-btn',
@@ -13,23 +12,20 @@ import { WorkoutFormConfig } from '../../helpers/workout-form.config';
 })
 export class WorkoutOpenFormBtnComponent implements OnInit {
 
-  private formHandler: FormHandlerService;
-  private workoutFormConfig?: WorkoutFormConfig;
+  private formCreator?: FormCreator;
+  private formConfigurator?: WorkoutFormConfigurator;
 
-  constructor(
-    private messageService: MessageService,
-    private dialogService: DialogService,
-  ) {
-    this.formHandler = new FormHandlerService( dialogService, messageService, WorkoutFormComponent );
-  }
+  constructor( private dialogService: DialogService ) {}
 
   ngOnInit(): void {
-    this.workoutFormConfig = new WorkoutFormConfig();
+    this.formCreator = new FormCreator( this.dialogService, WorkoutFormComponent );
+    this.formConfigurator = new WorkoutFormConfigurator();
   }
 
   public onOpenForm(): void {
-    if( !this.workoutFormConfig ) return;
-    this.formHandler.openForm( this.workoutFormConfig.formConfig );
+    if (this.formCreator && this.formConfigurator) {
+      this.formCreator.openForm(this.formConfigurator.config);
+    }
   }
 
 }

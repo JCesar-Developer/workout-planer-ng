@@ -2,16 +2,16 @@
   "exercises": [
     {
       "id": "1",
-      "name": "Exercise1",
-      "category": "Pecho",
+      "name": "Lunge con Mancuernas",
       "image": "./assets/images/exercises/exercise-1.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
       "id": "2",
-      "name": "Exercise2",
-      "category": "Piernas",
+      "name": "Elevación frontal en polea baja",
       "image": "./assets/images/exercises/exercise-2.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {
@@ -23,23 +23,23 @@
     },
     {
       "id": "4",
-      "name": "Exercise4",
-      "category": "Core",
+      "name": "Sentadilla con mancuerna",
       "image": "./assets/images/exercises/exercise-4.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
       "id": "5",
-      "name": "Exercise5",
-      "category": "Core",
+      "name": "Estiramiento de cuadriceps recostado",
       "image": "./assets/images/exercises/exercise-5.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
       "id": "6",
-      "name": "Exercise6",
-      "category": "Core",
+      "name": "Exercise6A",
       "image": "./assets/images/exercises/exercise-6.gif",
+      "category": "Core",
       "alternativeImage": null
     },
     {
@@ -58,115 +58,140 @@
     },
     {
       "id": "9",
-      "name": "Exercise9",
-      "category": "Piernas",
+      "name": "Elevación frontal con rotación de barra",
       "image": "./assets/images/exercises/exercise-9.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {
       "id": "10",
-      "name": "Exercise10",
-      "category": "Core",
+      "name": "Flexiones de triceps de rodillas",
       "image": "./assets/images/exercises/exercise-10.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {
       "id": "11",
-      "name": "Exercise11",
-      "category": "Core",
+      "name": "Zancada trasera",
       "image": "./assets/images/exercises/exercise-11.gif",
+      "category": "Piernas",
       "alternativeImage": null
     },
     {
       "id": "12",
-      "name": "Exercise12",
-      "category": "Core",
+      "name": "Sentadilla con mancuernas",
       "image": "./assets/images/exercises/exercise-12.gif",
+      "category": "Piernas",
       "alternativeImage": null
+    },
+    {
+      "id": "14",
+      "name": "Elevaciones laterales en Polea Baja",
+      "image": null,
+      "category": "Pecho",
+      "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/12/Elevaciones-laterales-en-polea.webp"
+    },
+    {
+      "id": "15",
+      "name": "Press plano con barra en Banco",
+      "image": null,
+      "category": "Pecho",
+      "alternativeImage": "https://eresfitness.com/wp-content/uploads/2020/04/Press-de-banca-plano-con-barra.webp"
+    },
+    {
+      "id": "16",
+      "name": "Sentadilla con Barra",
+      "image": null,
+      "category": "Piernas",
+      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/sentadilla-completa-con-barra-init-pos-5075.png"
+    },
+    {
+      "id": "17",
+      "name": "Jalón al Pecho en Polea Alta",
+      "image": null,
+      "category": "Espalda",
+      "alternativeImage": "https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/jalon-polea-alta-al-pecho-agarre-ancho-init-pos-5431.png"
+    },
+    {
+      "id": "ccf0954a-dfae-4ad7-bda5-39a91954caf7",
+      "name": "Dominadas supinas",
+      "image": null,
+      "category": "Espalda",
+      "alternativeImage": "https://i.blogs.es/d9578d/dominadas/1366_2000.jpg"
     }
   ],
   "workouts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Pecho",
       "duration": "120",
       "exercises": [
         {
-          "id": "1",
-          "name": "Exercise1",
-          "category": "Pecho",
-          "image": "./assets/images/exercises/exercise-1.gif",
-          "alternativeImage": null
+          "exerciseId": "1",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         },
         {
-          "id": "2",
-          "name": "Exercise2",
-          "category": "Piernas",
-          "image": "./assets/images/exercises/exercise-2.gif",
-          "alternativeImage": null
-        },
-        {
-          "id": "3",
-          "name": "Exercise3",
-          "category": "Core",
-          "image": "./assets/images/exercises/exercise-3.gif",
-          "alternativeImage": null
+          "exerciseId": "2",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         }
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Piernas",
       "duration": "115",
       "exercises": [
         {
-          "id": "4",
-          "name": "Exercise4",
-          "category": "Core",
-          "image": "./assets/images/exercises/exercise-4.gif",
-          "alternativeImage": null
+          "exerciseId": "3",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         },
         {
-          "id": "5",
-          "name": "Exercise5",
-          "category": "Core",
-          "image": "./assets/images/exercises/exercise-5.gif",
-          "alternativeImage": null
+          "exerciseId": "4",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         },
         {
-          "id": "6",
-          "name": "Exercise6",
-          "category": "Core",
-          "image": "./assets/images/exercises/exercise-6.gif",
-          "alternativeImage": null
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Core",
-      "duration": "110",
-      "exercises": [
-        {
-          "id": "7",
-          "name": "Exercise7",
-          "category": "Core",
-          "image": "./assets/images/exercises/exercise-7.gif",
-          "alternativeImage": null
+          "exerciseId": "5",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         },
         {
-          "id": "8",
-          "name": "Exercise8",
-          "category": "Pecho",
-          "image": "./assets/images/exercises/exercise-8.gif",
-          "alternativeImage": null
+          "exerciseId": "6",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         },
         {
-          "id": "9",
-          "name": "Exercise9",
-          "category": "Piernas",
-          "image": "./assets/images/exercises/exercise-9.gif",
-          "alternativeImage": null
+          "exerciseId": "7",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "8",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "9",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "10",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
         }
       ]
     }

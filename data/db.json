@@ -125,7 +125,7 @@
       "id": "1",
       "name": "Pecho",
       "duration": "120",
-      "exercises": [
+      "categorizedExercises": [
         {
           "exerciseId": "1",
           "sets": 3,
@@ -144,7 +144,7 @@
       "id": "2",
       "name": "Piernas",
       "duration": "115",
-      "exercises": [
+      "categorizedExercises": [
         {
           "exerciseId": "3",
           "sets": 3,
