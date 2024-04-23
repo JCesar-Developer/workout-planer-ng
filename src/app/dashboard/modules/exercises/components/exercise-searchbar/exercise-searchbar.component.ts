@@ -22,13 +22,13 @@ export class ExerciseSearchbarComponent {
 
     this.suggestedExercises = this.getExerciseSuggestions(query);
 
-    if( this.suggestedExercises.length === 0 ) this.exerciseStore.setCurrentExercises([]);
-    else this.exerciseStore.setCurrentExercises( this.suggestedExercises );
+    if( this.suggestedExercises.length === 0 ) this.exerciseStore.setStoreExercises([]);
+    else this.exerciseStore.setStoreExercises( this.suggestedExercises );
   }
 
   public onSelectSuggestion({ name } : { name: string }): void {
     this.suggestedExercises = this.getExerciseSuggestions(name);
-    this.exerciseStore.setCurrentExercises( this.suggestedExercises );
+    this.exerciseStore.setStoreExercises( this.suggestedExercises );
   }
 
   private getExerciseSuggestions(term: string): Exercise[] {

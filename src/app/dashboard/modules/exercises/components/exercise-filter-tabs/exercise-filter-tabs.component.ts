@@ -25,7 +25,7 @@ export class ExerciseFilterTabsComponent {
       this.exerciseStore.setCurrentExercisesAllExercises();
     else {
       const filteredExercises = this.exerciseStore.getExercisesByCategory( category );
-      this.exerciseStore.setCurrentExercises( filteredExercises );
+      this.exerciseStore.setStoreExercises( filteredExercises );
     }
   }
 }

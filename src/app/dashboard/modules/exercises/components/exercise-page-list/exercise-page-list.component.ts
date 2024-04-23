@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
+
+import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,10 +14,12 @@ export class ExercisePageListComponent implements OnDestroy {
   public $exercises: Subscription;
 
   constructor(
-    private exercisesStore: ExerciseStoreService,
+    private exerciseStore: ExerciseStoreService,
   ) {
-    this.$exercises = this.exercisesStore.getCurrentExercises$()
-      .subscribe( exercises => this.exercises = exercises );
+    this.$exercises = this.exerciseStore.exercises$
+      .subscribe( exercises => {
+        this.exercises = exercises
+      });
   }
 
   ngOnDestroy(): void {

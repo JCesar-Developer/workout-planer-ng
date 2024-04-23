@@ -25,12 +25,13 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
   private filterControlSubs$?: Subscription;
 
   constructor(
+    // private store: Store,
     private exerciseStore: ExerciseStoreService,
   ) {
     this.categories = Object.values(Category);
     this.exerciseStore.setCurrentExercisesAllExercises();
-    this.exerciseSubs$ = this.exerciseStore.getCurrentExercises$()
-      .subscribe((exercises) => {
+    this.exerciseSubs$ = this.exerciseStore.exercises$
+      .subscribe( exercises => {
         this.filteredExercises = exercises;
       });
   }
@@ -89,13 +90,13 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
           break;
       }
 
-      this.exerciseStore.setCurrentExercises(filteredExercises);
+      this.exerciseStore.setStoreExercises(filteredExercises);
       return;
     }
 
     if(name) {
       filteredExercises = this.exerciseStore.getExercisesByName(name);
-      this.exerciseStore.setCurrentExercises(filteredExercises);
+      this.exerciseStore.setStoreExercises(filteredExercises);
       return;
     }
 
@@ -106,7 +107,7 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
       }
       else {
         filteredExercises = this.exerciseStore.getExercisesByCategory(category);
-        this.exerciseStore.setCurrentExercises(filteredExercises);
+        this.exerciseStore.setStoreExercises(filteredExercises);
         return;
       }
     }

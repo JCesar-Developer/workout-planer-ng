@@ -1,81 +1,84 @@
 import { Injectable } from '@angular/core';
 
-import { ExerciseStore } from '@/dashboard/store/exercise.store';
+import { Store } from '@/dashboard/store/dashboard.store';
 import { Exercise, Category } from '../../models/exercise.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class ExerciseStoreService {
 
-  private exercisesStore: Exercise[] = [];
-  // private currentExercises$: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>(this.exercisesStore);
+  private allExercises: Exercise[] = [];
 
-  constructor(
-    private exerciseStore: ExerciseStore,
-  ) {}
+  constructor( private store: Store ) {}
 
   public initializeStore( exercises: Exercise[] ): void {
-    this.setExercisesStore( exercises );
-    this.setCurrentExercises( exercises );
-  }
-
-  // SETTERS ---
-  private setExercisesStore(exercises: Exercise[]): void {
-    this.exercisesStore = exercises;
-  }
-
-  public setCurrentExercises(exercises: Exercise[]): void {
-    this.exerciseStore.currentExercises$.next(exercises);
-  }
-
-  public setCurrentExercisesAllExercises(): void {
-    this.exerciseStore.currentExercises$.next(this.exercisesStore);
+    this.setAllExercises( exercises );
+    this.setStoreExercises( exercises );
   }
 
   // GETTERS ---
-  public getCurrentExercises$(): Observable<Exercise[]> {
-    return this.exerciseStore.currentExercises$.asObservable();
-  }
-
-  public get allExercises(): Exercise[] {
-    return this.exercisesStore;
+  public get exercises$(): Observable<Exercise[]> {
+    return this.store.state$.pipe(
+      map( state => state.exercises )
+    );
   }
 
   public getExerciseById(exerciseId: string): Exercise {
-    return this.exercisesStore.find( e => e.id === exerciseId )!;
+    return this.allExercises.find( e => e.id === exerciseId )!;
   }
 
   public getExercisesById(exerciseIds: string[]): Exercise[] {
-    return this.exercisesStore.filter(e => exerciseIds.includes(e.id));
+    return this.allExercises.filter(e => exerciseIds.includes(e.id));
   }
 
   public getExercisesByName(name: string): Exercise[] {
-    return this.exercisesStore.filter( e => e.name.toLowerCase().includes(name.toLowerCase()) );
+    return this.allExercises.filter( e => e.name.toLowerCase().includes(name.toLowerCase()) );
   }
 
   public getExercisesByCategory(category: Category): Exercise[] {
-    return this.exercisesStore.filter( e => e.category === category );
+    return this.allExercises.filter( e => e.category === category );
   }
 
   public getExercisesByNameAndCategory(name: string, category: Category): Exercise[] {
     return this.getExercisesByName(name).filter( e => e.category === category );
   }
 
-  // CRUD ---
+  // STORE ACTIONS ---
+  private setAllExercises(exercises: Exercise[]): void {
+    this.allExercises = exercises;
+  }
+
+  public setStoreExercises(exercises: Exercise[]): void {
+    const currentState = this.store.getState();
+    this.store.setState({ ...currentState, exercises });
+  }
+
+  public setCurrentExercisesAllExercises(): void {
+    const currentState = this.store.getState();
+    this.store.setState({ ...currentState, exercises: this.allExercises });
+  }
+
+  // CRUD ACTIONS ---
   public addNewExercise(exercise: Exercise): void {
-    this.exercisesStore.push(exercise);
-    this.exerciseStore.currentExercises$.next(this.exercisesStore);
+    const currentState = this.store.getState();
+
+    this.allExercises.push(exercise);
+    this.store.setState({ ...currentState, exercises: this.allExercises });
   }
 
   public updateExercise(exercise: Exercise): void {
-    const index = this.exercisesStore.findIndex( e => e.id === exercise.id );
-    this.exercisesStore[index] = exercise;
-    this.exerciseStore.currentExercises$.next(this.exercisesStore);
+    const index = this.allExercises.findIndex( e => e.id === exercise.id );
+    const currentState = this.store.getState();
+
+    this.allExercises[index] = exercise;
+    this.store.setState({ ...currentState, exercises: this.allExercises});
   }
 
   public deleteExercise(exerciseId: string): void {
-    this.exercisesStore = this.exercisesStore.filter( e => e.id !== exerciseId );
-    this.exerciseStore.currentExercises$.next(this.exercisesStore);
+    const currentState = this.store.getState();
+
+    this.allExercises = this.allExercises.filter( e => e.id !== exerciseId );
+    this.store.setState({ ...currentState, exercises: this.allExercises});
   }
 
 }
