@@ -3,6 +3,7 @@ import { ExerciseHttpService } from '@dashboard/shared/services/http-services/ex
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { WorkoutStoreService } from '@dashboard/shared/services/store-services/workout-store.service';
+import { ExerciseStore } from '@/dashboard/store/exercise.store';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -10,12 +11,13 @@ import { WorkoutStoreService } from '@dashboard/shared/services/store-services/w
 })
 export class DashboardLayoutComponent implements OnInit {
 
+
   constructor(
     private exerciseStore: ExerciseStoreService,
     private exerciseHttp: ExerciseHttpService,
     private workoutStore: WorkoutStoreService,
     private workoutHttp: WorkoutHttpService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initializeExerciseStore();

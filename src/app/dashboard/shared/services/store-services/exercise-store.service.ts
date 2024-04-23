@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ExerciseStore } from '@/dashboard/store/exercise.store';
 import { Exercise, Category } from '../../models/exercise.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -7,7 +8,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ExerciseStoreService {
 
   private exercisesStore: Exercise[] = [];
-  private currentExercises$: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>(this.exercisesStore);
+  // private currentExercises$: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>(this.exercisesStore);
+
+  constructor(
+    private exerciseStore: ExerciseStore,
+  ) {}
 
   public initializeStore( exercises: Exercise[] ): void {
     this.setExercisesStore( exercises );
@@ -20,16 +25,16 @@ export class ExerciseStoreService {
   }
 
   public setCurrentExercises(exercises: Exercise[]): void {
-    this.currentExercises$.next(exercises);
+    this.exerciseStore.currentExercises$.next(exercises);
   }
 
   public setCurrentExercisesAllExercises(): void {
-    this.currentExercises$.next(this.exercisesStore);
+    this.exerciseStore.currentExercises$.next(this.exercisesStore);
   }
 
   // GETTERS ---
   public getCurrentExercises$(): Observable<Exercise[]> {
-    return this.currentExercises$.asObservable();
+    return this.exerciseStore.currentExercises$.asObservable();
   }
 
   public get allExercises(): Exercise[] {
@@ -59,18 +64,18 @@ export class ExerciseStoreService {
   // CRUD ---
   public addNewExercise(exercise: Exercise): void {
     this.exercisesStore.push(exercise);
-    this.currentExercises$.next(this.exercisesStore);
+    this.exerciseStore.currentExercises$.next(this.exercisesStore);
   }
 
   public updateExercise(exercise: Exercise): void {
     const index = this.exercisesStore.findIndex( e => e.id === exercise.id );
     this.exercisesStore[index] = exercise;
-    this.currentExercises$.next(this.exercisesStore);
+    this.exerciseStore.currentExercises$.next(this.exercisesStore);
   }
 
   public deleteExercise(exerciseId: string): void {
     this.exercisesStore = this.exercisesStore.filter( e => e.id !== exerciseId );
-    this.currentExercises$.next(this.exercisesStore);
+    this.exerciseStore.currentExercises$.next(this.exercisesStore);
   }
 
 }
