@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { Subscription, debounceTime } from 'rxjs';

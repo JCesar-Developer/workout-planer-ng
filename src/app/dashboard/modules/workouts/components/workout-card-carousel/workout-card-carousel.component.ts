@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Exercise } from '@dashboard/shared/models/exercise.interface';
 
 interface ResponsiveOptions {
   breakpoint: string;

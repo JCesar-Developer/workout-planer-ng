@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Workout } from '../../interfaces/workout-interface';
+import { Workout } from '@dashboard/shared/models/workout-interface';
 
-//TODO: Puedo crear un método que devuelva los ejercicios: EXERCISE, dentro de un workout.
 @Injectable({providedIn: 'root'})
 export class WorkoutStoreService {
 

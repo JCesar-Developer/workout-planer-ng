@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IHttpService } from '../../interfaces/http.interface';
+import { HttpServiceInterface } from '../../interfaces/http-service.interface';
 
-import type { Exercise } from '../../interfaces/exercise.interface';
+import type { Exercise } from '../../models/exercise.interface';
 import { environments } from 'src/environments/environments';
 import { Observable, catchError, map, of } from 'rxjs';
 import { IdGenerator } from '@shared/plugins/uuid.plugin';
 
 @Injectable({providedIn: 'root'})
-export class ExerciseHttpService implements IHttpService<Exercise> {
+export class ExerciseHttpService implements HttpServiceInterface<Exercise> {
 
   public baseUrl: string = environments.baseUrl;
 

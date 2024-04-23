@@ -1,4 +1,4 @@
-import { Workout } from "@dashboard/shared/interfaces/workout-interface";
+import { Workout } from "@dashboard/shared/models/workout-interface";
 import { FormConfig } from "@dashboard/shared/interfaces/form-config.interface";
 import { DynamicDialogConfig } from "primeng/dynamicdialog";
 

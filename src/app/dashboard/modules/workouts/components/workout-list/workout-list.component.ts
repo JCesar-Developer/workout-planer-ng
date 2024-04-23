@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 
-import { Workout } from '@dashboard/shared/interfaces/workout-interface';
+import { Workout } from '@dashboard/shared/models/workout-interface';
 import { WorkoutStoreService } from '@dashboard/shared/services/store-services/workout-store.service';
 import { Subscription } from 'rxjs';
 

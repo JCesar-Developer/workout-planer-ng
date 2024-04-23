@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 
 import { environments } from 'src/environments/environments';
-import { IHttpService } from '@dashboard/shared/interfaces/http.interface';
-import { Workout } from '@dashboard/shared/interfaces/workout-interface';
+import { HttpServiceInterface } from '@dashboard/shared/interfaces/http-service.interface';
+import { Workout } from '@dashboard/shared/models/workout-interface';
+import { IdGenerator } from '@shared/plugins/uuid.plugin';
 
 @Injectable({providedIn: 'root'})
-export class WorkoutHttpService implements IHttpService<Workout> {
+export class WorkoutHttpService implements HttpServiceInterface<Workout> {
 
   public baseUrl: string = environments.baseUrl;
 
@@ -20,6 +21,7 @@ export class WorkoutHttpService implements IHttpService<Workout> {
 
   //SAVE
   public save( workout: Workout ): Observable<boolean> {
+    workout.id = IdGenerator.generateId();
     return this.http.post<Workout>(`${ this.baseUrl }/workouts`, workout)
       .pipe(
         map(() => true ),

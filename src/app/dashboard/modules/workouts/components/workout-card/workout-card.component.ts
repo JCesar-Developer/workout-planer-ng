@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
-import { Workout } from '@dashboard/shared/interfaces/workout-interface';
+import { Exercise } from '@dashboard/shared/models/exercise.interface';
+import { Workout } from '@dashboard/shared/models/workout-interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { Subscription } from 'rxjs';
 import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
@@ -43,13 +43,7 @@ export class WorkoutCardComponent {
   }
 
   public onDeleteWorkout(): void {
-    //TODO: Esto debería devolver un observable y emitir un mensaje de éxito o error. EL try catch implementado es falso.
-    try {
-      this.workoutActions.delete( this.workout.id, this.workout.name );
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: `Rutina "${ this.workout.name }" eliminada con éxito` });
-    } catch {
-      console.error('Error al eliminar la rutina');
-    }
+    this.workoutActions.delete( this.workout );
   }
 
 }

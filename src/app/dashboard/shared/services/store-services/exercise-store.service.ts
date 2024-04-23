@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Exercise, Category } from '../../interfaces/exercise.interface';
+import { Exercise, Category } from '../../models/exercise.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})

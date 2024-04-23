@@ -12,7 +12,11 @@
       </label>
 
       <div class="h-5">
-        <span *ngIf="isInvalidField('name')" class="text-red-400">
+        <span
+          *ngIf="isInvalidField('name')"
+          class="text-red-400"
+          data-testId="name-error-message"
+        >
           Este campo es requerido
         </span>
       </div>
@@ -28,7 +32,11 @@
       </label>
 
       <div class="h-5">
-        <span *ngIf="isInvalidField('duration')" class="text-red-400">
+        <span
+          *ngIf="isInvalidField('duration')"
+          class="text-red-400"
+          data-testId="duration-error-message"
+        >
           Este campo es requerido
         </span>
       </div>
@@ -43,7 +51,7 @@
   <!-- FORM-EXERCISE-INPUT -->
   <section *ngIf="exercises.length > 0" class="border border-gray-200 rounded-2xl py-4 px-8 shadow-inner divide-y-2 divide-gray-200" formArrayName="categorizedExercises">
     <article class="flex flex-row items-center px-8 py-4 gap-4"
-      *ngFor="let exercise of categorizedExercises.controls; let i = index"
+      *ngFor="let catExercise of categorizedExercises?.controls; let i = index"
     >
       <ng-container [formGroupName]="i">
         <input type="hidden" formControlName="exerciseId">
@@ -94,7 +102,11 @@
         <p-button label="Cerrar" styleClass="p-button-secondary"></p-button>
       </span>
       <span class="p-fluid w-full">
-        <p-button type="submit" label="Crear Rutina" [disabled]="form.controls['categorizedExercises'].value.length < 2"></p-button>
+        <p-button
+          type="submit"
+          [label]="workoutId ? 'Actualizar Rutina': 'Crear Rutina'"
+          [disabled]="form.controls['categorizedExercises'].value.length < 2"
+        ></p-button>
       </span>
     </div>
   </section>

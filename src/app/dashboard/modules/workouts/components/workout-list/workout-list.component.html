@@ -4,15 +4,19 @@
   </div> -->
 
   <!-- If there're workouts -->
-  <div
+  <ul
+    data-testId="workout-list"
     class="flex flex-col gap-7"
     *ngIf="workouts.length !== 0; else noWorkouts"
   >
-    <workout-card
-      *ngFor="let workout of workouts"
-      [workout]="workout"
-    ></workout-card>
-  </div>
+    <li
+      data-testId="workout-card"
+      *ngFor="let workout of workouts">
+      <workout-card
+        [workout]="workout"
+      ></workout-card>
+    </li>
+  </ul>
 
   <!-- If there aren't workouts -->
   <ng-template #noWorkouts>

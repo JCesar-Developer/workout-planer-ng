@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ExerciseFormComponent  } from '@exercises/components/exercise-form/exercise-form.component';
 import { FormCreator } from '@shared/helpers/form-creator.helper';
-import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Exercise } from '@dashboard/shared/models/exercise.interface';
 
 import { DialogService } from 'primeng/dynamicdialog';
 import { ExerciseFormConfigurator } from '@dashboard/modules/exercises/helpers/exercise-form-config.helper';

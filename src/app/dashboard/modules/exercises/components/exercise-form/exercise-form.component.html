@@ -54,13 +54,23 @@
 
       <!-- Buttons -->
       <div class="flex flex-row justify-between gap-4">
-        <span *ngIf="exerciseId; else closeBtn" class="p-fluid w-full">
-          <p-button (onClick)="onDelete()" styleClass="p-button-danger p-button-sm" label="Eliminar"></p-button>
+        <span *ngIf="currentExercise.id; else closeBtn" class="p-fluid w-full">
+          <p-button
+            styleClass="p-button-danger p-button-sm"
+            data-testId="delete-button"
+            label="Eliminar"
+            (onClick)="onDelete()"
+          ></p-button>
         </span>
 
         <ng-template #closeBtn>
           <span class="p-fluid w-full">
-            <p-button (onClick)="closeDialog()" styleClass="p-button-secondary p-button-sm" label="Cerrar"></p-button>
+            <p-button
+              styleClass="p-button-secondary p-button-sm"
+              data-testId="close-button"
+              label="Cerrar"
+              (onClick)="closeDialog()"
+            ></p-button>
           </span>
         </ng-template>
 
@@ -68,7 +78,7 @@
           <p-button
             type="submit"
             styleClass="p-button-sm"
-            [label]="exerciseId ? 'Actualizar' : 'Crear Ejercicio'"
+            [label]="currentExercise.id ? 'Actualizar' : 'Crear Ejercicio'"
           ></p-button>
         </span>
       </div>

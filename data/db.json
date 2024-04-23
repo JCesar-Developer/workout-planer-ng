@@ -129,11 +129,17 @@
         {
           "exerciseId": "1",
           "sets": 3,
-          "reps": 12,
+          "reps": 11,
           "rest": 60
         },
         {
           "exerciseId": "2",
+          "sets": 3,
+          "reps": 12,
+          "rest": 60
+        },
+        {
+          "exerciseId": "4",
           "sets": 3,
           "reps": 12,
           "rest": 60

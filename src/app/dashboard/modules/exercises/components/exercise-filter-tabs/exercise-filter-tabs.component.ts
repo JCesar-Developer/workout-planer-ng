@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Category } from '@dashboard/shared/interfaces/exercise.interface';
+import { Category } from '@dashboard/shared/models/exercise.interface';
 import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 
 @Component({

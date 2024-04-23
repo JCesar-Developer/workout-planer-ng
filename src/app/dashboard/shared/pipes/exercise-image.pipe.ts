@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Exercise } from '@dashboard/shared/models/exercise.interface';
 
 @Pipe({
   name: 'exerciseImage'

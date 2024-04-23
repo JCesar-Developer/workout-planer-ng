@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { Category, Exercise } from '@dashboard/shared/interfaces/exercise.interface';
+import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { InputErrorMessageService, ErrorMessageMap } from '@shared/services/input-error-message.service'
 import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.helper';
@@ -28,12 +28,11 @@ interface ExerciseForm {
 })
 export class ExerciseFormComponent implements OnInit, OnDestroy {
 
-  public currentExercise: Exercise = {} as Exercise;
-  public categories: Category[];
-  public exerciseId?: string;
-
   public form!: FormGroup<ExerciseForm>;
-  public formActions: ExerciseFormActions;
+  public formActions?: ExerciseFormActions;
+
+  public categories!: Category[];
+  public currentExercise: Exercise = {} as Exercise;
 
   private $altImg?: Subscription;
 
@@ -46,20 +45,16 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private inputErrorMessages: InputErrorMessageService,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
-  ) {
-    this.categories = Object.values(Category);
-    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStore, this.messageService, this.ref );
-  }
+  ) {}
 
+  //LIFECYCLE HOOKS ---
   ngOnInit(): void {
     this.setForm();
+    this.setCategories();
     this.fillFormIfDataExists();
     this.setCurrentExercise();
-
-    this.$altImg = this.form.get('alternativeImage')?.valueChanges
-      .subscribe(() => {
-        Promise.resolve().then(() => this.setCurrentExercise());
-      });
+    this.createFormActions();
+    this.subscribeToAltImgChanges();
   }
 
   ngOnDestroy(): void {
@@ -77,16 +72,30 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     })
   }
 
+  private setCategories(): void {
+    this.categories = Object.values(Category);
+  }
+
   private fillFormIfDataExists(): void {
     if (!this.config.data || !this.config.data.model) return;
 
     const exercise = this.config.data.model;
     this.form.patchValue( exercise );
-    this.exerciseId = exercise.id;
   }
 
   private setCurrentExercise(): void {
     this.currentExercise = this.form.value as Exercise;
+  }
+
+  private createFormActions(): void {
+    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStore, this.messageService, this.ref );
+  }
+
+  private subscribeToAltImgChanges(): void {
+    this.$altImg = this.form.get('alternativeImage')?.valueChanges
+      .subscribe(() => {
+        Promise.resolve().then(() => this.setCurrentExercise());
+      });
   }
 
   //VALIDATIONS ---
@@ -117,17 +126,17 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if( this.exerciseId ) {
-      this.formActions.update( this.currentExercise );
+    if( this.currentExercise.id ) {
+      this.formActions!.update( this.currentExercise );
       return;
     }
 
-    this.formActions.save( this.currentExercise );
+    this.formActions!.save( this.currentExercise );
   }
 
   public onDelete() {
-    if( !this.exerciseId ) return;
-    this.formActions.delete( this.exerciseId, this.currentExercise.name );
+    if( !this.currentExercise.id ) return;
+    this.formActions!.delete( this.currentExercise );
   }
 
   public closeDialog() {
