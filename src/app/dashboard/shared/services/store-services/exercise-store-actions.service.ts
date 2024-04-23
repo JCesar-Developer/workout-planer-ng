@@ -52,10 +52,6 @@ export class ExerciseStoreActionsService {
   }
 
   // SETTERS ---
-  public setAllExercises(exercises: Exercise[]): void {
-    this.allExercisesStore.setState( exercises );
-  }
-
   public setExercisesToRender(exercises: Exercise[]): void {
     this.exerciseToRenderStore.setState( exercises );
   }
@@ -67,23 +63,24 @@ export class ExerciseStoreActionsService {
   // CRUD ACTIONS ---
   public addNewExercise(exercise: Exercise): void {
     this.allExercises.push(exercise);
+
     this.exerciseToRenderStore.setState( this.allExercises );
     this.allExercisesStore.setState( this.allExercises );
   }
 
   public updateExercise(exercise: Exercise): void {
     const index = this.allExercises.findIndex( e => e.id === exercise.id );
-
     this.allExercises[index] = exercise;
+
     this.exerciseToRenderStore.setState( this.allExercises );
     this.allExercisesStore.setState( this.allExercises );
   }
 
   public deleteExercise(exerciseId: string): void {
     this.allExercises.filter( e => e.id !== exerciseId );
+
     this.exerciseToRenderStore.setState( this.allExercises );
     this.allExercisesStore.setState( this.allExercises );
   }
-
 
 }

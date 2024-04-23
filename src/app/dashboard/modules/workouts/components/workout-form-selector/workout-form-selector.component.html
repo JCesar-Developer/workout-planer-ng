@@ -14,6 +14,7 @@
         pInputText
         placeholder="Nombre del ejercicio"
         [formControl]="filterTextControl"
+        (keydown.enter)="$event.preventDefault()"
       />
     </label>
   </div>
@@ -28,10 +29,6 @@
 
 <style>
   workout-card-carousel {
-    /* exercise-card > article {
-      border: solid 1px red;
-    } */
-
     exercise-card > article::after {
       content: "";
       position: absolute;

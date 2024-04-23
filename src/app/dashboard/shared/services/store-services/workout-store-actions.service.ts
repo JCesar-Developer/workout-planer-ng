@@ -31,6 +31,7 @@ export class WorkoutStoreActionsService {
     return this.workoutsToRenderStore.workouts$;
   }
 
+  // SETTERS ---
   public setWorkoutsToRenderAllWorkouts( workout: Workout ): void {
     this.workoutsToRenderStore.setState( this.allWorkouts );
   };
