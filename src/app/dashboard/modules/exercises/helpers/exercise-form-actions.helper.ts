@@ -4,9 +4,10 @@ import { MessageService } from "primeng/api"
 
 import { Exercise } from "@dashboard/shared/models/exercise.interface"
 import { ExerciseHttpService } from "@dashboard/shared/services/http-services/exercise-http.service"
-import { ExerciseStoreService } from "@dashboard/shared/services/store-services/exercise-store.service"
+
 import { FormMessages } from "@dashboard/shared/interfaces/form-messages.interface"
 import { FormActions } from "@dashboard/shared/interfaces/form-action.interface"
+import { ExerciseStoreActionsService } from "@/dashboard/shared/services/store-services/exercise-store-actions.service"
 
 export class ExerciseFormActions extends FormActions<Exercise>{
 
@@ -25,7 +26,7 @@ export class ExerciseFormActions extends FormActions<Exercise>{
 
   constructor(
     private exerciseHttp: ExerciseHttpService,
-    private exerciseStore: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
     messageService: MessageService,
     ref?: DynamicDialogRef,
   ) {
@@ -63,7 +64,7 @@ export class ExerciseFormActions extends FormActions<Exercise>{
       this.messages.success.create,
       this.messages.error.create,
       () => {
-        this.exerciseStore.addNewExercise(exercise)
+        this.exerciseStoreActions.addNewExercise(exercise)
         if( this.ref ) this.ref.close()
       }
     );
@@ -76,7 +77,7 @@ export class ExerciseFormActions extends FormActions<Exercise>{
       this.messages.success.update,
       this.messages.error.update,
       () => {
-        this.exerciseStore.updateExercise(exercise)
+        this.exerciseStoreActions.updateExercise(exercise)
         if( this.ref ) this.ref.close()
       }
     );
@@ -91,7 +92,7 @@ export class ExerciseFormActions extends FormActions<Exercise>{
       this.messages.success.delete,
       this.messages.error.delete,
       () => {
-        this.exerciseStore.deleteExercise(exerciseId)
+        this.exerciseStoreActions.deleteExercise(exerciseId)
         if( this.ref ) this.ref.close()
       }
     );

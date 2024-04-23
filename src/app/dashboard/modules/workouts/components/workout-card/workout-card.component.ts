@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
+
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
 import { Workout } from '@dashboard/shared/models/workout-interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
-import { Subscription } from 'rxjs';
 import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
-import { WorkoutStoreService } from '@dashboard/shared/services/store-services/workout-store.service';
-import { MessageService } from 'primeng/api';
+
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
 
 @Component({
   selector: 'workout-card',
@@ -21,12 +23,12 @@ export class WorkoutCardComponent {
   private workoutActions: WorkoutFormActions;
 
   constructor(
-    private exerciseStoreService: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
     private workoutHttp: WorkoutHttpService,
-    private workoutStore: WorkoutStoreService,
+    private workoutStoreActions: WorkoutStoreActionsService,
     private messageService: MessageService,
   ) {
-    this.workoutActions = new WorkoutFormActions(this.workoutHttp, this.workoutStore, this.messageService);
+    this.workoutActions = new WorkoutFormActions(this.workoutHttp, this.workoutStoreActions, this.messageService);
   }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class WorkoutCardComponent {
 
   private setExercises(): void {
     const exercisesIds: string[] = this.workout.categorizedExercises.map( catEx => catEx.exerciseId );
-    this.exercises = this.exerciseStoreService.getExercisesById( exercisesIds );
+    this.exercises = this.exerciseStoreActions.getExercisesById( exercisesIds );
   }
 
   public onDeleteWorkout(): void {

@@ -9,8 +9,8 @@ import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.he
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { MessageService } from 'primeng/api';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
@@ -40,7 +40,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private customValidators: CustomValidatorsService,
     private exerciseHttp: ExerciseHttpService,
-    private exerciseStore: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
     private fb: FormBuilder,
     private inputErrorMessages: InputErrorMessageService,
     private ref: DynamicDialogRef,
@@ -88,7 +88,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   private createFormActions(): void {
-    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStore, this.messageService, this.ref );
+    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStoreActions, this.messageService, this.ref );
   }
 
   private subscribeToAltImgChanges(): void {

@@ -8,9 +8,9 @@ import { MessageService } from 'primeng/api';
 import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
-import { WorkoutStoreService } from '@dashboard/shared/services/store-services/workout-store.service';
 import { CategorizedExercise, Workout } from '@dashboard/shared/models/workout-interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
 
 @Component({
   selector: 'workout-form',
@@ -34,8 +34,8 @@ export class WorkoutFormComponent implements OnInit {
     private inputErrorMessages: InputErrorMessageService,
     private messageService: MessageService,
     private workoutHttp: WorkoutHttpService,
-    private workoutStore: WorkoutStoreService,
-    private exerciseStore: ExerciseStoreService,
+    private workoutStoreActions: WorkoutStoreActionsService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
   ) {}
 
   //LIFECYCLE HOOKS ---
@@ -84,7 +84,7 @@ export class WorkoutFormComponent implements OnInit {
 
   private setExercises(categorizedExercises: CategorizedExercise[]): void {
     const exercisesIds: string[] = categorizedExercises.map(catEx => catEx.exerciseId);
-    this.exercises = this.exerciseStore.getExercisesById(exercisesIds);
+    this.exercises = this.exerciseStoreActions.getExercisesById(exercisesIds);
   }
 
   private setFormValues(workout: Workout): void {
@@ -111,7 +111,7 @@ export class WorkoutFormComponent implements OnInit {
 
   //FORM METHODS ---
   private createFormActions(): void {
-    this.formActions = new WorkoutFormActions( this.workoutHttp, this.workoutStore, this.messageService, this.ref );
+    this.formActions = new WorkoutFormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, this.ref );
   }
 
   //FORM ARRAY METHODS ---

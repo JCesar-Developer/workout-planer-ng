@@ -4,15 +4,19 @@ import { Injectable } from "@angular/core";
 import { Workout } from "../shared/models/workout-interface";
 
 interface AppState {
-  exercises: Exercise[];
-  workouts: Workout[];
+  allExercises: Exercise[];
+  exercisesToRender: Exercise[];
+  allWorkouts: Workout[];
+  workoutsToRender: Workout[];
 }
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private stateSubject = new BehaviorSubject<AppState>({
-    exercises: [],
-    workouts: [],
+    allExercises: [],
+    exercisesToRender: [],
+    allWorkouts: [],
+    workoutsToRender: [],
   });
 
   public get state$(): Observable<AppState> {

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
-
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 import { Subscription, debounceTime } from 'rxjs';
+
+import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 @Component({
   selector: 'workout-form-selector',
@@ -26,10 +26,10 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
 
   constructor(
     // private store: Store,
-    private exerciseStore: ExerciseStoreService,
+    private exerciseStore: ExerciseStoreActionsService,
   ) {
     this.categories = Object.values(Category);
-    this.exerciseStore.setCurrentExercisesAllExercises();
+    this.exerciseStore.setExercisesToRenderAllExercises();
     this.exerciseSubs$ = this.exerciseStore.exercises$
       .subscribe( exercises => {
         this.filteredExercises = exercises;
@@ -76,7 +76,7 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
     let filteredExercises: Exercise[] = [];
 
     if(!name && !category) {
-      this.exerciseStore.setCurrentExercisesAllExercises();
+      this.exerciseStore.setExercisesToRenderAllExercises();
       return;
     }
 
@@ -90,24 +90,24 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
           break;
       }
 
-      this.exerciseStore.setStoreExercises(filteredExercises);
+      this.exerciseStore.setExercisesToRender(filteredExercises);
       return;
     }
 
     if(name) {
       filteredExercises = this.exerciseStore.getExercisesByName(name);
-      this.exerciseStore.setStoreExercises(filteredExercises);
+      this.exerciseStore.setExercisesToRender(filteredExercises);
       return;
     }
 
     if(category) {
       if( category === Category.ALL ) {
-        this.exerciseStore.setCurrentExercisesAllExercises();
+        this.exerciseStore.setExercisesToRenderAllExercises();
         return;
       }
       else {
         filteredExercises = this.exerciseStore.getExercisesByCategory(category);
-        this.exerciseStore.setStoreExercises(filteredExercises);
+        this.exerciseStore.setExercisesToRender(filteredExercises);
         return;
       }
     }

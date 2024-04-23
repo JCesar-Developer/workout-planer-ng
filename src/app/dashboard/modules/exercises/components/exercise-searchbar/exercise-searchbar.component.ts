@@ -1,6 +1,6 @@
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { Component } from '@angular/core';
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreService } from '@dashboard/shared/services/store-services/exercise-store.service';
 
 @Component({
   selector: 'exercise-searchbar',
@@ -10,25 +10,25 @@ export class ExerciseSearchbarComponent {
   public suggestedExercises: Exercise[] = [];
 
   constructor(
-    private exerciseStore: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
   ) {}
 
   public onRequireSuggestions({ query } : { query: string }): void {
     if( !query ) {
       this.suggestedExercises = [];
-      this.exerciseStore.setCurrentExercisesAllExercises();
+      this.exerciseStoreActions.setExercisesToRenderAllExercises();
       return;
     }
 
     this.suggestedExercises = this.getExerciseSuggestions(query);
 
-    if( this.suggestedExercises.length === 0 ) this.exerciseStore.setStoreExercises([]);
-    else this.exerciseStore.setStoreExercises( this.suggestedExercises );
+    if( this.suggestedExercises.length === 0 ) this.exerciseStoreActions.setExercisesToRender([]);
+    else this.exerciseStoreActions.setExercisesToRender( this.suggestedExercises );
   }
 
   public onSelectSuggestion({ name } : { name: string }): void {
     this.suggestedExercises = this.getExerciseSuggestions(name);
-    this.exerciseStore.setStoreExercises( this.suggestedExercises );
+    this.exerciseStoreActions.setExercisesToRender( this.suggestedExercises );
   }
 
   private getExerciseSuggestions(term: string): Exercise[] {
@@ -36,7 +36,7 @@ export class ExerciseSearchbarComponent {
 
     if(!term) return suggestions;
 
-    suggestions = this.exerciseStore.getExercisesByName(term);
+    suggestions = this.exerciseStoreActions.getExercisesByName(term);
     return suggestions;
   }
 

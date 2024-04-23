@@ -4,7 +4,8 @@ import { MessageService } from "primeng/api";
 
 import { Workout } from "@dashboard/shared/models/workout-interface";
 import { WorkoutHttpService } from "@dashboard/shared/services/http-services/workout-http.service";
-import { WorkoutStoreService } from "@dashboard/shared/services/store-services/workout-store.service";
+import { WorkoutStoreActionsService } from "@/dashboard/shared/services/store-services/workout-store-actions.service";
+
 import { FormMessages } from "@dashboard/shared/interfaces/form-messages.interface";
 import { FormActions } from "@dashboard/shared/interfaces/form-action.interface";
 
@@ -25,7 +26,7 @@ export class WorkoutFormActions extends FormActions<Workout> {
 
   constructor(
     private workoutHttp: WorkoutHttpService,
-    private workoutStore: WorkoutStoreService,
+    private workoutStoreActions: WorkoutStoreActionsService,
     messageService: MessageService,
     ref?: DynamicDialogRef,
   ) {
@@ -63,7 +64,7 @@ export class WorkoutFormActions extends FormActions<Workout> {
       this.messages.success.create,
       this.messages.error.create,
       () => {
-        this.workoutStore.addNewWorkout(workout);
+        this.workoutStoreActions.addNewWorkout(workout);
         if (this.ref) this.ref.close();
       }
     );
@@ -76,7 +77,7 @@ export class WorkoutFormActions extends FormActions<Workout> {
       this.messages.success.update,
       this.messages.error.update,
       () => {
-        this.workoutStore.updateWorkout(workout);
+        this.workoutStoreActions.updateWorkout(workout);
         if (this.ref) this.ref.close();
       }
     );
@@ -91,7 +92,7 @@ export class WorkoutFormActions extends FormActions<Workout> {
       this.messages.success.delete,
       this.messages.error.delete,
       () => {
-        this.workoutStore.deleteWorkout(workoutId);
+        this.workoutStoreActions.deleteWorkout(workoutId);
         if (this.ref) this.ref.close();
       }
     );
