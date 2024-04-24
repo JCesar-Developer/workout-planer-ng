@@ -5,12 +5,14 @@ import { Subscription } from 'rxjs';
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { InputErrorMessageService, ErrorMessageMap } from '@shared/services/input-error-message.service'
-import { ExerciseFormActions } from '@exercises/helpers/exercise-form-actions.helper';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
 import { MessageService } from 'primeng/api';
 import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+
+import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { exerciseToastMessages } from '@exercises/helpers/exercise-toast-messsages.helper';
 
 type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
@@ -29,7 +31,7 @@ interface ExerciseForm {
 export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup<ExerciseForm>;
-  public formActions?: ExerciseFormActions;
+  public formActions?: FormActions<Exercise>;
 
   public categories!: Category[];
   public currentExercise: Exercise = {} as Exercise;
@@ -88,7 +90,13 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   private createFormActions(): void {
-    this.formActions = new ExerciseFormActions( this.exerciseHttp, this.exerciseStoreActions, this.messageService, this.ref );
+    this.formActions = new FormActions<Exercise>(
+      this.exerciseHttp,
+      this.exerciseStoreActions,
+      this.messageService,
+      exerciseToastMessages,
+      this.ref
+    );
   }
 
   private subscribeToAltImgChanges(): void {

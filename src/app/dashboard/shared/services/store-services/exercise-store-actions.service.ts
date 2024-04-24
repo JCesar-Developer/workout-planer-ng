@@ -5,9 +5,10 @@ import { AllExercisesStoreService } from '@dashboard/store/handlers/all-exercise
 import { ExercisesToRenderStoreService } from '@dashboard/store/handlers/exercises-to-render-store.handler';
 import type { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 import { Store } from '@/dashboard/store/dashboard.store';
+import { StoreActions } from '../../interfaces/store-action.interface';
 
 @Injectable({providedIn: 'root'})
-export class ExerciseStoreActionsService {
+export class ExerciseStoreActionsService implements StoreActions<Exercise> {
 
   private allExercisesStore: AllExercisesStoreService;
   private exerciseToRenderStore: ExercisesToRenderStoreService;
@@ -61,14 +62,14 @@ export class ExerciseStoreActionsService {
   }
 
   // CRUD ACTIONS ---
-  public addNewExercise(exercise: Exercise): void {
+  public save(exercise: Exercise): void {
     this.allExercises.push(exercise);
 
     this.exerciseToRenderStore.setState( this.allExercises );
     this.allExercisesStore.setState( this.allExercises );
   }
 
-  public updateExercise(exercise: Exercise): void {
+  public update(exercise: Exercise): void {
     const index = this.allExercises.findIndex( e => e.id === exercise.id );
     this.allExercises[index] = exercise;
 
@@ -76,7 +77,7 @@ export class ExerciseStoreActionsService {
     this.allExercisesStore.setState( this.allExercises );
   }
 
-  public deleteExercise(exerciseId: string): void {
+  public delete(exerciseId: string): void {
     this.allExercises.filter( e => e.id !== exerciseId );
 
     this.exerciseToRenderStore.setState( this.allExercises );

@@ -4,11 +4,13 @@ import { Subscription } from 'rxjs';
 
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
 import { Workout } from '@dashboard/shared/models/workout-interface';
-import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
 
 import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
+
+import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
 @Component({
   selector: 'workout-card',
@@ -20,7 +22,7 @@ export class WorkoutCardComponent {
   public exercises?: Exercise[];
 
   private exercisesSubs$?: Subscription;
-  private workoutActions: WorkoutFormActions;
+  private formActions: FormActions<Workout>;
 
   constructor(
     private exerciseStoreActions: ExerciseStoreActionsService,
@@ -28,7 +30,7 @@ export class WorkoutCardComponent {
     private workoutStoreActions: WorkoutStoreActionsService,
     private messageService: MessageService,
   ) {
-    this.workoutActions = new WorkoutFormActions(this.workoutHttp, this.workoutStoreActions, this.messageService);
+    this.formActions = new FormActions(this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages);
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class WorkoutCardComponent {
   }
 
   public onDeleteWorkout(): void {
-    this.workoutActions.delete( this.workout );
+    this.formActions.delete( this.workout );
   }
 
 }

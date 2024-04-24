@@ -5,12 +5,15 @@ import { Exercise } from '@dashboard/shared/models/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { InputErrorMessageService } from '@shared/services/input-error-message.service';
 import { MessageService } from 'primeng/api';
-import { WorkoutFormActions } from '../../helpers/workout-form-actions.helper';
+
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
 import { CategorizedExercise, Workout } from '@dashboard/shared/models/workout-interface';
 import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
+
+import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
 @Component({
   selector: 'workout-form',
@@ -19,7 +22,7 @@ import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-se
 export class WorkoutFormComponent implements OnInit {
 
   public form!: FormGroup;
-  public formActions?: WorkoutFormActions;
+  public formActions?: FormActions<Workout>;
 
   public workoutId?: string;
 
@@ -111,7 +114,7 @@ export class WorkoutFormComponent implements OnInit {
 
   //FORM METHODS ---
   private createFormActions(): void {
-    this.formActions = new WorkoutFormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, this.ref );
+    this.formActions = new FormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages, this.ref );
   }
 
   //FORM ARRAY METHODS ---

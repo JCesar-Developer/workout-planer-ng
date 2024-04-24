@@ -1,4 +1,4 @@
-export interface FormMessages {
+export interface ToastMessage {
   success: {
     create: (itemName: string) => string;
     update: (itemName: string) => string;
