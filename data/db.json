@@ -200,61 +200,6 @@
           "rest": 60
         }
       ]
-    },
-    {
-      "id": "2",
-      "name": "Piernas",
-      "duration": "115",
-      "categorizedExercises": [
-        {
-          "exerciseId": "3",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "4",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "5",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "6",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "7",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "8",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "9",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        },
-        {
-          "exerciseId": "10",
-          "sets": 3,
-          "reps": 12,
-          "rest": 60
-        }
-      ]
     }
   ],
   "registers": [

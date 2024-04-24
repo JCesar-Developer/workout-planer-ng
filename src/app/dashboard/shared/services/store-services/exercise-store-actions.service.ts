@@ -63,25 +63,27 @@ export class ExerciseStoreActionsService implements StoreActions<Exercise> {
 
   // CRUD ACTIONS ---
   public save(exercise: Exercise): void {
-    this.allExercises.push(exercise);
+    const newExerciseArray = [...this.allExercises, exercise];
 
-    this.exerciseToRenderStore.setState( this.allExercises );
-    this.allExercisesStore.setState( this.allExercises );
+    this.exerciseToRenderStore.setState( newExerciseArray );
+    this.allExercisesStore.setState( newExerciseArray );
   }
 
   public update(exercise: Exercise): void {
+    const newExerciseArray = [...this.allExercises];
     const index = this.allExercises.findIndex( e => e.id === exercise.id );
-    this.allExercises[index] = exercise;
 
-    this.exerciseToRenderStore.setState( this.allExercises );
-    this.allExercisesStore.setState( this.allExercises );
+    newExerciseArray[index] = exercise;
+
+    this.exerciseToRenderStore.setState( newExerciseArray );
+    this.allExercisesStore.setState( newExerciseArray );
   }
 
   public delete(exerciseId: string): void {
-    this.allExercises.filter( e => e.id !== exerciseId );
+    const newExerciseArray = this.allExercises.filter( e => e.id !== exerciseId );
 
-    this.exerciseToRenderStore.setState( this.allExercises );
-    this.allExercisesStore.setState( this.allExercises );
+    this.exerciseToRenderStore.setState( newExerciseArray );
+    this.allExercisesStore.setState( newExerciseArray );
   }
 
 }

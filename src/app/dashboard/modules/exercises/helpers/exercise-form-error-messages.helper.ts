@@ -1,4 +1,4 @@
-import { ErrorMessageMap } from "@/shared/services/input-error-message.service";
+import { ErrorMessageMap } from "@/shared/helpers/form-validator.helper";
 import { ValidationErrors } from "@angular/forms";
 
 export const exerciseErrorMessages: ErrorMessageMap = {

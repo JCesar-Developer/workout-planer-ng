@@ -39,25 +39,27 @@ export class WorkoutStoreActionsService implements StoreActions<Workout> {
 
   // CRUD ACTIONS ---
   public save( workout: Workout ): void {
-    this.allWorkouts.push(workout);
+    const newWorkoutArray = [...this.allWorkouts, workout];
 
-    this.allWorkoutsStore.setState( this.allWorkouts );
-    this.workoutsToRenderStore.setState( this.allWorkouts );
+    this.allWorkoutsStore.setState( newWorkoutArray );
+    this.workoutsToRenderStore.setState( newWorkoutArray );
   }
 
   public update( workout: Workout ): void {
+    const newWorkoutArray = [...this.allWorkouts];
     const index = this.allWorkouts.findIndex( w => w.id === workout.id );
-    this.allWorkouts[index] = workout;
 
-    this.allWorkoutsStore.setState( this.allWorkouts );
-    this.workoutsToRenderStore.setState( this.allWorkouts );
+    newWorkoutArray[index] = workout;
+
+    this.allWorkoutsStore.setState( newWorkoutArray );
+    this.workoutsToRenderStore.setState( newWorkoutArray );
   }
 
   public delete( workoutId: string ): void {
-    this.allWorkouts.filter( w => w.id !== workoutId );
+    const newWorkoutArray = this.allWorkouts.filter( w => w.id !== workoutId );
 
-    this.allWorkoutsStore.setState( this.allWorkouts );
-    this.workoutsToRenderStore.setState( this.allWorkouts );
+    this.allWorkoutsStore.setState( newWorkoutArray );
+    this.workoutsToRenderStore.setState( newWorkoutArray );
   }
 
 }

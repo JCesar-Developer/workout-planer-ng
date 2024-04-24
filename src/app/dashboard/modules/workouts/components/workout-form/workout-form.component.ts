@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
 
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
-import { InputErrorMessageService } from '@shared/services/input-error-message.service';
+import { FormValidator } from '@shared/helpers/form-validator.helper';
 import { MessageService } from 'primeng/api';
 
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -24,7 +24,7 @@ export class WorkoutFormComponent implements OnInit {
 
   public form!: FormGroup;
   public formActions?: FormActions<Workout>;
-  public formValidator?: InputErrorMessageService;
+  public formValidator?: FormValidator;
 
   public workoutId?: string;
 
@@ -46,16 +46,17 @@ export class WorkoutFormComponent implements OnInit {
   ngOnInit(): void {
     this.setForm();
     this.setFormValidator();
-    this.isolateCategorizedExercises();
-    this.fillformIfDataExists();
     this.setFormActions();
+
+    this.setCategorizedExercises();
+    this.fillFormIfDataExists();
   }
 
   //GETTERS & SETTERS ---
   private setForm(): void {
     this.form = this.fb.group({
       id: [null],
-      name: [null, [Validators.required, Validators.min(8), this.customValidator.noWhitespace]],
+      name: [null, [Validators.required, Validators.minLength(8), this.customValidator.noWhitespace]],
       duration: [0, [Validators.required, Validators.min(20)]],
       categorizedExercises: this.fb.array([]),
     }, {
@@ -64,22 +65,26 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   private setFormValidator(): void {
-    this.formValidator = new InputErrorMessageService( this.form, workoutErrorMessages );
+    this.formValidator = new FormValidator( this.form, workoutErrorMessages );
   }
 
-  private isolateCategorizedExercises(): void {
+  private setFormActions(): void {
+    this.formActions = new FormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages, this.ref );
+  }
+
+  private setCategorizedExercises(): void {
     this.categorizedExercises = this.form.get('categorizedExercises') as FormArray;
   }
 
   //FILL FORM IF DATA EXISTS ---
-  private fillformIfDataExists(): void {
+  private fillFormIfDataExists(): void {
     const workout = this.getWorkoutFromConfig();
     if (!workout) return;
 
-    this.setWorkoutId(workout.id);
-    this.setExercises(workout.categorizedExercises);
-    this.setFormValues(workout);
-    this.setCategorizedExercises(workout.categorizedExercises);
+    this.getWorkoutId(workout.id);
+    this.getExercises(workout.categorizedExercises);
+    this.getFormValues(workout);
+    this.getCategorizedExercises(workout.categorizedExercises);
   }
 
   private getWorkoutFromConfig(): Workout | null {
@@ -87,16 +92,16 @@ export class WorkoutFormComponent implements OnInit {
     return data && data.model ? data.model : null;
   }
 
-  private setWorkoutId(id: string): void {
+  private getWorkoutId(id: string): void {
     this.workoutId = id;
   }
 
-  private setExercises(categorizedExercises: CategorizedExercise[]): void {
+  private getExercises(categorizedExercises: CategorizedExercise[]): void {
     const exercisesIds: string[] = categorizedExercises.map(catEx => catEx.exerciseId);
     this.exercises = this.exerciseStoreActions.getExercisesById(exercisesIds);
   }
 
-  private setFormValues(workout: Workout): void {
+  private getFormValues(workout: Workout): void {
     this.form.patchValue({
       id: workout.id,
       name: workout.name,
@@ -104,34 +109,29 @@ export class WorkoutFormComponent implements OnInit {
     });
   }
 
-  private setCategorizedExercises(categorizedExercises: CategorizedExercise[]): void {
+  private getCategorizedExercises(categorizedExercises: CategorizedExercise[]): void {
     categorizedExercises.forEach(catEx => {
       const { exerciseId, sets, reps, rest } = catEx;
       this.categorizedExercises!.push(
         this.fb.group({
           exerciseId: [exerciseId],
-          sets: [sets],
-          reps: [reps],
-          rest: [rest]
+          sets: [sets, [Validators.required, Validators.min(1)]],
+          reps: [reps, [Validators.required, Validators.min(1)]],
+          rest: [rest, [Validators.required, Validators.min(1)]],
         })
       );
     });
   }
 
-  //FORM METHODS ---
-  private setFormActions(): void {
-    this.formActions = new FormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages, this.ref );
-  }
-
-  //FORM ARRAY METHODS ---
+  //SELECTOR EMIT METHODS ---
   public onAddExerciseToForm( exercise: Exercise ): void {
     this.exercises.push( exercise );
     this.categorizedExercises!.push(
       this.fb.group({
         exerciseId: [exercise.id],
-        sets: [0],
-        reps: [0],
-        rest: [0]
+        sets: [0, [Validators.required, Validators.min(1)]],
+        reps: [0, [Validators.required, Validators.min(1)]],
+        rest: [0, [Validators.required, Validators.min(1)]],
       })
     );
   }
@@ -141,7 +141,7 @@ export class WorkoutFormComponent implements OnInit {
     this.categorizedExercises!.removeAt( index );
   }
 
-  // CRUD ---
+  //FORM ACTIONS ---
   public onSubmit(): void {
     if (this.form.errors && this.form.errors['atLeastTwoExercises']) {
       this.messageService.add({
@@ -164,6 +164,10 @@ export class WorkoutFormComponent implements OnInit {
 
     //SAVE
     this.formActions!.save( this.form.value );
+  }
+
+  public onClose(): void {
+    this.ref.close();
   }
 
 }

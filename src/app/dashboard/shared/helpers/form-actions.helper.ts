@@ -6,12 +6,12 @@ import { ToastMessage } from "@dashboard/shared/interfaces/form-messages.interfa
 import { HttpServiceInterface } from "@/dashboard/shared/interfaces/http-service.interface";
 import { StoreActions } from "@/dashboard/shared/interfaces/store-action.interface";
 
-interface Entity {
+interface Model {
   id: string;
   name: string;
 }
 
-export class FormActions<T extends Entity> {
+export class FormActions<T extends Model> {
   private messages: ToastMessage;
 
   constructor(
@@ -34,54 +34,54 @@ export class FormActions<T extends Entity> {
 
   private sendHttpRequest(
     httpRequest: Observable<boolean>,
-    entity: T,
+    model: T,
     successMessageFunc: (name: string) => string,
     errorMessage: string,
     onSuccess: () => void
   ): void {
     httpRequest.pipe(
       tap((status) => {
-        const message = status ? successMessageFunc(entity.name) : errorMessage;
+        const message = status ? successMessageFunc(model.name) : errorMessage;
         this.showMessage(status, message);
         if (status && onSuccess) onSuccess();
       })
     ).subscribe();
   }
 
-  public save(entity: T): void {
+  public save(model: T): void {
     this.sendHttpRequest(
-      this.httpService.save(entity),
-      entity,
+      this.httpService.save(model),
+      model,
       (name) => this.messages.success.create(name),
       this.messages.error.create,
       () => {
-        this.storeActions.save(entity);
+        this.storeActions.save(model);
         if (this.ref) this.ref.close();
       }
     );
   }
 
-  public update(entity: T): void {
+  public update(model: T): void {
     this.sendHttpRequest(
-      this.httpService.update(entity),
-      entity,
+      this.httpService.update(model),
+      model,
       (name) => this.messages.success.update(name),
       this.messages.error.update,
       () => {
-        this.storeActions.update(entity);
+        this.storeActions.update(model);
         if (this.ref) this.ref.close();
       }
     );
   }
 
-  public delete(entity: T): void {
+  public delete(model: T): void {
     this.sendHttpRequest(
-      this.httpService.delete(entity.id),
-      entity,
+      this.httpService.delete(model.id),
+      model,
       (name) => this.messages.success.delete(name),
       this.messages.error.delete,
       () => {
-        this.storeActions.delete(entity.id);
+        this.storeActions.delete(model.id);
         if (this.ref) this.ref.close();
       }
     );

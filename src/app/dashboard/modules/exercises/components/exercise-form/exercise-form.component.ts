@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
-import { InputErrorMessageService } from '@shared/services/input-error-message.service'
+import { FormValidator } from '@shared/helpers/form-validator.helper'
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
@@ -31,7 +31,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup<ExerciseForm>;
   public formActions?: FormActions<Exercise>;
-  public formValidator?: InputErrorMessageService;
+  public formValidator?: FormValidator;
 
   public categories: Category[] = Object.values(Category);
   public currentExercise: Exercise = {} as Exercise;
@@ -52,9 +52,10 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setForm();
     this.setFormValidator();
+    this.setFormActions();
+
     this.fillFormIfDataExists();
     this.setCurrentExercise();
-    this.createFormActions();
     this.subscribeToAltImgChanges();
   }
 
@@ -74,7 +75,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   private setFormValidator(): void {
-    this.formValidator = new InputErrorMessageService( this.form, exerciseErrorMessages );
+    this.formValidator = new FormValidator( this.form, exerciseErrorMessages );
   }
 
   private fillFormIfDataExists(): void {
@@ -88,7 +89,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     this.currentExercise = this.form.value as Exercise;
   }
 
-  private createFormActions(): void {
+  private setFormActions(): void {
     this.formActions = new FormActions<Exercise>(
       this.exerciseHttp,
       this.exerciseStoreActions,

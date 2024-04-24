@@ -1,4 +1,3 @@
-// import { Injectable } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 
 export interface ErrorMap {
@@ -11,8 +10,7 @@ export interface ErrorMessageMap {
   [key: string]: ((errors?: ValidationErrors) => string);
 }
 
-// @Injectable({providedIn: 'root'})
-export class InputErrorMessageService {
+export class FormValidator {
 
   constructor(
     private form: FormGroup,

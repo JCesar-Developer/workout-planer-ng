@@ -8,7 +8,14 @@
         <span class="font-sans cursor-pointer">Nombre de la rutina
           <span class="text-gray-500">*</span>
         </span>
-        <input type="text" required pInputText formControlName="name" placeholder="Nombre de la rutina"/>
+        <input
+          type="text"
+          required
+          pInputText
+          formControlName="name"
+          placeholder="Nombre de la rutina"
+          [class]="formValidator?.isInvalidField('name') ? 'ng-dirty' : ''"
+        />
       </label>
 
       <div class="h-5">
@@ -17,7 +24,7 @@
           class="text-red-400"
           data-testId="name-error-message"
         >
-          Este campo es requerido
+          {{ formValidator?.getErrorMessage('name') }}
         </span>
       </div>
     </div>
@@ -28,7 +35,12 @@
         <span class="font-sans cursor-pointer">Duración
           <span class="text-gray-500">*</span>
         </span>
-        <input type="text" pInputText formControlName="duration" />
+        <input
+          type="text"
+          pInputText
+          formControlName="duration"
+          [class]="formValidator?.isInvalidField('duration') ? 'ng-dirty' : ''"
+        />
       </label>
 
       <div class="h-5">
@@ -37,7 +49,7 @@
           class="text-red-400"
           data-testId="duration-error-message"
         >
-          Este campo es requerido
+          {{ formValidator?.getErrorMessage('duration') }}
         </span>
       </div>
     </div>
@@ -55,12 +67,17 @@
     >
       <ng-container [formGroupName]="i">
         <input type="hidden" formControlName="exerciseId">
-        <img width="80" class="shadow-md rounded-md" [src]="exercises[i].image" [alt]="exercises[i].name">
+        <img
+          width="80"
+          height="80"
+          class="shadow-md rounded-md object-cover"
+          [src]="exercises[i].image ? exercises[i].image : exercises[i].alternativeImage"
+          [alt]="exercises[i].name"
+        >
         <div class="flex-grow">
           <p class="text-gray-700">{{ exercises[i].category }}</p>
           <h5 class="text-2xl font-medium">{{ exercises[i].name }}</h5>
         </div>
-        <!-- TODO: Faltan mensajes personalizados de error -->
         <label class="p-fluid w-1/12">
           <span class="font-sans cursor-pointer">Series</span>
           <p-inputNumber
@@ -99,7 +116,11 @@
   <section class="flex flex-row justify-end mt-6">
     <div class="flex flex-row w-1/2 gap-5">
       <span class="p-fluid w-full">
-        <p-button label="Cerrar" styleClass="p-button-secondary"></p-button>
+        <p-button
+          label="Cerrar"
+          styleClass="p-button-secondary"
+          (onClick)="onClose()"
+        ></p-button>
       </span>
       <span class="p-fluid w-full">
         <p-button
