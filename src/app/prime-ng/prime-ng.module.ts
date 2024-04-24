@@ -1,31 +1,30 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { CarouselModule } from 'primeng/carousel';
 import { ChipModule } from 'primeng/chip';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
-import { CarouselModule } from 'primeng/carousel';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   exports: [
-    FormsModule,
-
     AutoCompleteModule,
     ButtonModule,
     CardModule,
+    CarouselModule,
     ChipModule,
-    DynamicDialogModule,
+    ConfirmPopupModule,
     DropdownModule,
+    DynamicDialogModule,
+    InputNumberModule,
     InputTextModule,
     ToastModule,
-    CarouselModule,
-    InputNumberModule,
   ]
 })
 export class PrimeNgModule { }

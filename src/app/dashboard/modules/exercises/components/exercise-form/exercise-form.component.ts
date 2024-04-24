@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
@@ -8,7 +8,7 @@ import { FormValidator } from '@shared/helpers/form-validator.helper'
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
@@ -46,6 +46,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   //LIFECYCLE HOOKS ---
@@ -123,7 +124,16 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     this.formActions!.save( this.currentExercise );
   }
 
-  public onDelete() {
+  public onConfirmDelete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target!,
+      message: 'Estas seguro de que quieres eliminar este ejercicio?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => this.onDelete()
+    });
+  }
+
+  private onDelete() {
     if( !this.currentExercise.id ) return;
     this.formActions!.delete( this.currentExercise );
   }

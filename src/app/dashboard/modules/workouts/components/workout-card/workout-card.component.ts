@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
@@ -28,6 +28,7 @@ export class WorkoutCardComponent {
     private exerciseStoreActions: ExerciseStoreActionsService,
     private workoutHttp: WorkoutHttpService,
     private workoutStoreActions: WorkoutStoreActionsService,
+    private confirmationService: ConfirmationService,
     private messageService: MessageService,
   ) {
     this.formActions = new FormActions(this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages);
@@ -46,7 +47,16 @@ export class WorkoutCardComponent {
     this.exercises = this.exerciseStoreActions.getExercisesById( exercisesIds );
   }
 
-  public onDeleteWorkout(): void {
+  onConfirmDelete(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target!,
+        message: 'Estas seguro de que quieres eliminar este entrenamiento?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => this.onDeleteWorkout(),
+    });
+  }
+
+  private onDeleteWorkout(): void {
     this.formActions.delete( this.workout );
   }
 

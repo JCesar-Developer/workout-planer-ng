@@ -115,9 +115,12 @@ export class WorkoutFormComponent implements OnInit {
       this.categorizedExercises!.push(
         this.fb.group({
           exerciseId: [exerciseId],
-          sets: [sets, [Validators.required, Validators.min(1)]],
-          reps: [reps, [Validators.required, Validators.min(1)]],
-          rest: [rest, [Validators.required, Validators.min(1)]],
+          // sets: [sets, [Validators.required, Validators.min(1)]],
+          // reps: [reps, [Validators.required, Validators.min(1)]],
+          // rest: [rest, [Validators.required, Validators.min(1)]],
+          sets: [sets],
+          reps: [reps],
+          rest: [rest],
         })
       );
     });
@@ -129,9 +132,12 @@ export class WorkoutFormComponent implements OnInit {
     this.categorizedExercises!.push(
       this.fb.group({
         exerciseId: [exercise.id],
-        sets: [0, [Validators.required, Validators.min(1)]],
-        reps: [0, [Validators.required, Validators.min(1)]],
-        rest: [0, [Validators.required, Validators.min(1)]],
+        // sets: [0, [Validators.required, Validators.min(1)]],
+        // reps: [0, [Validators.required, Validators.min(1)]],
+        // rest: [0, [Validators.required, Validators.min(1)]],
+        sets: [0],
+        reps: [0],
+        rest: [0],
       })
     );
   }

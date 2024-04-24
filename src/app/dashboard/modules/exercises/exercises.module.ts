@@ -13,7 +13,7 @@ import { ExercisePageListComponent } from './components/exercise-page-list/exerc
 import { ExerciseSearchbarComponent } from './components/exercise-searchbar/exercise-searchbar.component';
 import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/exercise-filter-tabs.component';
 
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ExerciseOpenFormBtnComponent } from './components/exercise-open-form-btn/exercise-open-form-btn.component';
 
 @NgModule({
@@ -35,6 +35,7 @@ import { ExerciseOpenFormBtnComponent } from './components/exercise-open-form-bt
   ],
   providers: [
     MessageService,
+    ConfirmationService,
   ]
 })
 export class ExercisesModule { }
