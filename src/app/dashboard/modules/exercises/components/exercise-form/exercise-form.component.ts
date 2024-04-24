@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
-import { InputErrorMessageService, ErrorMessageMap } from '@shared/services/input-error-message.service'
+import { InputErrorMessageService } from '@shared/services/input-error-message.service'
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
@@ -12,9 +12,8 @@ import { MessageService } from 'primeng/api';
 import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { exerciseErrorMessages } from '@exercises/helpers/exercise-form-error-messages.helper';
 import { exerciseToastMessages } from '@exercises/helpers/exercise-toast-messsages.helper';
-
-type FormControls = 'id' | 'name' | 'image' | 'category' | 'alternativeImage';
 
 interface ExerciseForm {
   id: FormControl<string|null>;
@@ -32,8 +31,9 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup<ExerciseForm>;
   public formActions?: FormActions<Exercise>;
+  public formValidator?: InputErrorMessageService;
 
-  public categories!: Category[];
+  public categories: Category[] = Object.values(Category);
   public currentExercise: Exercise = {} as Exercise;
 
   private $altImg?: Subscription;
@@ -44,7 +44,6 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private exerciseHttp: ExerciseHttpService,
     private exerciseStoreActions: ExerciseStoreActionsService,
     private fb: FormBuilder,
-    private inputErrorMessages: InputErrorMessageService,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
   ) {}
@@ -52,7 +51,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   //LIFECYCLE HOOKS ---
   ngOnInit(): void {
     this.setForm();
-    this.setCategories();
+    this.setFormValidator();
     this.fillFormIfDataExists();
     this.setCurrentExercise();
     this.createFormActions();
@@ -74,8 +73,8 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  private setCategories(): void {
-    this.categories = Object.values(Category);
+  private setFormValidator(): void {
+    this.formValidator = new InputErrorMessageService( this.form, exerciseErrorMessages );
   }
 
   private fillFormIfDataExists(): void {
@@ -104,25 +103,6 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         Promise.resolve().then(() => this.setCurrentExercise());
       });
-  }
-
-  //VALIDATIONS ---
-  private errorMessagesMap: ErrorMessageMap = {
-    'required': () => 'Este campo es requerido',
-    'minlength': (errors?: ValidationErrors) => `Este campo debe tener al menos ${errors ? errors['minlength'].requiredLength : 0} caracteres`,
-    'whitespace': () => 'Este campo no puede contener solo espacios en blanco',
-  };
-
-  public isInvalidInput( field: FormControls ): boolean | null {
-    return this.inputErrorMessages.isInvalidField( this.form, field );
-  }
-
-  public getErrorMessages( field: FormControls ): string | null {
-    return this.inputErrorMessages.getErrorMessage({
-      form: this.form,
-      field,
-      errorMessageMap: this.errorMessagesMap,
-    });
   }
 
   //SUBMIT ---

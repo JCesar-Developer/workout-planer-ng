@@ -13,7 +13,7 @@
 
       <div class="h-5">
         <span
-          *ngIf="isInvalidField('name')"
+          *ngIf="formValidator?.isInvalidField('name')"
           class="text-red-400"
           data-testId="name-error-message"
         >
@@ -33,7 +33,7 @@
 
       <div class="h-5">
         <span
-          *ngIf="isInvalidField('duration')"
+          *ngIf="formValidator?.isInvalidField('duration')"
           class="text-red-400"
           data-testId="duration-error-message"
         >

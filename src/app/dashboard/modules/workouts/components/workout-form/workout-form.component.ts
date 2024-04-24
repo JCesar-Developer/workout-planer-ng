@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
 
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
@@ -13,6 +13,7 @@ import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-s
 import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
 
 import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { workoutErrorMessages } from '../../helpers/workout-form-error-messages.helper';
 import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
 @Component({
@@ -23,6 +24,7 @@ export class WorkoutFormComponent implements OnInit {
 
   public form!: FormGroup;
   public formActions?: FormActions<Workout>;
+  public formValidator?: InputErrorMessageService;
 
   public workoutId?: string;
 
@@ -34,7 +36,6 @@ export class WorkoutFormComponent implements OnInit {
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
     private customValidator: CustomValidatorsService,
-    private inputErrorMessages: InputErrorMessageService,
     private messageService: MessageService,
     private workoutHttp: WorkoutHttpService,
     private workoutStoreActions: WorkoutStoreActionsService,
@@ -44,9 +45,10 @@ export class WorkoutFormComponent implements OnInit {
   //LIFECYCLE HOOKS ---
   ngOnInit(): void {
     this.setForm();
+    this.setFormValidator();
     this.isolateCategorizedExercises();
     this.fillformIfDataExists();
-    this.createFormActions();
+    this.setFormActions();
   }
 
   //GETTERS & SETTERS ---
@@ -59,6 +61,10 @@ export class WorkoutFormComponent implements OnInit {
     }, {
       validators: [ this.customValidator.atLeastTwoExercises() ]
     });
+  }
+
+  private setFormValidator(): void {
+    this.formValidator = new InputErrorMessageService( this.form, workoutErrorMessages );
   }
 
   private isolateCategorizedExercises(): void {
@@ -113,7 +119,7 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   //FORM METHODS ---
-  private createFormActions(): void {
+  private setFormActions(): void {
     this.formActions = new FormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages, this.ref );
   }
 
@@ -133,12 +139,6 @@ export class WorkoutFormComponent implements OnInit {
   public onDeleteExercise( index: number ): void {
     this.exercises.splice( index, 1 );
     this.categorizedExercises!.removeAt( index );
-  }
-
-  //VALIDATIONS ---
-  //TODO: Faltan los mensajes personalizados
-  public isInvalidField(field: string): boolean | null {
-    return this.inputErrorMessages.isInvalidField(this.form, field);
   }
 
   // CRUD ---

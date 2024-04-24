@@ -20,18 +20,18 @@
           pInputText
           type="text"
           class="p-fluid w-full"
-          [class]="isInvalidInput('name') ? 'ng-dirty' : ''"
+          [class]="formValidator?.isInvalidField('name') ? 'ng-dirty' : ''"
           placeholder="Nombre del ejercicio"
           formControlName="name"
         />
 
         <!-- Error messages -->
         <span
-          *ngIf="isInvalidInput('name')"
+          *ngIf="formValidator?.isInvalidField('name')"
           class="-mt-3 text-sm text-red-400"
           data-testId="error-message"
         >
-          {{ getErrorMessages('name') }}
+          {{ formValidator?.getErrorMessage('name') }}
         </span>
 
         <!-- CATEGORY-INPUT -->

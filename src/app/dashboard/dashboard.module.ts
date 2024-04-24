@@ -24,8 +24,5 @@ import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar
     AppSharedModule,
     PrimeNgModule,
   ],
-  // providers: [
-  //   MessageService,
-  // ]
 })
 export class DashboardModule { }

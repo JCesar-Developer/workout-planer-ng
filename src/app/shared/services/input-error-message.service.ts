@@ -1,9 +1,5 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-
-export interface ErrorMessageMap {
-  [key: string]: ((errors?: ValidationErrors) => string);
-}
 
 export interface ErrorMap {
   form: FormGroup,
@@ -11,22 +7,31 @@ export interface ErrorMap {
   errorMessageMap: ErrorMessageMap,
 }
 
-@Injectable({providedIn: 'root'})
+export interface ErrorMessageMap {
+  [key: string]: ((errors?: ValidationErrors) => string);
+}
+
+// @Injectable({providedIn: 'root'})
 export class InputErrorMessageService {
 
-  public isInvalidField( form: FormGroup, field: string ) {
-    return form.controls[field].errors && form.controls[field].touched;
+  constructor(
+    private form: FormGroup,
+    private errorMessageMap: ErrorMessageMap,
+  ) {}
+
+  public isInvalidField( field: string ) {
+    return this.form.controls[field].errors && this.form.controls[field].touched;
   }
 
-  public getErrorMessage( {form, field, errorMessageMap: errorMap}: ErrorMap ): string|null {
-    if( !form.controls[field] ) return null;
+  public getErrorMessage( field: string ): string|null {
+    if( !this.form.controls[field] ) return null;
 
-    const errors = form.controls[field]?.errors || null;
+    const errors = this.form.controls[field]?.errors || undefined;
 
     if (!errors) return null;
 
     for( const key of Object.keys(errors) ) {
-      return errorMap[key] ? errorMap[key](errors) : null;
+      return this.errorMessageMap[key] ? this.errorMessageMap[key](errors) : null;
     }
 
     return null;
