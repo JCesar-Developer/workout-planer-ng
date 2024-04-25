@@ -32,16 +32,19 @@ export class WorkoutStoreActionsService implements StoreActions<Workout> {
     return this.workoutsToRenderStore.workouts$;
   }
 
-  public getWorkoutsByName(term: string): Workout[] {
+  public getWorkoutsByName = this.getItemsByName;
+  public getItemsByName(term: string): Workout[] {
     return this.allWorkouts.filter( w => w.name.toLowerCase().includes(term.toLowerCase()) );
   }
 
   // SETTERS ---
-  public setWorkoutsToRender(workouts: Workout[]): void {
+  public setWorkoutsToRender = this.setItemsToRender;
+  public setItemsToRender(workouts: Workout[]): void {
     this.workoutsToRenderStore.setState( workouts );
   }
 
-  public setWorkoutsToRenderAllWorkouts(): void {
+  public setWorkoutsToRenderAllWorkouts = this.setItemsToRenderAllItems;
+  public setItemsToRenderAllItems(): void {
     this.workoutsToRenderStore.setState( this.allWorkouts );
   };
 

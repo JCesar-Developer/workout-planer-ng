@@ -9,6 +9,8 @@ import { ExerciseImagePipe } from './pipes/exercise-image.pipe';
 
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppSharedModule } from '@shared/shared.module';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { PrimeNgModule } from '@/prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -16,11 +18,13 @@ import { AppSharedModule } from '@shared/shared.module';
     DashboardMainContainerComponent,
     ExerciseCardComponent,
     ExerciseImagePipe,
+    SearchbarComponent,
     // TruncatePipe,
   ],
   imports: [
     CommonModule,
     AppSharedModule,
+    PrimeNgModule,
   ],
   exports: [
     DashboardMainContainerComponent,

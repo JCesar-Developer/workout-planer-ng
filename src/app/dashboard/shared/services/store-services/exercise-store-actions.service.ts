@@ -40,7 +40,8 @@ export class ExerciseStoreActionsService implements StoreActions<Exercise> {
     return this.allExercises.filter(e => exerciseIds.includes(e.id));
   }
 
-  public getExercisesByName(term: string): Exercise[] {
+  public getExercisesByName = this.getItemsByName;
+  public getItemsByName(term: string): Exercise[] {
     return this.allExercises.filter( e => e.name.toLowerCase().includes(term.toLowerCase()) );
   }
 
@@ -53,11 +54,13 @@ export class ExerciseStoreActionsService implements StoreActions<Exercise> {
   }
 
   // SETTERS ---
-  public setExercisesToRender(exercises: Exercise[]): void {
+  public setExercisesToRender = this.setItemsToRender;
+  public setItemsToRender(exercises: Exercise[]): void {
     this.exerciseToRenderStore.setState( exercises );
   }
 
-  public setExercisesToRenderAllExercises(): void {
+  public setExercisesToRenderAllExercises = this.setItemsToRenderAllItems;
+  public setItemsToRenderAllItems(): void {
     this.exerciseToRenderStore.setState( this.allExercises );
   }
 
