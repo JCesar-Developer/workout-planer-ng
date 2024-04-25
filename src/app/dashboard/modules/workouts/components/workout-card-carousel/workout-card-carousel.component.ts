@@ -26,6 +26,8 @@ const maximizeResponsiveOptions: ResponsiveOptions[] = [
 export class WorkoutCardCarouselComponent implements OnInit, OnDestroy {
 
   @Input() exercises?: Exercise[];
+  @Input() exerciseSets?: number[];
+  @Input() exerciseReps?: number[];
   @Input() editableCards?: boolean = false;
   @Input() clickableCards?: boolean = false;
   @Output() emitExercise: EventEmitter<Exercise> = new EventEmitter();

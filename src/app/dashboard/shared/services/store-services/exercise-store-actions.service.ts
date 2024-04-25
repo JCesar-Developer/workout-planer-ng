@@ -40,8 +40,8 @@ export class ExerciseStoreActionsService implements StoreActions<Exercise> {
     return this.allExercises.filter(e => exerciseIds.includes(e.id));
   }
 
-  public getExercisesByName(name: string): Exercise[] {
-    return this.allExercises.filter( e => e.name.toLowerCase().includes(name.toLowerCase()) );
+  public getExercisesByName(term: string): Exercise[] {
+    return this.allExercises.filter( e => e.name.toLowerCase().includes(term.toLowerCase()) );
   }
 
   public getExercisesByCategory(category: Category): Exercise[] {

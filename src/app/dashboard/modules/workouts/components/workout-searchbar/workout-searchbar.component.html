@@ -1,3 +1,9 @@
 <span class="p-fluid w-full">
-  <p-autoComplete></p-autoComplete>
+  <p-autoComplete
+    [suggestions]="suggestedWorkouts"
+    (completeMethod)="onRequireSuggestions($event)"
+    (onSelect)="onSelectSuggestion($event)"
+    [minLength]="0"
+    field="name"
+  ></p-autoComplete>
 </span>

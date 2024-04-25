@@ -20,6 +20,8 @@ export class WorkoutCardComponent {
 
   @Input() workout!: Workout;
   public exercises?: Exercise[];
+  public exerciseSets?: number[];
+  public exerciseReps?: number[];
 
   private exercisesSubs$?: Subscription;
   private formActions: FormActions<Workout>;
@@ -45,6 +47,8 @@ export class WorkoutCardComponent {
   private setExercises(): void {
     const exercisesIds: string[] = this.workout.categorizedExercises.map( catEx => catEx.exerciseId );
     this.exercises = this.exerciseStoreActions.getExercisesById( exercisesIds );
+    this.exerciseSets = this.workout.categorizedExercises.map( catEx => catEx.sets );
+    this.exerciseReps = this.workout.categorizedExercises.map( catEx => catEx.reps );
   }
 
   onConfirmDelete(event: Event) {

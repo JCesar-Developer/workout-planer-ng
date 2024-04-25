@@ -14,9 +14,11 @@
 
           <ng-container *ngIf="exercises.length !== 0; else noExercises">
             <exercise-card
-              *ngFor="let exercise of exercises"
+              *ngFor="let exercise of exercises; let i = index"
               class="exercise-card exercise-card__no-carousel w-1/6"
               [exercise]="exercise"
+              [sets]="exerciseSets ? exerciseSets[i] : undefined"
+              [reps]="exerciseReps ? exerciseReps[i] : undefined"
               [editable]="editableCards"
               [clickable]="clickableCards"
               (emitExercise)="onEmitExercise($event)"
@@ -47,6 +49,8 @@
                 <exercise-card
                   class="exercise-card"
                   [exercise]="exercise"
+                  [sets]="exerciseSets ? exerciseSets[exercises.indexOf(exercise)] : undefined"
+                  [reps]="exerciseReps ? exerciseReps[exercises.indexOf(exercise)] : undefined"
                   [editable]="editableCards"
                   [clickable]="clickableCards"
                   (emitExercise)="onEmitExercise($event)"
@@ -85,6 +89,8 @@
   article {
     margin-block: 2px;
     margin-inline: 10px;
+    padding-inline: 15px !important;
+    padding-top: 20px;
   }
 
   h3 {

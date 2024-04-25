@@ -1,8 +1,4 @@
 <section>
-  <!-- <div class="border border-gray-200 rounded-xl p-8 mb-10">
-    <workout-form></workout-form>
-  </div> -->
-
   <!-- If there're workouts -->
   <ul
     data-testId="workout-list"
@@ -11,7 +7,8 @@
   >
     <li
       data-testId="workout-card"
-      *ngFor="let workout of workouts">
+      *ngFor="let workout of workouts"
+    >
       <workout-card
         [workout]="workout"
       ></workout-card>

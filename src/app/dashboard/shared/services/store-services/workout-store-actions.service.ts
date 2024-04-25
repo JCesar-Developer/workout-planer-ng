@@ -32,8 +32,16 @@ export class WorkoutStoreActionsService implements StoreActions<Workout> {
     return this.workoutsToRenderStore.workouts$;
   }
 
+  public getWorkoutsByName(term: string): Workout[] {
+    return this.allWorkouts.filter( w => w.name.toLowerCase().includes(term.toLowerCase()) );
+  }
+
   // SETTERS ---
-  public setWorkoutsToRenderAllWorkouts( workout: Workout ): void {
+  public setWorkoutsToRender(workouts: Workout[]): void {
+    this.workoutsToRenderStore.setState( workouts );
+  }
+
+  public setWorkoutsToRenderAllWorkouts(): void {
     this.workoutsToRenderStore.setState( this.allWorkouts );
   };
 

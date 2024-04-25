@@ -14,6 +14,8 @@ import { ExerciseFormConfigurator } from '@dashboard/modules/exercises/helpers/e
 export class ExerciseCardComponent implements OnInit {
 
   @Input() public exercise!: Exercise;
+  @Input() public sets?: number;
+  @Input() public reps?: number;
   @Input() public editable?: boolean = false;
   @Input() public clickable?: boolean = false;
   @Output() public emitExercise: EventEmitter<Exercise> = new EventEmitter();

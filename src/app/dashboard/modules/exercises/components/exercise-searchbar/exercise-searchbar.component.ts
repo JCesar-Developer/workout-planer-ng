@@ -20,18 +20,18 @@ export class ExerciseSearchbarComponent {
       return;
     }
 
-    this.suggestedExercises = this.getExerciseSuggestions(query);
+    this.suggestedExercises = this.getSuggestions(query);
 
     if( this.suggestedExercises.length === 0 ) this.exerciseStoreActions.setExercisesToRender([]);
     else this.exerciseStoreActions.setExercisesToRender( this.suggestedExercises );
   }
 
   public onSelectSuggestion({ name } : { name: string }): void {
-    this.suggestedExercises = this.getExerciseSuggestions(name);
+    this.suggestedExercises = this.getSuggestions(name);
     this.exerciseStoreActions.setExercisesToRender( this.suggestedExercises );
   }
 
-  private getExerciseSuggestions(term: string): Exercise[] {
+  private getSuggestions(term: string): Exercise[] {
     let suggestions: Exercise[] = []
 
     if(!term) return suggestions;

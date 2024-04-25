@@ -14,12 +14,11 @@ export class WorkoutListComponent implements OnDestroy {
   public workoutsSubs$: Subscription;
 
   constructor(
-    // private store: Store,
     private workoutStoreActions: WorkoutStoreActionsService,
   ) {
     this.workoutsSubs$ = this.workoutStoreActions.workouts$
       .subscribe( workouts => {
-        this.workouts = workouts;
+        this.workouts = workouts.slice().reverse();
       });
   }
 
