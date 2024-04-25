@@ -25,7 +25,6 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
   private filterControlSubs$?: Subscription;
 
   constructor(
-    // private store: Store,
     private exerciseStore: ExerciseStoreActionsService,
   ) {
     this.categories = Object.values(Category);

@@ -38,22 +38,44 @@
 
     <!-- ELSE: show-carousel -->
     <ng-template #showCarousel>
-      <div class="pt-8">
-        <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-          <ng-template let-exercise pTemplate="item">
 
-              <exercise-card
-                class="exercise-card"
-                [exercise]="exercise"
-                [editable]="editableCards"
-                [clickable]="clickableCards"
-                (emitExercise)="onEmitExercise($event)"
-              ></exercise-card>
+      <ng-container *ngIf="minimized; else maximized">
+        <div class="pt-8">
+          <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="minOptions">
+            <ng-template let-exercise pTemplate="item">
 
-          </ng-template>
-        </p-carousel>
-      </div>
-    </ng-template>
+                <exercise-card
+                  class="exercise-card"
+                  [exercise]="exercise"
+                  [editable]="editableCards"
+                  [clickable]="clickableCards"
+                  (emitExercise)="onEmitExercise($event)"
+                ></exercise-card>
+
+            </ng-template>
+          </p-carousel>
+        </div>
+      </ng-container>
+
+      <ng-template #maximized>
+        <div class="pt-8">
+          <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="maxOptions">
+            <ng-template let-exercise pTemplate="item">
+
+                <exercise-card
+                  class="exercise-card"
+                  [exercise]="exercise"
+                  [editable]="editableCards"
+                  [clickable]="clickableCards"
+                  (emitExercise)="onEmitExercise($event)"
+                ></exercise-card>
+
+            </ng-template>
+          </p-carousel>
+        </div>
+      </ng-template>
+
+    </ng-template><!-- END-ELSE: show-carousel -->
 
   </div>
 </ng-container>

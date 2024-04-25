@@ -16,6 +16,11 @@ import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
 import { workoutErrorMessages } from '../../helpers/workout-form-error-messages.helper';
 import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
+const toastMessages = {
+  atLeast2Exercises: 'Una rutina debe tener al menos 2 ejercicios',
+  invalidFields: 'Uno o más campos son inválidos, por favor vuelva a revisar el formulario',
+}
+
 @Component({
   selector: 'workout-form',
   templateUrl: './workout-form.component.html',
@@ -115,12 +120,9 @@ export class WorkoutFormComponent implements OnInit {
       this.categorizedExercises!.push(
         this.fb.group({
           exerciseId: [exerciseId],
-          // sets: [sets, [Validators.required, Validators.min(1)]],
-          // reps: [reps, [Validators.required, Validators.min(1)]],
-          // rest: [rest, [Validators.required, Validators.min(1)]],
-          sets: [sets],
-          reps: [reps],
-          rest: [rest],
+          sets: [sets, [Validators.required, Validators.min(1)]],
+          reps: [reps, [Validators.required, Validators.min(1)]],
+          rest: [rest, [Validators.required, Validators.min(10)]],
         })
       );
     });
@@ -132,12 +134,9 @@ export class WorkoutFormComponent implements OnInit {
     this.categorizedExercises!.push(
       this.fb.group({
         exerciseId: [exercise.id],
-        // sets: [0, [Validators.required, Validators.min(1)]],
-        // reps: [0, [Validators.required, Validators.min(1)]],
-        // rest: [0, [Validators.required, Validators.min(1)]],
-        sets: [0],
-        reps: [0],
-        rest: [0],
+        sets: [0, [Validators.required, Validators.min(1)]],
+        reps: [0, [Validators.required, Validators.min(1)]],
+        rest: [0, [Validators.required, Validators.min(10)]],
       })
     );
   }
@@ -153,12 +152,17 @@ export class WorkoutFormComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Una rutina debe tener al menos 2 ejercicios'
+        detail: toastMessages.atLeast2Exercises,
       });
     }
 
     if ( !this.form.valid ) {
       this.form.markAllAsTouched();
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: toastMessages.invalidFields,
+      });
       return;
     }
 

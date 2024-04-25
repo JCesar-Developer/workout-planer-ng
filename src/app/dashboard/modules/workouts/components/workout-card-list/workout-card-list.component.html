@@ -1,0 +1,37 @@
+<section class="border border-gray-200 rounded-2xl py-4 px-8 shadow-inner divide-y-2 divide-gray-200">
+  <article
+    class="flex flex-row items-center px-8 py-4 gap-4"
+    *ngFor="let exercise of catExercises"
+  >
+    <img
+      width="80"
+      height="80"
+      class="shadow-md rounded-md object-cover"
+      [src]="exercise.image ? exercise.image : exercise.alternativeImage"
+      [alt]="exercise.name"
+    >
+    <div class="flex-grow">
+      <p class="text-gray-700">{{ exercise.category }}</p>
+      <h5 class="text-2xl font-medium">{{ exercise.name }}</h5>
+    </div>
+
+    <section class="[&>div]:flex flex-col w-1/12">
+      <!-- Sets -->
+      <div>
+        <span class="font-sans cursor-pointer">Series</span>
+        <p>{{ exercise.set }}</p>
+      </div>
+      <!-- Reps -->
+      <div>
+        <span class="font-sans cursor-pointer">Resp.</span>
+        <p>{{ exercise.rep }}</p>
+      </div>
+      <!-- Rest -->
+      <div>
+        <span class="font-sans cursor-pointer">Desc.</span>
+        <p>{{ exercise.set }}</p>
+      </div>
+    </section>
+
+  </article>
+</section>
