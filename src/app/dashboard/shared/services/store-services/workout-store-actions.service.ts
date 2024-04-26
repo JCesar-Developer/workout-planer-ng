@@ -13,9 +13,9 @@ export class WorkoutStoreActionsService implements StoreActions<Workout> {
   private allWorkoutsStore: AllWorkoutsStoreService;
   private workoutsToRenderStore: WorkoutsToRenderStoreService;
 
-  constructor( private readonly store: Store ) {
-    this.allWorkoutsStore = new AllWorkoutsStoreService( this.store );
-    this.workoutsToRenderStore = new WorkoutsToRenderStoreService( this.store );
+  constructor() {
+    this.allWorkoutsStore = new AllWorkoutsStoreService();
+    this.workoutsToRenderStore = new WorkoutsToRenderStoreService();
   }
 
   public initializeStore( workouts: Workout[] ): void {

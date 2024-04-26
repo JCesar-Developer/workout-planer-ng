@@ -6,7 +6,6 @@ import { PrimeNgModule } from '@primeng/prime-ng.module';
 import { DashboardSharedModule } from '@dashboard/shared/dashboard-shared.module';
 
 import { WorkoutsPageComponent } from './pages/workouts-page/workouts-page.component';
-import { WorkoutSearchbarComponent } from './components/workout-searchbar/workout-searchbar.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
 import { WorkoutCardComponent } from './components/workout-card/workout-card.component';
 
@@ -21,7 +20,6 @@ import { WorkoutFormSelectorComponent } from './components/workout-form-selector
 @NgModule({
   declarations: [
     WorkoutsPageComponent,
-    WorkoutSearchbarComponent,
     WorkoutListComponent,
     WorkoutCardComponent,
     WorkoutOpenFormBtnComponent,

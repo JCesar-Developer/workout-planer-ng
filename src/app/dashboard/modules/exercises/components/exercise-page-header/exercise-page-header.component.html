@@ -3,7 +3,9 @@
   <div class="flex row gap-5">
     <!--  header-search-bar -->
     <span class="w-full">
-      <exercise-searchbar></exercise-searchbar>
+      <shared-searchbar
+        [storeActions]="exerciseStoreActions"
+      ></shared-searchbar>
     </span>
 
     <!-- header-btn-open-form -->

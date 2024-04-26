@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { DashboardMainContainerComponent } from '@dashboard/shared/components/dashboard-main-container/dashboard-main-container.component';
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 
-// import { TruncatePipe } from '@shared/pipes/truncate.pipe';
 import { ExerciseImagePipe } from './pipes/exercise-image.pipe';
 
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -19,7 +18,6 @@ import { PrimeNgModule } from '@/prime-ng/prime-ng.module';
     ExerciseCardComponent,
     ExerciseImagePipe,
     SearchbarComponent,
-    // TruncatePipe,
   ],
   imports: [
     CommonModule,
@@ -30,7 +28,7 @@ import { PrimeNgModule } from '@/prime-ng/prime-ng.module';
     DashboardMainContainerComponent,
     ExerciseCardComponent,
     ExerciseImagePipe,
-    // TruncatePipe,
+    SearchbarComponent,
   ],
   providers: [
     DialogService,

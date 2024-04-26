@@ -1,9 +1,9 @@
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { Store } from '@/dashboard/store/dashboard.store';
+import { dashboardStore, Store } from '@/dashboard/store/dashboard.store';
 
 export class AllExercisesStoreService {
 
-  constructor( private store: Store ) {}
+  private store: Store = dashboardStore;
 
   public get allExercises(): Exercise[] {
     return [...this.store.state.allExercises];

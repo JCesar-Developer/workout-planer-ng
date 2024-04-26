@@ -10,7 +10,6 @@ import { ExercisesPageComponent } from './pages/exercises-page/exercises-page.co
 import { ExerciseFormComponent } from './components/exercise-form/exercise-form.component';
 import { ExercisePageHeaderComponent } from './components/exercise-page-header/exercise-page-header.component';
 import { ExercisePageListComponent } from './components/exercise-page-list/exercise-page-list.component';
-import { ExerciseSearchbarComponent } from './components/exercise-searchbar/exercise-searchbar.component';
 import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/exercise-filter-tabs.component';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -22,7 +21,6 @@ import { ExerciseOpenFormBtnComponent } from './components/exercise-open-form-bt
     ExerciseFormComponent,
     ExercisePageHeaderComponent,
     ExercisePageListComponent,
-    ExerciseSearchbarComponent,
     ExerciseFilterTabsComponent,
     ExerciseOpenFormBtnComponent,
   ],

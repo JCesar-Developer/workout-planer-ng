@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StoreActions } from '@/dashboard/shared/interfaces/store-action.interface';
 
 @Component({
@@ -6,15 +6,9 @@ import { StoreActions } from '@/dashboard/shared/interfaces/store-action.interfa
   templateUrl: './searchbar.component.html',
 })
 export class SearchbarComponent<T> {
+  @Input() storeActions!: StoreActions<T>;
+  @Input() field: string = 'name';
   public suggestedItems: T[] = [];
-  //TODO: Convertir esta clase en una clase padre
-  private storeActions!: StoreActions<T>;
-
-  // constructor(
-  //   storeActions: StoreActions
-  // ) {
-  //   this.storeActions = storeActions;
-  // }
 
   public onRequireSuggestions({ query } : { query: string }): void {
     if( !query ) {

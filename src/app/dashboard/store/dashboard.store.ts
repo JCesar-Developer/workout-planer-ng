@@ -1,6 +1,5 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import { Exercise } from "@dashboard/shared/models/exercise.interface";
-import { Injectable } from "@angular/core";
 import { Workout } from "../shared/models/workout-interface";
 
 interface AppState {
@@ -10,7 +9,6 @@ interface AppState {
   workoutsToRender: Workout[];
 }
 
-@Injectable({ providedIn: 'root' })
 export class Store {
   private stateSubject = new BehaviorSubject<AppState>({
     allExercises: [],
@@ -31,3 +29,5 @@ export class Store {
     this.stateSubject.next(newState);
   }
 }
+
+export const dashboardStore = new Store();

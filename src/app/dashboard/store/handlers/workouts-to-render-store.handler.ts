@@ -1,11 +1,11 @@
 import { Observable, map } from 'rxjs';
 
 import { Workout } from '@dashboard/shared/models/workout-interface';
-import { Store } from '@/dashboard/store/dashboard.store';
+import { dashboardStore, Store } from '@/dashboard/store/dashboard.store';
 
 export class WorkoutsToRenderStoreService {
 
-  constructor( private store: Store ) {}
+  private store: Store = dashboardStore;
 
   public get workouts$(): Observable<Workout[]> {
     return this.store.state$.pipe(

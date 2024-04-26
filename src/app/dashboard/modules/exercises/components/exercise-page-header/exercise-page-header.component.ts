@@ -1,3 +1,4 @@
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,5 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './exercise-page-header.component.html',
 })
 export class ExercisePageHeaderComponent {
+
+  constructor(
+    public exerciseStoreActions: ExerciseStoreActionsService
+  ) {}
 
 }
