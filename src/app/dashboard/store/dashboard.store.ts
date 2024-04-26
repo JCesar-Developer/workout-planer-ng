@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { Exercise } from "@dashboard/shared/models/exercise.interface";
 import { Workout } from "../shared/models/workout-interface";
 
-interface AppState {
+export interface AppState {
   allExercises: Exercise[];
   exercisesToRender: Exercise[];
   allWorkouts: Workout[];

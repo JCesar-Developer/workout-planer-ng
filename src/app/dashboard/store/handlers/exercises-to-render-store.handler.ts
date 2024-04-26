@@ -1,21 +1,8 @@
-import { Observable, map } from 'rxjs';
-
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { dashboardStore, Store } from '@/dashboard/store/dashboard.store';
+import { StoreHandler } from './store-handler.helper';
 
-export class ExercisesToRenderStoreService {
-
-  private store: Store = dashboardStore;
-
-  public get exercises$(): Observable<Exercise[]> {
-    return this.store.state$.pipe(
-      map( state => state.exercisesToRender )
-    );
+export class ExercisesToRenderStoreHandler extends StoreHandler<Exercise> {
+  constructor() {
+    super('exercisesToRender');
   }
-
-  public setState(exercises: Exercise[]): void {
-    const currentState = this.store.state;
-    this.store.setState({ ...currentState, exercisesToRender: exercises });
-  }
-
 }

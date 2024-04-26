@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AllWorkoutsStoreService } from '@dashboard/store/handlers/all-workouts-store.handler';
-import { WorkoutsToRenderStoreService } from '@dashboard/store/handlers/workouts-to-render-store.handler';
+import { AllWorkoutsStoreHandler } from '@dashboard/store/handlers/all-workouts-store.handler';
+import { WorkoutsToRenderStoreHandler } from '@dashboard/store/handlers/workouts-to-render-store.handler';
 import type { Workout } from '@dashboard/shared/models/workout-interface';
 import { StoreActions } from '../../interfaces/store-action.interface';
 
 @Injectable({providedIn: 'root'})
 export class WorkoutStoreActionsService implements StoreActions<Workout> {
 
-  private allWorkoutsStore: AllWorkoutsStoreService;
-  private workoutsToRenderStore: WorkoutsToRenderStoreService;
+  private allWorkoutsStore: AllWorkoutsStoreHandler;
+  private workoutsToRenderStore: WorkoutsToRenderStoreHandler;
 
   constructor() {
-    this.allWorkoutsStore = new AllWorkoutsStoreService();
-    this.workoutsToRenderStore = new WorkoutsToRenderStoreService();
+    this.allWorkoutsStore = new AllWorkoutsStoreHandler();
+    this.workoutsToRenderStore = new WorkoutsToRenderStoreHandler();
   }
 
   public initializeStore( workouts: Workout[] ): void {
     this.allWorkoutsStore.setState( workouts );
-    this.workoutsToRenderStore.setState( workouts );
+    this.workoutsToRenderStore.setState( this.allWorkouts );
   }
 
   // GETTERS ---
   public get allWorkouts(): Workout[] {
-    return this.allWorkoutsStore.allWorkouts;
+    return this.allWorkoutsStore.data;
   }
 
   public get workouts$(): Observable<Workout[]> {
-    return this.workoutsToRenderStore.workouts$;
+    return this.workoutsToRenderStore.data$;
   }
 
   public getWorkoutsByName = this.getItemsByName;

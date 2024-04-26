@@ -1,17 +1,8 @@
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { dashboardStore, Store } from '@/dashboard/store/dashboard.store';
+import { StoreHandler } from './store-handler.helper';
 
-export class AllExercisesStoreService {
-
-  private store: Store = dashboardStore;
-
-  public get allExercises(): Exercise[] {
-    return [...this.store.state.allExercises];
+export class AllExercisesStoreHandler extends StoreHandler<Exercise> {
+  constructor() {
+    super('allExercises');
   }
-
-  public setState(exercises: Exercise[]): void {
-    const currentState = this.store.state;
-    this.store.setState({ ...currentState, allExercises: exercises });
-  }
-
 }
