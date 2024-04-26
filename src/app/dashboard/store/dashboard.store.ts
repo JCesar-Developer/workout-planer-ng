@@ -19,12 +19,12 @@ export class Store {
     workoutsToRender: [],
   });
 
-  public get state$(): Observable<AppState> {
-    return this.stateSubject.asObservable();
+  public get state(): AppState {
+    return this.stateSubject.getValue();
   }
 
-  public getState(): AppState {
-    return this.stateSubject.getValue();
+  public get state$(): Observable<AppState> {
+    return this.stateSubject.asObservable();
   }
 
   public setState(newState: AppState): void {

@@ -14,7 +14,7 @@ export class ExercisesToRenderStoreService {
   }
 
   public setState(exercises: Exercise[]): void {
-    const currentState = this.store.getState();
+    const currentState = this.store.state;
     this.store.setState({ ...currentState, exercisesToRender: exercises });
   }
 

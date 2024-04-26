@@ -6,11 +6,11 @@ export class AllWorkoutsStoreService {
   constructor( private store: Store ) {}
 
   public get allWorkouts(): Workout[] {
-    return [...this.store.getState().allWorkouts];
+    return [...this.store.state.allWorkouts];
   }
 
   public setState( workouts: Workout[] ): void {
-    const currentState = this.store.getState();
+    const currentState = this.store.state;
     this.store.setState({ ...currentState, allWorkouts: workouts });
   }
 

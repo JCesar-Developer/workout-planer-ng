@@ -6,7 +6,8 @@ import { StoreActions } from '@/dashboard/shared/interfaces/store-action.interfa
   templateUrl: './searchbar.component.html',
 })
 export class SearchbarComponent<T> {
-  public suggestedItems!: T[];
+  public suggestedItems: T[] = [];
+  //TODO: Convertir esta clase en una clase padre
   private storeActions!: StoreActions<T>;
 
   // constructor(
