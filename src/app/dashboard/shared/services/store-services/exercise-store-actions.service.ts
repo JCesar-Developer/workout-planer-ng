@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { AllExercisesStoreService } from '@dashboard/store/handlers/all-exercises-store.handler';
 import { ExercisesToRenderStoreService } from '@dashboard/store/handlers/exercises-to-render-store.handler';
 import type { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
-import { Store } from '@/dashboard/store/dashboard.store';
 import { StoreActions } from '../../interfaces/store-action.interface';
 
 @Injectable({providedIn: 'root'})
