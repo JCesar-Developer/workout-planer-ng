@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutCardCarouselComponent } from './components/workout-card-carousel/workout-card-carousel.component';
 import { AppSharedModule } from '@shared/shared.module';
 import { WorkoutFormSelectorComponent } from './components/workout-form-selector/workout-form-selector.component';
+import { ExercisesModule } from '../exercises/exercises.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { WorkoutFormSelectorComponent } from './components/workout-form-selector
     ReactiveFormsModule,
     WorkoutsRoutingModule,
     AppSharedModule,
+    ExercisesModule,
   ],
   providers: [
     MessageService,

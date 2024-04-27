@@ -3,14 +3,11 @@
   (click)="clickable ? onEmitExercise() : null"
 >
   <!-- Delete icon -->
-  <button
-    *ngIf="editable"
-    class="absolute top-2 right-2 z-10 flex justify-center items-center border border-[--green-color] rounded-full w-6 h-6"
-    data-testId="edit-card-btn"
-    (click)="onOpenForm()"
-  >
-    <i class="pi pi-pencil" style="font-size: .75rem; color: #00B085"></i>
-  </button>
+  <exercise-open-form-btn
+    [editable]="editable"
+    [exercise]="exercise"
+    [slotForm]="true"
+  ></exercise-open-form-btn>
 
   <!-- Card-Image -->
   <img

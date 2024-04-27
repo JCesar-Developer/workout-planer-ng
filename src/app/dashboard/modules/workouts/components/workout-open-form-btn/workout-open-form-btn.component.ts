@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { FormCreator } from '@shared/helpers/form-creator.helper';
-import { WorkoutFormComponent } from '../workout-form/workout-form.component';
+import { Component, OnInit } from '@angular/core';
 
 import { DialogService } from 'primeng/dynamicdialog';
-import { WorkoutFormConfigurator } from '../../helpers/workout-form-config.helper';
+import { DialogHandlerConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+import { WorkoutFormComponent } from '../workout-form/workout-form.component';
+import { workoutDialogConfig } from '@workouts/helpers/workout-dialog-config.helper';
 import { Workout } from '@dashboard/shared/models/workout-interface';
 
 @Component({
@@ -13,28 +12,16 @@ import { Workout } from '@dashboard/shared/models/workout-interface';
 })
 export class WorkoutOpenFormBtnComponent implements OnInit {
 
-  @Input() public workout?: Workout;
-  private formCreator?: FormCreator;
-  private formConfigurator?: WorkoutFormConfigurator;
+  public dialogConfig!: DialogHandlerConfig<Workout>;
 
   constructor( private dialogService: DialogService ) {}
 
   ngOnInit(): void {
-    this.formCreator = new FormCreator( this.dialogService, WorkoutFormComponent );
-  }
-
-  public onOpenForm(): void {
-    if( !this.formCreator ) return;
-
-    switch (this.workout) {
-      case undefined:
-        this.formConfigurator = new WorkoutFormConfigurator();
-        this.formCreator.openForm(this.formConfigurator.config);
-        break;
-      default:
-        this.formConfigurator = new WorkoutFormConfigurator(this.workout);
-        this.formCreator.openForm(this.formConfigurator.config);
-        break;
+    this.dialogConfig = {
+      dialogService: this.dialogService,
+      component: WorkoutFormComponent,
+      customDialogConfig: workoutDialogConfig,
+      modelName: 'Rutina',
     }
   }
 

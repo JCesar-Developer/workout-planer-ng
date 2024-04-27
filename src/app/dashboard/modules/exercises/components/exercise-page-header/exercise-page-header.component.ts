@@ -1,5 +1,6 @@
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { Component } from '@angular/core';
+
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 @Component({
   selector: 'exercise-page-header',

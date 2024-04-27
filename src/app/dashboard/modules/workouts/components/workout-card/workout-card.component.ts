@@ -12,6 +12,11 @@ import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-se
 import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
 import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
+import { WorkoutFormComponent } from '../workout-form/workout-form.component';
+import { workoutDialogConfig } from '@workouts/helpers/workout-dialog-config.helper';
+import { DialogHandler, DialogHandlerConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+import { DialogService } from 'primeng/dynamicdialog';
+
 @Component({
   selector: 'workout-card',
   templateUrl: './workout-card.component.html',
@@ -24,9 +29,11 @@ export class WorkoutCardComponent {
   public exerciseReps?: number[];
 
   private exercisesSubs$?: Subscription;
+  private dialogHelper!: DialogHandler<Workout>;
   private formActions: FormActions<Workout>;
 
   constructor(
+    private dialogService: DialogService,
     private exerciseStoreActions: ExerciseStoreActionsService,
     private workoutHttp: WorkoutHttpService,
     private workoutStoreActions: WorkoutStoreActionsService,
@@ -38,6 +45,17 @@ export class WorkoutCardComponent {
 
   ngOnInit(): void {
     this.setExercises();
+
+    const dialogConfig: DialogHandlerConfig<Workout> = {
+      dialogService: this.dialogService,
+      component: WorkoutFormComponent,
+      customDialogConfig: workoutDialogConfig,
+      model: this.workout,
+      modelName: 'Rutina',
+    }
+
+
+    this.dialogHelper = new DialogHandler( dialogConfig );
   }
 
   ngOnDestroy(): void {
@@ -49,6 +67,10 @@ export class WorkoutCardComponent {
     this.exercises = this.exerciseStoreActions.getExercisesById( exercisesIds );
     this.exerciseSets = this.workout.categorizedExercises.map( catEx => catEx.sets );
     this.exerciseReps = this.workout.categorizedExercises.map( catEx => catEx.reps );
+  }
+
+  public get onOpenForm() {
+    return () => this.dialogHelper.openForm();
   }
 
   onConfirmDelete(event: Event) {

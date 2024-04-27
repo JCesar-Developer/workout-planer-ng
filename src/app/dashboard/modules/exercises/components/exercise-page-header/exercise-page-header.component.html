@@ -3,14 +3,17 @@
   <div class="flex row gap-5">
     <!--  header-search-bar -->
     <span class="w-full">
-      <shared-searchbar
+      <dashboard-searchbar
         [storeActions]="exerciseStoreActions"
-      ></shared-searchbar>
+      ></dashboard-searchbar>
     </span>
 
     <!-- header-btn-open-form -->
     <span class="p-fluid w-52">
-      <exercise-open-form-btn></exercise-open-form-btn>
+      <exercise-open-form-btn
+        [slotForm]="false"
+        data-testId="open-create-form-btn"
+      ></exercise-open-form-btn>
     </span>
 
   </div>

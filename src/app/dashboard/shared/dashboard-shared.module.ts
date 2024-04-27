@@ -2,22 +2,19 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { DashboardMainContainerComponent } from '@dashboard/shared/components/dashboard-main-container/dashboard-main-container.component';
-import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
-
-import { ExerciseImagePipe } from './pipes/exercise-image.pipe';
 
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppSharedModule } from '@shared/shared.module';
-import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { SearchbarComponent } from './components/dashboard-searchbar/dashboard-searchbar.component';
 import { PrimeNgModule } from '@/prime-ng/prime-ng.module';
+import { DashboardOpenFormBtnComponent } from './components/dashboard-open-form-btn/dashboard-open-form-btn.component';
 
 
 @NgModule({
   declarations: [
     DashboardMainContainerComponent,
-    ExerciseCardComponent,
-    ExerciseImagePipe,
     SearchbarComponent,
+    DashboardOpenFormBtnComponent,
   ],
   imports: [
     CommonModule,
@@ -26,8 +23,7 @@ import { PrimeNgModule } from '@/prime-ng/prime-ng.module';
   ],
   exports: [
     DashboardMainContainerComponent,
-    ExerciseCardComponent,
-    ExerciseImagePipe,
+    DashboardOpenFormBtnComponent,
     SearchbarComponent,
   ],
   providers: [

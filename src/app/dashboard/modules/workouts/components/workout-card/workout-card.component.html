@@ -11,10 +11,12 @@
       <!-- EDIT & DELETE BTN -->
       <div class="space-x-2">
         <!-- btb-edit -->
-        <workout-open-form-btn
-          [workout]="workout"
+        <p-button
+          (click)="onOpenForm()"
+          icon="pi pi-pencil"
+          styleClass="p-button-sm p-button-secondary"
           data-testId="open-workout-form-btn"
-        />
+        ></p-button>
         <!-- btb-delete -->
         <p-button
           icon="pi pi-trash"

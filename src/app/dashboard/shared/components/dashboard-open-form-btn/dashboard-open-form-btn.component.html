@@ -1,0 +1,14 @@
+<ng-container *ngIf="!slotForm; else optionalForm">
+  <p-button
+    (click)="onOpenForm()"
+    label="Nuevo Workout"
+    styleClass="p-button-secondary"
+  ></p-button>
+</ng-container>
+
+<ng-template #optionalForm>
+  <div (click)="onOpenForm()">
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+

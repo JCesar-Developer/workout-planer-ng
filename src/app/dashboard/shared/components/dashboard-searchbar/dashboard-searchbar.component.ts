@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { StoreActions } from '@/dashboard/shared/interfaces/store-action.interface';
 
 @Component({
-  selector: 'shared-searchbar',
-  templateUrl: './searchbar.component.html',
+  selector: 'dashboard-searchbar',
+  templateUrl: './dashboard-searchbar.component.html',
 })
 export class SearchbarComponent<T> {
   @Input() storeActions!: StoreActions<T>;

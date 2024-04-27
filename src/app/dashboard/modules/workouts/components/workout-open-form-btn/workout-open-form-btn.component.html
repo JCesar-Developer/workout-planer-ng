@@ -1,16 +1,3 @@
-<ng-container *ngIf="!workout; else editBtn">
-  <p-button
-    (click)="onOpenForm()"
-    label="Nuevo Workout"
-    styleClass="p-button-secondary"
-  ></p-button>
-</ng-container>
-
-<ng-template #editBtn>
-  <p-button
-    (click)="onOpenForm()"
-    icon="pi pi-pencil"
-    styleClass="p-button-sm p-button-secondary"
-  ></p-button>
-</ng-template>
-
+<dashboard-open-form-btn
+  [dialogConfig]="dialogConfig"
+></dashboard-open-form-btn>
