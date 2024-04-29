@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
-import { DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+// import { DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
 import { DialogService } from 'primeng/dynamicdialog';
 
 import { ExerciseDialogConfig } from '@exercises/helpers/exercise-dialog-config.helper'
+import { DialogConfig } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ExerciseCardComponent implements OnInit {
   constructor( private dialogService: DialogService ) {}
 
   ngOnInit(): void {
-    this.dialogConfig = new ExerciseDialogConfig(this.dialogService, this.exercise).config;
+    this.dialogConfig = new ExerciseDialogConfig(this.exercise).config;
   }
 
   public onClickCard(): void {
