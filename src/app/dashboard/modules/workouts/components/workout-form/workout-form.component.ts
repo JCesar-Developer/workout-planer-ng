@@ -9,10 +9,10 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
 import { CategorizedExercise, Workout } from '@dashboard/shared/models/workout-interface';
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
-import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
+import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { WorkoutStoreService } from '@/dashboard/shared/services/store-services/workout-store.service';
 
-import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
+import { CrudActionsHelper } from '@dashboard/shared/helpers/crud-actions.helper';
 import { workoutErrorMessages } from '../../helpers/workout-form-error-messages.helper';
 import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
 
@@ -28,7 +28,7 @@ const toastMessages = {
 export class WorkoutFormComponent implements OnInit {
 
   public form!: FormGroup;
-  public formActions?: FormActions<Workout>;
+  public formActions?: CrudActionsHelper<Workout>;
   public formValidator?: FormValidator;
 
   public workoutId?: string;
@@ -43,8 +43,8 @@ export class WorkoutFormComponent implements OnInit {
     private customValidator: CustomValidatorsService,
     private messageService: MessageService,
     private workoutHttp: WorkoutHttpService,
-    private workoutStoreActions: WorkoutStoreActionsService,
-    private exerciseStoreActions: ExerciseStoreActionsService,
+    private workoutStoreActions: WorkoutStoreService,
+    private exerciseStoreActions: ExerciseStoreService,
   ) {}
 
   //LIFECYCLE HOOKS ---
@@ -74,7 +74,12 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   private setFormActions(): void {
-    this.formActions = new FormActions( this.workoutHttp, this.workoutStoreActions, this.messageService, workoutToastMessages, this.ref );
+    this.formActions = new CrudActionsHelper({
+      httpService: this.workoutHttp,
+      storeActions: this.workoutStoreActions,
+      messageService: this.messageService,
+      messages: workoutToastMessages
+    });
   }
 
   private setCategorizedExercises(): void {

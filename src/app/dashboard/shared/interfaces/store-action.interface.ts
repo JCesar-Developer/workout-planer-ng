@@ -1,4 +1,4 @@
-export interface StoreActions<T> {
+export interface StoreActionsInterface<T> {
   initializeStore(items: T[]): void;
   getItemsByName(term: string): T[];
   setItemsToRender(items: T[]): void;

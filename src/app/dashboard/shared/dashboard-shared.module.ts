@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { DashboardMainContainerComponent } from '@dashboard/shared/components/dashboard-main-container/dashboard-main-container.component';
 
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppSharedModule } from '@shared/shared.module';
 import { SearchbarComponent } from './components/dashboard-searchbar/dashboard-searchbar.component';
 import { PrimeNgModule } from '@/prime-ng/prime-ng.module';

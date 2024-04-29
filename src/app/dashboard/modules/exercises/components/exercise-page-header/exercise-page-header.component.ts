@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Exercise } from '@/dashboard/shared/models/exercise.interface';
-// import { DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
 
-import { DialogService } from 'primeng/dynamicdialog';
 import { ExerciseDialogConfig } from '@exercises/helpers/exercise-dialog-config.helper'
-import { DialogConfig } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
+import { DialogSetup } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
 
 @Component({
   selector: 'exercise-page-header',
@@ -14,11 +12,10 @@ import { DialogConfig } from '@/dashboard/shared/services/dashboard-services/dia
 })
 export class ExercisePageHeaderComponent implements OnInit {
 
-  public dialogConfig!: DialogConfig<Exercise>;
+  public dialogConfig!: DialogSetup<Exercise>;
 
   constructor(
-    public exerciseStoreActions: ExerciseStoreActionsService,
-    private dialogService: DialogService,
+    public exerciseStoreActions: ExerciseStoreService,
   ) {}
 
   ngOnInit(): void {

@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { StoreActions } from '@/dashboard/shared/interfaces/store-action.interface';
+import { StoreActionsInterface } from '@/dashboard/shared/interfaces/store-action.interface';
 
 @Component({
   selector: 'dashboard-searchbar',
   templateUrl: './dashboard-searchbar.component.html',
 })
 export class SearchbarComponent<T> {
-  @Input() storeActions!: StoreActions<T>;
+  @Input() storeActions!: StoreActionsInterface<T>;
   @Input() field: string = 'name';
   public suggestedItems: T[] = [];
 

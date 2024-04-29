@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Category } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
 
 @Component({
   selector: 'exercise-filter-tabs',
@@ -12,7 +12,7 @@ export class ExerciseFilterTabsComponent {
   private currentCategory: Category = Category.ALL;
 
   constructor(
-    private exerciseStore: ExerciseStoreActionsService,
+    private exerciseStore: ExerciseStoreService,
   ) {
     this.categories = Object.values(Category);
   }

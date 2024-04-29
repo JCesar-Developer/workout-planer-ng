@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
 
 @Component({
   selector: 'workout-form-selector',
@@ -25,7 +25,7 @@ export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
   private filterControlSubs$?: Subscription;
 
   constructor(
-    private exerciseStore: ExerciseStoreActionsService,
+    private exerciseStore: ExerciseStoreService,
   ) {
     this.categories = Object.values(Category);
     this.exerciseStore.setExercisesToRenderAllExercises();

@@ -1,9 +1,9 @@
 import { Observable, map } from 'rxjs';
-import { AppState, dashboardStore, Store } from '@/dashboard/store/dashboard.store';
+import { AppState, dashboardStore, AppStore } from '@/dashboard/store/dashboard.store';
 
-export class StoreHandler<T> {
+export class StoreHandlerHelper<T> {
 
-  private store: Store = dashboardStore;
+  private store: AppStore = dashboardStore;
 
   constructor(private dataKey: keyof AppState) {}
 

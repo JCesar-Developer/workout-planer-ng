@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 
 import { Workout } from '@dashboard/shared/models/workout-interface';
 import { Subscription } from 'rxjs';
-import { WorkoutStoreActionsService } from '@/dashboard/shared/services/store-services/workout-store-actions.service';
+import { WorkoutStoreService } from '@/dashboard/shared/services/store-services/workout-store.service';
 
 @Component({
   selector: 'workout-list',
@@ -14,7 +14,7 @@ export class WorkoutListComponent implements OnDestroy {
   public workoutsSubs$: Subscription;
 
   constructor(
-    private workoutStoreActions: WorkoutStoreActionsService,
+    private workoutStoreActions: WorkoutStoreService,
   ) {
     this.workoutsSubs$ = this.workoutStoreActions.workouts$
       .subscribe( workouts => {

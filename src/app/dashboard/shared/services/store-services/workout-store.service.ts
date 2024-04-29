@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import type { Workout } from '@dashboard/shared/models/workout-interface';
-import { StoreActions } from '../../interfaces/store-action.interface';
-import { StoreHandler } from '@/dashboard/store/handlers/store-handler.helper';
+import { StoreActionsInterface } from '../../interfaces/store-action.interface';
+import { StoreHandlerHelper } from '@/dashboard/store/handlers/store-handler.helper';
 
 @Injectable({providedIn: 'root'})
-export class WorkoutStoreActionsService implements StoreActions<Workout> {
+export class WorkoutStoreService implements StoreActionsInterface<Workout> {
 
-  private allWorkoutsStore: StoreHandler<Workout>;
-  private workoutsToRenderStore: StoreHandler<Workout>;
+  private allWorkoutsStore: StoreHandlerHelper<Workout>;
+  private workoutsToRenderStore: StoreHandlerHelper<Workout>;
 
   constructor() {
-    this.allWorkoutsStore = new StoreHandler('allWorkouts');
-    this.workoutsToRenderStore = new StoreHandler('workoutsToRender');
+    this.allWorkoutsStore = new StoreHandlerHelper('allWorkouts');
+    this.workoutsToRenderStore = new StoreHandlerHelper('workoutsToRender');
   }
 
   public initializeStore( workouts: Workout[] ): void {

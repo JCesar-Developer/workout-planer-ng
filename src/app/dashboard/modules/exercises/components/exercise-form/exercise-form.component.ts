@@ -6,14 +6,11 @@ import { Category, Exercise } from '@dashboard/shared/models/exercise.interface'
 import { CustomValidatorsService } from '@shared/services/custom-validators.service';
 import { FormValidator } from '@shared/helpers/form-validator.helper'
 
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ExerciseHttpService } from '@dashboard/shared/services/http-services/exercise-http.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
+import { ConfirmationService } from 'primeng/api';
 
-import { FormActions } from '@dashboard/shared/helpers/form-actions.helper';
 import { exerciseErrorMessages } from '@exercises/helpers/exercise-form-error-messages.helper';
-import { exerciseToastMessages } from '@exercises/helpers/exercise-toast-messsages.helper';
+import { DialogHandlerService } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
+import { ExerciseFormActionsService } from '../../services/exercise-form-actions.service';
 
 interface ExerciseForm {
   id: FormControl<string|null>;
@@ -26,11 +23,11 @@ interface ExerciseForm {
 @Component({
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
+  providers: [ ExerciseFormActionsService ]
 })
 export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup<ExerciseForm>;
-  public formActions?: FormActions<Exercise>;
   public formValidator?: FormValidator;
 
   public categories: Category[] = Object.values(Category);
@@ -39,13 +36,10 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   private $altImg?: Subscription;
 
   constructor(
-    private config: DynamicDialogConfig,
+    private dialogHandler: DialogHandlerService<Exercise>,
     private customValidators: CustomValidatorsService,
-    private exerciseHttp: ExerciseHttpService,
-    private exerciseStoreActions: ExerciseStoreActionsService,
+    private exerciseFormActions: ExerciseFormActionsService,
     private fb: FormBuilder,
-    private ref: DynamicDialogRef,
-    private messageService: MessageService,
     private confirmationService: ConfirmationService,
   ) {}
 
@@ -53,7 +47,6 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setForm();
     this.setFormValidator();
-    this.setFormActions();
 
     this.fillFormIfDataExists();
     this.setCurrentExercise();
@@ -80,24 +73,14 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   private fillFormIfDataExists(): void {
-    if (!this.config.data || !this.config.data.model) return;
+    if (!this.dialogHandler.model) return;
 
-    const exercise = this.config.data.model;
+    const exercise = this.dialogHandler.model;
     this.form.patchValue( exercise );
   }
 
   private setCurrentExercise(): void {
     this.currentExercise = this.form.value as Exercise;
-  }
-
-  private setFormActions(): void {
-    this.formActions = new FormActions<Exercise>(
-      this.exerciseHttp,
-      this.exerciseStoreActions,
-      this.messageService,
-      exerciseToastMessages,
-      this.ref
-    );
   }
 
   private subscribeToAltImgChanges(): void {
@@ -117,11 +100,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     }
 
     if( this.currentExercise.id ) {
-      this.formActions!.update( this.currentExercise );
+      this.exerciseFormActions.update( this.currentExercise );
       return;
     }
 
-    this.formActions!.save( this.currentExercise );
+    this.exerciseFormActions.save( this.currentExercise );
   }
 
   public onConfirmDelete(event: Event) {
@@ -135,11 +118,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   private onDelete() {
     if( !this.currentExercise.id ) return;
-    this.formActions!.delete( this.currentExercise );
+    this.exerciseFormActions.delete( this.currentExercise );
   }
 
   public closeDialog() {
-    this.ref.close();
+    this.dialogHandler.closeForm();
   }
 
 }

@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import type { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
-import { StoreActions } from '../../interfaces/store-action.interface';
-import { StoreHandler } from '@/dashboard/store/handlers/store-handler.helper';
+import { StoreActionsInterface } from '../../interfaces/store-action.interface';
+import { StoreHandlerHelper } from '@/dashboard/store/handlers/store-handler.helper';
 
 @Injectable({providedIn: 'root'})
-export class ExerciseStoreActionsService implements StoreActions<Exercise> {
+export class ExerciseStoreService implements StoreActionsInterface<Exercise> {
 
-  private allExercisesStore: StoreHandler<Exercise>;
-  private exerciseToRenderStore: StoreHandler<Exercise>;
+  private allExercisesStore: StoreHandlerHelper<Exercise>;
+  private exerciseToRenderStore: StoreHandlerHelper<Exercise>;
 
   constructor() {
-    this.allExercisesStore = new StoreHandler('allExercises');
-    this.exerciseToRenderStore = new StoreHandler('exercisesToRender');
+    this.allExercisesStore = new StoreHandlerHelper('allExercises');
+    this.exerciseToRenderStore = new StoreHandlerHelper('exercisesToRender');
   }
 
   public initializeStore( exercises: Exercise[] ): void {

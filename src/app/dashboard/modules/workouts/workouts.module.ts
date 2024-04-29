@@ -10,7 +10,6 @@ import { WorkoutListComponent } from './components/workout-list/workout-list.com
 import { WorkoutCardComponent } from './components/workout-card/workout-card.component';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { WorkoutOpenFormBtnComponent } from './components/workout-open-form-btn/workout-open-form-btn.component';
 import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutCardCarouselComponent } from './components/workout-card-carousel/workout-card-carousel.component';
@@ -23,7 +22,6 @@ import { ExercisesModule } from '../exercises/exercises.module';
     WorkoutsPageComponent,
     WorkoutListComponent,
     WorkoutCardComponent,
-    WorkoutOpenFormBtnComponent,
     WorkoutFormComponent,
     WorkoutCardCarouselComponent,
     WorkoutFormSelectorComponent,

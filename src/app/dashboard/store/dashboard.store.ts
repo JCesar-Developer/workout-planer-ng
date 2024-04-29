@@ -9,7 +9,7 @@ export interface AppState {
   workoutsToRender: Workout[];
 }
 
-export class Store {
+export class AppStore {
   private stateSubject = new BehaviorSubject<AppState>({
     allExercises: [],
     exercisesToRender: [],
@@ -30,4 +30,4 @@ export class Store {
   }
 }
 
-export const dashboardStore = new Store();
+export const dashboardStore = new AppStore();
