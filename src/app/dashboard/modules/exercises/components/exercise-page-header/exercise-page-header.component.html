@@ -1,6 +1,7 @@
 <section class="space-y-3">
   <!-- FIRST-ROW -->
   <div class="flex row gap-5">
+
     <!--  header-search-bar -->
     <span class="w-full">
       <dashboard-searchbar
@@ -10,10 +11,10 @@
 
     <!-- header-btn-open-form -->
     <span class="p-fluid w-52">
-      <exercise-open-form-btn
-        [slotForm]="false"
+      <dashboard-open-form-btn
+        [dialogConfig]="dialogConfig"
         data-testId="open-create-form-btn"
-      ></exercise-open-form-btn>
+      ></dashboard-open-form-btn>
     </span>
 
   </div>

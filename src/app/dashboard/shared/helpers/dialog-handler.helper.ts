@@ -1,7 +1,7 @@
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Type } from "@angular/core";
 
-export interface DialogHandlerConfig<T> {
+export interface DialogConfig<T> {
   dialogService: DialogService;
   component: Type<Object>,
   customDialogConfig?: DynamicDialogConfig;
@@ -18,7 +18,7 @@ export class DialogHandler<T> {
     maximizable: false,
   };
 
-  constructor( private config: DialogHandlerConfig<T> ) {
+  constructor( private config: DialogConfig<T> ) {
     this.setConfig();
   }
 

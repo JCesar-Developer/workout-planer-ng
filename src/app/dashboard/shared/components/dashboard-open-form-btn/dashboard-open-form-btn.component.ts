@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DialogHandler, DialogHandlerConfig } from '../../helpers/dialog-handler.helper';
+import { DialogHandler, DialogConfig } from '../../helpers/dialog-handler.helper';
 
 @Component({
   selector: 'dashboard-open-form-btn',
@@ -7,22 +7,22 @@ import { DialogHandler, DialogHandlerConfig } from '../../helpers/dialog-handler
 })
 export class DashboardOpenFormBtnComponent<T> {
 
-  @Input() dialogConfig!: DialogHandlerConfig<T>;
+  @Input() dialogConfig!: DialogConfig<T>;
   @Input() slotForm: boolean = false;
   @Input() model?: T;
 
-  private dialogHelper!: DialogHandler<T>;
+  private dialogHandler!: DialogHandler<T>;
 
   ngOnInit(): void {
-    this.setDialogHelper();
+    this.setDialogHandler();
   }
 
-  private setDialogHelper() {
-    this.dialogHelper = new DialogHandler( this.dialogConfig );
+  private setDialogHandler() {
+    this.dialogHandler = new DialogHandler( this.dialogConfig );
   }
 
   public onOpenForm(): void {
-    this.dialogHelper.openForm();
+    this.dialogHandler.openForm();
   }
 
 }

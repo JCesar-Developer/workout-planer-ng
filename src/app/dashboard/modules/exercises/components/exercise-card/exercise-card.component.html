@@ -1,13 +1,22 @@
 <article
   class="p-2 border bg-white border-gray-100 shadow-md rounded-lg relative aspect-[2/3]"
-  (click)="clickable ? onEmitExercise() : null"
+  (click)="clickable ? onClickCard() : null"
 >
   <!-- Delete icon -->
-  <exercise-open-form-btn
-    [editable]="editable"
-    [exercise]="exercise"
+  <dashboard-open-form-btn
+    [dialogConfig]="dialogConfig"
     [slotForm]="true"
-  ></exercise-open-form-btn>
+    [model]="exercise"
+  >
+    <button
+      *ngIf="editable"
+      class="absolute top-2 right-2 z-10 flex justify-center items-center border border-[--green-color] rounded-full w-6 h-6"
+      data-testId="edit-card-btn"
+    >
+      <i class="pi pi-pencil" style="font-size: .75rem; color: #00B085"></i>
+    </button>
+  </dashboard-open-form-btn>
+
 
   <!-- Card-Image -->
   <img

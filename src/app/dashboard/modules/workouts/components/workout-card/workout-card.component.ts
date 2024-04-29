@@ -14,7 +14,7 @@ import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.h
 
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 import { workoutDialogConfig } from '@workouts/helpers/workout-dialog-config.helper';
-import { DialogHandler, DialogHandlerConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+import { DialogHandler, DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -46,7 +46,7 @@ export class WorkoutCardComponent {
   ngOnInit(): void {
     this.setExercises();
 
-    const dialogConfig: DialogHandlerConfig<Workout> = {
+    const dialogConfig: DialogConfig<Workout> = {
       dialogService: this.dialogService,
       component: WorkoutFormComponent,
       customDialogConfig: workoutDialogConfig,

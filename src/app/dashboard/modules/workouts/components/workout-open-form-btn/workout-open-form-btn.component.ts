@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DialogService } from 'primeng/dynamicdialog';
-import { DialogHandlerConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+import { DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 import { workoutDialogConfig } from '@workouts/helpers/workout-dialog-config.helper';
 import { Workout } from '@dashboard/shared/models/workout-interface';
@@ -12,7 +12,7 @@ import { Workout } from '@dashboard/shared/models/workout-interface';
 })
 export class WorkoutOpenFormBtnComponent implements OnInit {
 
-  public dialogConfig!: DialogHandlerConfig<Workout>;
+  public dialogConfig!: DialogConfig<Workout>;
 
   constructor( private dialogService: DialogService ) {}
 

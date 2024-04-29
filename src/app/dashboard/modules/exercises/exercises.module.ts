@@ -13,7 +13,6 @@ import { AppSharedModule } from '@/shared/shared.module';
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 import { ExerciseFilterTabsComponent } from './components/exercise-filter-tabs/exercise-filter-tabs.component';
 import { ExerciseFormComponent } from './components/exercise-form/exercise-form.component';
-import { ExerciseOpenFormBtnComponent } from './components/exercise-open-form-btn/exercise-open-form-btn.component';
 import { ExercisePageHeaderComponent } from './components/exercise-page-header/exercise-page-header.component';
 import { ExercisePageListComponent } from './components/exercise-page-list/exercise-page-list.component';
 import { ExercisesPageComponent } from './pages/exercises-page/exercises-page.component';
@@ -26,7 +25,6 @@ import { ExerciseImagePipe } from './pipes/exercise-image.pipe';
     ExerciseFilterTabsComponent,
     ExerciseFormComponent,
     ExerciseImagePipe,
-    ExerciseOpenFormBtnComponent,
     ExercisePageHeaderComponent,
     ExercisePageListComponent,
     ExercisesPageComponent,

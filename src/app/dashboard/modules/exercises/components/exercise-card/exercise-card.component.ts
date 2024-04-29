@@ -1,22 +1,36 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
+import { DialogConfig } from '@/dashboard/shared/helpers/dialog-handler.helper';
+import { DialogService } from 'primeng/dynamicdialog';
+
+import { ExerciseDialogConfig } from '@exercises/helpers/exercise-dialog-config.helper'
+
 
 @Component({
   selector: 'exercise-card',
   templateUrl: './exercise-card.component.html',
 })
-export class ExerciseCardComponent {
+export class ExerciseCardComponent implements OnInit {
 
   @Input() public exercise!: Exercise;
   @Input() public sets?: number;
   @Input() public reps?: number;
   @Input() public editable: boolean = false;
   @Input() public clickable: boolean = false;
-  @Output() public emitExercise: EventEmitter<Exercise> = new EventEmitter();
+  @Output() public onEmitExercise: EventEmitter<Exercise> = new EventEmitter();
 
-  onEmitExercise() {
+  public dialogConfig!: DialogConfig<Exercise>;
+
+  constructor( private dialogService: DialogService ) {}
+
+  ngOnInit(): void {
+    this.dialogConfig = new ExerciseDialogConfig(this.dialogService, this.exercise).config;
+  }
+
+  public onClickCard(): void {
     if( !this.clickable ) return;
-    this.emitExercise.emit(this.exercise);
+    this.onEmitExercise.emit(this.exercise);
   }
 
 }
