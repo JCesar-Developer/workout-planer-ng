@@ -10,7 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 
 import { exerciseErrorMessages } from '@exercises/helpers/exercise-form-error-messages.helper';
 import { DialogHandlerService } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
-import { ExerciseFormActionsService } from '../../services/exercise-form-actions.service';
+import { ExerciseCrudActionsService } from '../../services/exercise-crud-actions.service';
 
 interface ExerciseForm {
   id: FormControl<string|null>;
@@ -23,7 +23,7 @@ interface ExerciseForm {
 @Component({
   selector: 'exercise-form',
   templateUrl: './exercise-form.component.html',
-  providers: [ ExerciseFormActionsService ]
+  providers: [ ExerciseCrudActionsService ]
 })
 export class ExerciseFormComponent implements OnInit, OnDestroy {
 
@@ -38,7 +38,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   constructor(
     private dialogHandler: DialogHandlerService<Exercise>,
     private customValidators: CustomValidatorsService,
-    private exerciseFormActions: ExerciseFormActionsService,
+    private exerciseCrudActions: ExerciseCrudActionsService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
   ) {}
@@ -100,11 +100,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     }
 
     if( this.currentExercise.id ) {
-      this.exerciseFormActions.update( this.currentExercise );
+      this.exerciseCrudActions.update( this.currentExercise );
       return;
     }
 
-    this.exerciseFormActions.save( this.currentExercise );
+    this.exerciseCrudActions.save( this.currentExercise );
   }
 
   public onConfirmDelete(event: Event) {
@@ -118,7 +118,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
 
   private onDelete() {
     if( !this.currentExercise.id ) return;
-    this.exerciseFormActions.delete( this.currentExercise );
+    this.exerciseCrudActions.delete( this.currentExercise );
   }
 
   public closeDialog() {

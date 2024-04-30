@@ -20,11 +20,10 @@ interface Model {
 }
 
 export class CrudActionsHelper<T extends Model> {
-  private messages: ToastMessage;
 
-  constructor( public config: CrudActionsHelperInterface<T> ) {
-    this.messages = this.config.messages;
-  }
+  constructor(
+    public config: CrudActionsHelperInterface<T>
+  ) {}
 
   private showMessage(status: boolean, detail: string): void {
     this.config.messageService.add({
@@ -54,8 +53,8 @@ export class CrudActionsHelper<T extends Model> {
     this.sendHttpRequest(
       this.config.httpService.save(model),
       model,
-      (name) => this.messages.success.create(name),
-      this.messages.error.create,
+      (name) => this.config.messages.success.create(name),
+      this.config.messages.error.create,
       () => {
         this.config.storeActions.save(model);
         if (this.config.ref) this.config.ref.close();
@@ -67,8 +66,8 @@ export class CrudActionsHelper<T extends Model> {
     this.sendHttpRequest(
       this.config.httpService.update(model),
       model,
-      (name) => this.messages.success.update(name),
-      this.messages.error.update,
+      (name) => this.config.messages.success.update(name),
+      this.config.messages.error.update,
       () => {
         this.config.storeActions.update(model);
         if (this.config.ref) this.config.ref.close();
@@ -80,8 +79,8 @@ export class CrudActionsHelper<T extends Model> {
     this.sendHttpRequest(
       this.config.httpService.delete(model.id),
       model,
-      (name) => this.messages.success.delete(name),
-      this.messages.error.delete,
+      (name) => this.config.messages.success.delete(name),
+      this.config.messages.error.delete,
       () => {
         this.config.storeActions.delete(model.id);
         if (this.config.ref) this.config.ref.close();

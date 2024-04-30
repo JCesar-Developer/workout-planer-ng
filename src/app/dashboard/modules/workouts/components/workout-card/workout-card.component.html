@@ -9,14 +9,19 @@
       </div>
 
       <!-- EDIT & DELETE BTN -->
-      <div class="space-x-2">
+      <div class="flex flex-row gap-2">
         <!-- btb-edit -->
-        <p-button
-          (click)="onOpenForm()"
-          icon="pi pi-pencil"
-          styleClass="p-button-sm p-button-secondary"
-          data-testId="open-workout-form-btn"
-        ></p-button>
+        <dashboard-open-form-btn
+          [dialogConfig]="dialogConfig"
+          [slotForm]="true"
+        >
+          <p-button
+            icon="pi pi-pencil"
+            styleClass="p-button-sm p-button-secondary"
+            data-testId="open-workout-form-btn"
+          ></p-button>
+        </dashboard-open-form-btn>
+
         <!-- btb-delete -->
         <p-button
           icon="pi pi-trash"

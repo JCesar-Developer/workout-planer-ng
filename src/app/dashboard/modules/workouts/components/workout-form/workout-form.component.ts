@@ -7,14 +7,11 @@ import { FormValidator } from '@shared/helpers/form-validator.helper';
 import { MessageService } from 'primeng/api';
 
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { WorkoutHttpService } from '@dashboard/shared/services/http-services/workout-http.service';
 import { CategorizedExercise, Workout } from '@dashboard/shared/models/workout-interface';
 import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
-import { WorkoutStoreService } from '@/dashboard/shared/services/store-services/workout-store.service';
 
-import { CrudActionsHelper } from '@dashboard/shared/helpers/crud-actions.helper';
 import { workoutErrorMessages } from '../../helpers/workout-form-error-messages.helper';
-import { workoutToastMessages } from '@workouts/helpers/workout-toast-messages.helper';
+import { WorkoutCrudActionsService } from '../../services/workout-crud-actions.service';
 
 const toastMessages = {
   atLeast2Exercises: 'Una rutina debe tener al menos 2 ejercicios',
@@ -24,11 +21,11 @@ const toastMessages = {
 @Component({
   selector: 'workout-form',
   templateUrl: './workout-form.component.html',
+  providers: [ WorkoutCrudActionsService ],
 })
 export class WorkoutFormComponent implements OnInit {
 
   public form!: FormGroup;
-  public formActions?: CrudActionsHelper<Workout>;
   public formValidator?: FormValidator;
 
   public workoutId?: string;
@@ -42,16 +39,15 @@ export class WorkoutFormComponent implements OnInit {
     private fb: FormBuilder,
     private customValidator: CustomValidatorsService,
     private messageService: MessageService,
-    private workoutHttp: WorkoutHttpService,
-    private workoutStoreActions: WorkoutStoreService,
     private exerciseStoreActions: ExerciseStoreService,
+    private workoutCrudActions: WorkoutCrudActionsService,
   ) {}
 
   //LIFECYCLE HOOKS ---
   ngOnInit(): void {
     this.setForm();
     this.setFormValidator();
-    this.setFormActions();
+    // this.setFormActions();
 
     this.setCategorizedExercises();
     this.fillFormIfDataExists();
@@ -71,15 +67,6 @@ export class WorkoutFormComponent implements OnInit {
 
   private setFormValidator(): void {
     this.formValidator = new FormValidator( this.form, workoutErrorMessages );
-  }
-
-  private setFormActions(): void {
-    this.formActions = new CrudActionsHelper({
-      httpService: this.workoutHttp,
-      storeActions: this.workoutStoreActions,
-      messageService: this.messageService,
-      messages: workoutToastMessages
-    });
   }
 
   private setCategorizedExercises(): void {
@@ -173,12 +160,12 @@ export class WorkoutFormComponent implements OnInit {
 
     //UPDATE
     if( this.form.get('id')?.value ) {
-      this.formActions!.update( this.form.value );
+      this.workoutCrudActions!.update( this.form.value );
       return;
     }
 
     //SAVE
-    this.formActions!.save( this.form.value );
+    this.workoutCrudActions!.save( this.form.value );
   }
 
   public onClose(): void {

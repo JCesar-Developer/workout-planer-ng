@@ -21,9 +21,9 @@ const maximizeResponsiveOptions: ResponsiveOptions[] = [
 
 @Component({
   selector: 'workout-card-carousel',
-  templateUrl: './workout-card-carousel.component.html',
+  templateUrl: './exercise-carousel.component.html',
 })
-export class WorkoutCardCarouselComponent implements OnInit, OnDestroy {
+export class ExerciseCarouselComponent implements OnInit, OnDestroy {
 
   @Input() exercises?: Exercise[];
   @Input() exerciseSets?: number[];

@@ -1,24 +1,10 @@
 <p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>
 
-<dashboard-main-container title="Lista de Workouts">
+<dashboard-main-container [title]="title">
 
-  <section class="flex row gap-5" header>
-    <!--  header-search-bar -->
-    <span class="w-full">
-      <dashboard-searchbar
-        [storeActions]="workoutStoreActions"
-      ></dashboard-searchbar>
-    </span>
+  <workout-page-header header></workout-page-header>
 
-    <!-- header-btn-open-form -->
-    <span class="p-fluid w-52">
-      <dashboard-open-form-btn
-        [dialogConfig]="dialogConfig"
-      ></dashboard-open-form-btn>
-    </span>
-  </section>
-
-  <workout-list body></workout-list>
+  <workout-page-list body></workout-page-list>
 
 </dashboard-main-container>
