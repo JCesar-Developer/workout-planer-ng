@@ -20,7 +20,7 @@ const maximizeResponsiveOptions: ResponsiveOptions[] = [
 ];
 
 @Component({
-  selector: 'workout-card-carousel',
+  selector: 'exercise-carousel',
   templateUrl: './exercise-carousel.component.html',
 })
 export class ExerciseCarouselComponent implements OnInit, OnDestroy {

@@ -20,15 +20,15 @@
   </div>
 
   <!-- EXERCISE-CAROUSEL-SELECTOR  -->
-  <workout-card-carousel
+  <exercise-carousel
     [exercises]="filteredExercises"
     [clickableCards]="true"
     (emitExercise)="onEmitSelectExercise($event)"
-    ></workout-card-carousel>
+    ></exercise-carousel>
 </section>
 
 <style>
-  workout-card-carousel {
+  exercise-carousel {
     exercise-card > article::after {
       content: "";
       position: absolute;
