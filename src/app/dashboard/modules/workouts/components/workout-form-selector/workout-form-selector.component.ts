@@ -1,115 +1,89 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { Category, Exercise } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ResponsiveOptions } from '@/dashboard/modules/exercises/components/exercise-carousel/exercise-carousel.component';
+import { FilterSelectorHelper } from './filterSelector.helper';
+
+const minimizeResponsiveOptions: ResponsiveOptions[] = [
+  { breakpoint: '2400px', numVisible: 7, numScroll: 1 },
+  { breakpoint: '1920px', numVisible: 6, numScroll: 1 },
+];
+
+const maximizeResponsiveOptions: ResponsiveOptions[] = [
+  { breakpoint: '2400px', numVisible: 10, numScroll: 1 },
+  { breakpoint: '1920px', numVisible: 9, numScroll: 1 },
+];
 
 @Component({
   selector: 'workout-form-selector',
   templateUrl: './workout-form-selector.component.html',
+  providers: [ FilterSelectorHelper ],
 })
 export class WorkoutFormSelectorComponent implements OnInit, OnDestroy {
 
   @Output()
   private selectedExercise: EventEmitter<Exercise> = new EventEmitter<Exercise>();
 
-  public categories: Category[];
-  public filteredExercises?: Exercise[];
+  public categories: Category[] = Object.values(Category);
   public filterTextControl = new FormControl('');
+  public filteredExercises?: Exercise[];
 
-  private nameToFilter?: string;
-  private categoryToFilter?: Category;
+  private exerciseSubscription$!: Subscription;
+  private inputNameSubscription$!: Subscription;
+  private maximizationSubscription$!: Subscription;
 
-  private exerciseSubs$: Subscription;
-  private filterControlSubs$?: Subscription;
+  public minimized: boolean = true;
+  public minResponsiveOptions: ResponsiveOptions[] = minimizeResponsiveOptions;
+  public maxResponsiveOptions: ResponsiveOptions[] = maximizeResponsiveOptions;
 
   constructor(
-    private exerciseStore: ExerciseStoreService,
-  ) {
-    this.categories = Object.values(Category);
-    this.exerciseStore.setExercisesToRenderAllExercises();
-    this.exerciseSubs$ = this.exerciseStore.exercises$
+    private ref: DynamicDialogRef,
+    private _filterHelper: FilterSelectorHelper,
+  ) {}
+
+  ngOnInit(): void {
+    this.setExerciseSubscription();
+    this.setInputNameSubscription();
+    this.setMaximizationSubscription();
+  }
+
+  ngOnDestroy(): void {
+    this.exerciseSubscription$.unsubscribe();
+    this.inputNameSubscription$.unsubscribe();
+    this.maximizationSubscription$.unsubscribe();
+  }
+
+  //GETTERS & SETTERS
+  public get filterHelper(): FilterSelectorHelper {
+    return this._filterHelper;
+  }
+
+  public setExerciseSubscription(): void {
+    this.exerciseSubscription$ = this._filterHelper.exercises$
       .subscribe( exercises => {
         this.filteredExercises = exercises;
       });
   }
 
-  ngOnInit(): void {
-    this.filterControlSubs$ = this.filterTextControl.valueChanges
-    .pipe(
-      debounceTime(300),
-    )
-    .subscribe(value => {
-      this.onFilterByName(value!);
+  public setInputNameSubscription(): void {
+    this.inputNameSubscription$ = this.filterTextControl.valueChanges
+      .pipe( debounceTime(200) )
+      .subscribe( name => {
+        this._filterHelper.onFilterByName(name!);
+      });
+  }
+
+  public setMaximizationSubscription(): void {
+    this.maximizationSubscription$ = this.ref.onMaximize.subscribe(() => {
+      this.minimized = !this.minimized;
     });
-  }
-
-  ngOnDestroy(): void {
-    if( this.exerciseSubs$ ) this.exerciseSubs$.unsubscribe();
-    if( this.filterControlSubs$ ) this.filterControlSubs$.unsubscribe();
-  }
-
-  //Filter
-  public onFilterByName( value: string ) {
-    this.nameToFilter = value;
-    this.filterByNameAndCategory({
-      name: this.nameToFilter,
-      category: this.categoryToFilter,
-    })
-  }
-
-  public onFilterByCategory({ value }: { value: Category }): void {
-    this.categoryToFilter = value;
-    this.filterByNameAndCategory({
-      name: this.nameToFilter,
-      category: this.categoryToFilter,
-    })
   }
 
   public onEmitSelectExercise(exercise: Exercise): void {
     this.selectedExercise.emit(exercise);
   }
-
-  private filterByNameAndCategory({ name, category }: {  name?: string, category?: Category }): void {
-    let filteredExercises: Exercise[] = [];
-
-    if(!name && !category) {
-      this.exerciseStore.setExercisesToRenderAllExercises();
-      return;
-    }
-
-    if(name && category) {
-      switch(category) {
-        case Category.ALL:
-          filteredExercises = this.exerciseStore.getExercisesByName(name);
-          break;
-        default:
-          filteredExercises = this.exerciseStore.getExercisesByNameAndCategory(name, category);
-          break;
-      }
-
-      this.exerciseStore.setExercisesToRender(filteredExercises);
-      return;
-    }
-
-    if(name) {
-      filteredExercises = this.exerciseStore.getExercisesByName(name);
-      this.exerciseStore.setExercisesToRender(filteredExercises);
-      return;
-    }
-
-    if(category) {
-      if( category === Category.ALL ) {
-        this.exerciseStore.setExercisesToRenderAllExercises();
-        return;
-      }
-      else {
-        filteredExercises = this.exerciseStore.getExercisesByCategory(category);
-        this.exerciseStore.setExercisesToRender(filteredExercises);
-        return;
-      }
-    }
-  }
-
 }

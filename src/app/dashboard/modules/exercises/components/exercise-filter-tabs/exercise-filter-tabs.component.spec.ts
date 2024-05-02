@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExerciseFilterTabsComponent } from './exercise-filter-tabs.component';
-import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store.service';
+import { ExerciseStoreService } from '@dashboard/shared/services/exercise-store-actions.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ChipModule } from 'primeng/chip';
 

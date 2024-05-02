@@ -28,6 +28,7 @@ export class DialogHandlerService<T> {
     return this.dialogConfig.data.model;
   }
 
+  //TODO: Crear un Factory para esta función.
   private setConfig( customConfig: DialogSetup<T>  ): void {
     this.dialogConfig = {
       ...customConfig.customDialogConfig,
@@ -36,12 +37,12 @@ export class DialogHandlerService<T> {
   }
 
   // PUBLIC METHODS ---
-  public openForm( customConfigDialog: DialogSetup<T> ): void {
+  public openDialog( customConfigDialog: DialogSetup<T> ): void {
     this.setConfig( customConfigDialog );
     this.ref = this.dialogService.open( customConfigDialog.component, this.dialogConfig );
   }
 
-  public closeForm(): void {
+  public closeDialog(): void {
     this.ref.close();
   }
 

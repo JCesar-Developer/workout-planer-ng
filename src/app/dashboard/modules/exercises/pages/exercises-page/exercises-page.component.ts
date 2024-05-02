@@ -1,4 +1,4 @@
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,9 +10,9 @@ export class ExercisesPageComponent {
   public title: string = 'Lista de ejercicios';
 
   constructor(
-    private exerciseStoreActions: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
   ) {
-    this.exerciseStoreActions.setExercisesToRenderAllExercises();
+    this.exerciseStoreActions.setItemsToRenderAllItems();
   }
 
 }

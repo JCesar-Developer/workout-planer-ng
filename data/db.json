@@ -23,7 +23,7 @@
     },
     {
       "id": "4",
-      "name": "Sentadilla con mancuerna",
+      "name": "Sentadilla con mancuernas",
       "image": "./assets/images/exercises/exercise-4.gif",
       "category": "Piernas",
       "alternativeImage": null
@@ -51,9 +51,9 @@
     },
     {
       "id": "8",
-      "name": "Exercise8",
-      "category": "Pecho",
+      "name": "Exercise821",
       "image": "./assets/images/exercises/exercise-8.gif",
+      "category": "Pecho",
       "alternativeImage": null
     },
     {
@@ -118,6 +118,13 @@
       "image": null,
       "category": "Espalda",
       "alternativeImage": "https://i.blogs.es/d9578d/dominadas/1366_2000.jpg"
+    },
+    {
+      "id": "941d4306-2596-44da-8b23-ebc95c064780",
+      "name": "aadsdsadad",
+      "image": null,
+      "category": "Core",
+      "alternativeImage": null
     }
   ],
   "workouts": [

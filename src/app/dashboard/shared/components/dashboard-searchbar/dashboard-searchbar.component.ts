@@ -1,14 +1,32 @@
 import { Component, Input } from '@angular/core';
-import { StoreActionsInterface } from '@/dashboard/shared/interfaces/store-action.interface';
+
+export interface StoreActions<T> {
+  getItemsByName: (term: string) => T[];
+  setItemsToRender: (items: T[]) => void;
+  setItemsToRenderAllItems: () => void;
+}
 
 @Component({
   selector: 'dashboard-searchbar',
   templateUrl: './dashboard-searchbar.component.html',
 })
 export class SearchbarComponent<T> {
-  @Input() storeActions!: StoreActionsInterface<T>;
+  @Input() storeActions!: {
+    getItemsByName: (term: string) => T[];
+    setItemsToRender: (items: T[]) => void;
+    setItemsToRenderAllItems: () => void;
+  };
+  @Input() showSuggestions: boolean = true;
   @Input() field: string = 'name';
   public suggestedItems: T[] = [];
+
+  private getSuggestions(term: string): T[] {
+    let suggestions: T[] = []
+
+    if(!term) return suggestions;
+
+    return this.storeActions.getItemsByName(term);
+  }
 
   public onRequireSuggestions({ query } : { query: string }): void {
     if( !query ) {
@@ -26,14 +44,6 @@ export class SearchbarComponent<T> {
   public onSelectSuggestion({ name } : { name: string }): void {
     this.suggestedItems = this.getSuggestions(name);
     this.storeActions.setItemsToRender( this.suggestedItems );
-  }
-
-  private getSuggestions(term: string): T[] {
-    let suggestions: T[] = []
-
-    if(!term) return suggestions;
-
-    return this.storeActions.getItemsByName(term);
   }
 
 }

@@ -16,18 +16,11 @@ export class ExerciseCardComponent implements OnInit {
   @Input() public sets?: number;
   @Input() public reps?: number;
   @Input() public editable: boolean = false;
-  @Input() public clickable: boolean = false;
-  @Output() public onEmitExercise: EventEmitter<Exercise> = new EventEmitter();
 
   public dialogConfig!: DialogSetup<Exercise>;
 
   ngOnInit(): void {
     this.dialogConfig = new ExerciseDialogConfig(this.exercise).config;
-  }
-
-  public onClickCard(): void {
-    if( !this.clickable ) return;
-    this.onEmitExercise.emit(this.exercise);
   }
 
 }

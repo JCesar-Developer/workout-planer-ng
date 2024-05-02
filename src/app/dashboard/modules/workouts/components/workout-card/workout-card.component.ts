@@ -3,7 +3,7 @@ import { ConfirmationService } from 'primeng/api';
 
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
 import { Workout } from '@dashboard/shared/models/workout-interface';
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 import { DialogSetup } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
 import { WorkoutDialogConfig } from '@workouts/helpers/workout-dialog-config.helper';
@@ -23,7 +23,7 @@ export class WorkoutCardComponent implements OnInit {
   public dialogConfig!: DialogSetup<Workout>;
 
   constructor(
-    private exerciseStoreActions: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
     private confirmationService: ConfirmationService,
     private workoutCrudActions: WorkoutCrudActionsService,
   ) {}
@@ -36,7 +36,7 @@ export class WorkoutCardComponent implements OnInit {
   //TODO: Esto ocurre por como el backend devuelve los datos, deberia ser corregido en el backend
   private setExercises(): void {
     const exercisesIds: string[] = this.workout.categorizedExercises.map( catEx => catEx.exerciseId );
-    this.exercises = this.exerciseStoreActions.getExercisesById( exercisesIds );
+    this.exercises = this.exerciseStoreActions.getItemsById( exercisesIds );
     this.exerciseSets = this.workout.categorizedExercises.map( catEx => catEx.sets );
     this.exerciseReps = this.workout.categorizedExercises.map( catEx => catEx.reps );
   }

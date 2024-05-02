@@ -31,15 +31,15 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   public formValidator?: FormValidator;
 
   public categories: Category[] = Object.values(Category);
-  public currentExercise: Exercise = {} as Exercise;
+  public currentExercise!: Exercise;
 
   private $altImg?: Subscription;
 
   constructor(
     private dialogHandler: DialogHandlerService<Exercise>,
+    private fb: FormBuilder,
     private customValidators: CustomValidatorsService,
     private exerciseCrudActions: ExerciseCrudActionsService,
-    private fb: FormBuilder,
     private confirmationService: ConfirmationService,
   ) {}
 
@@ -122,7 +122,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   public closeDialog() {
-    this.dialogHandler.closeForm();
+    this.dialogHandler.closeDialog();
   }
 
 }

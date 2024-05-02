@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Category } from '@dashboard/shared/models/exercise.interface';
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 
 @Component({
   selector: 'exercise-filter-tabs',
@@ -12,7 +12,7 @@ export class ExerciseFilterTabsComponent {
   private currentCategory: Category = Category.ALL;
 
   constructor(
-    private exerciseStore: ExerciseStoreService,
+    private exerciseStore: ExerciseStoreActionsService,
   ) {
     this.categories = Object.values(Category);
   }
@@ -23,10 +23,10 @@ export class ExerciseFilterTabsComponent {
     this.currentCategory = category;
 
     if( category === Category.ALL )
-      this.exerciseStore.setExercisesToRenderAllExercises();
+      this.exerciseStore.setItemsToRenderAllItems();
     else {
       const filteredExercises = this.exerciseStore.getExercisesByCategory( category );
-      this.exerciseStore.setExercisesToRender( filteredExercises );
+      this.exerciseStore.setItemsToRender( filteredExercises );
     }
   }
 }

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Category, Exercise } from "@dashboard/shared/interfaces/exercise.interface";
-import { ExerciseStoreService } from "@dashboard/shared/services/exercise-store.service";
+import { ExerciseStoreService } from "@dashboard/shared/services/exercise-store-actions.service";
 import { DynamicDialogRef, DynamicDialogConfig } from "primeng/dynamicdialog";
 import { CustomValidatorsService } from "src/app/shared/services/customValidators.service";
 import { ExerciseFormComponent } from "./exercise-form.component";

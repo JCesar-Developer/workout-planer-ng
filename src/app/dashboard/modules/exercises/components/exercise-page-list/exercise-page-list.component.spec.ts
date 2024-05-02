@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ExercisePageListComponent } from "./exercise-page-list.component";
 import { ExerciseCardComponent } from "../exercise-card/exercise-card.component";
 
-import { ExerciseStoreService } from "@dashboard/shared/services/exercise-store.service";
+import { ExerciseStoreService } from "@dashboard/shared/services/exercise-store-actions.service";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Subject, of } from "rxjs";
 import { Category, Exercise } from "@dashboard/shared/interfaces/exercise.interface";

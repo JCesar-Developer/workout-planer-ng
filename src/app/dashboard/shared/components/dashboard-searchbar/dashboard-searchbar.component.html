@@ -1,6 +1,6 @@
 <span class="p-fluid w-full">
   <p-autoComplete
-    [suggestions]="suggestedItems"
+    [suggestions]="showSuggestions ? suggestedItems : [] "
     (completeMethod)="onRequireSuggestions($event)"
     (onSelect)="onSelectSuggestion($event)"
     [minLength]="0"

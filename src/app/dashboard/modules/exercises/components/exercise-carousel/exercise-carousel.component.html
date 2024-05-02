@@ -20,8 +20,7 @@
               [sets]="exerciseSets ? exerciseSets[i] : undefined"
               [reps]="exerciseReps ? exerciseReps[i] : undefined"
               [editable]="editableCards"
-              [clickable]="clickableCards"
-              (onEmitExercise)="onEmitExercise($event)"
+              (click)="onEmitExercise(this.exercise)"
             ></exercise-card>
           </ng-container>
 
@@ -41,9 +40,8 @@
     <!-- ELSE: show-carousel -->
     <ng-template #showCarousel>
 
-      <ng-container *ngIf="minimized; else maximized">
         <div class="pt-8">
-          <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="minOptions">
+          <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="responsiveOptions">
             <ng-template let-exercise pTemplate="item">
 
                 <exercise-card
@@ -52,33 +50,12 @@
                   [sets]="exerciseSets ? exerciseSets[exercises.indexOf(exercise)] : undefined"
                   [reps]="exerciseReps ? exerciseReps[exercises.indexOf(exercise)] : undefined"
                   [editable]="editableCards"
-                  [clickable]="clickableCards"
-                  (onEmitExercise)="onEmitExercise($event)"
+                  (click)="onEmitExercise(this.exercise)"
                 ></exercise-card>
 
             </ng-template>
           </p-carousel>
         </div>
-      </ng-container>
-
-      <ng-template #maximized>
-        <div class="pt-8">
-          <p-carousel [value]="exercises" [numScroll]="1" [responsiveOptions]="maxOptions">
-            <ng-template let-exercise pTemplate="item">
-
-                <exercise-card
-                  class="exercise-card"
-                  [exercise]="exercise"
-                  [editable]="editableCards"
-                  [clickable]="clickableCards"
-                  (onEmitExercise)="onEmitExercise($event)"
-                ></exercise-card>
-
-            </ng-template>
-          </p-carousel>
-        </div>
-      </ng-template>
-
 
     </ng-template><!-- END-ELSE: show-carousel -->
 

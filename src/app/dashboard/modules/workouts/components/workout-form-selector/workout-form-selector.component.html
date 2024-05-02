@@ -3,7 +3,7 @@
     <!-- Workout-category -->
     <label class="p-fluid w-1/3">
       <span class="font-sans cursor-pointer">Categoría</span>
-      <p-dropdown [options]="categories" (onChange)="onFilterByCategory( $event )"></p-dropdown>
+      <p-dropdown [options]="categories" (onChange)="filterHelper.onFilterByCategory( $event )"></p-dropdown>
     </label>
 
     <!-- Workout-level -->
@@ -20,11 +20,25 @@
   </div>
 
   <!-- EXERCISE-CAROUSEL-SELECTOR  -->
-  <exercise-carousel
-    [exercises]="filteredExercises"
-    [clickableCards]="true"
-    (emitExercise)="onEmitSelectExercise($event)"
+  <ng-container *ngIf="minimized; else maximized">
+    <exercise-carousel
+      [responsiveOptions]="minResponsiveOptions"
+      [exercises]="filteredExercises"
+      [canEmitExercise]="true"
+      (emitExercise)="onEmitSelectExercise($event)"
     ></exercise-carousel>
+  </ng-container>
+
+  <!-- EXERCISE-CAROUSEL-MAXIMIZED -->
+  <ng-template #maximized>
+    <exercise-carousel
+      [responsiveOptions]="maxResponsiveOptions"
+      [exercises]="filteredExercises"
+      [canEmitExercise]="true"
+      (emitExercise)="onEmitSelectExercise($event)"
+    ></exercise-carousel>
+  </ng-template>
+
 </section>
 
 <style>

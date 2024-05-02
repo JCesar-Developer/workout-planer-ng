@@ -6,12 +6,13 @@ import { CustomValidatorsService } from '@shared/services/custom-validators.serv
 import { FormValidator } from '@shared/helpers/form-validator.helper';
 import { MessageService } from 'primeng/api';
 
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CategorizedExercise, Workout } from '@dashboard/shared/models/workout-interface';
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { DialogHandlerService } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
+
+import { Workout } from '@dashboard/shared/models/workout-interface';
 
 import { workoutErrorMessages } from '../../helpers/workout-form-error-messages.helper';
 import { WorkoutCrudActionsService } from '../../services/workout-crud-actions.service';
+import { FillFormService } from './fillForm.helper';
 
 const toastMessages = {
   atLeast2Exercises: 'Una rutina debe tener al menos 2 ejercicios',
@@ -21,39 +22,43 @@ const toastMessages = {
 @Component({
   selector: 'workout-form',
   templateUrl: './workout-form.component.html',
-  providers: [ WorkoutCrudActionsService ],
+  providers: [
+    WorkoutCrudActionsService,
+    FillFormService,
+  ],
 })
 export class WorkoutFormComponent implements OnInit {
 
-  public form!: FormGroup;
   public formValidator?: FormValidator;
 
   public workoutId?: string;
-
+  public form!: FormGroup;
   public exercises: Exercise[] = [];
   public categorizedExercises?: FormArray;
 
   constructor(
-    private config: DynamicDialogConfig,
-    private ref: DynamicDialogRef,
+    private dialogHandler: DialogHandlerService<Workout>,
     private fb: FormBuilder,
+    private fillFormService: FillFormService,
     private customValidator: CustomValidatorsService,
-    private messageService: MessageService,
-    private exerciseStoreActions: ExerciseStoreService,
     private workoutCrudActions: WorkoutCrudActionsService,
+    private messageService: MessageService,
   ) {}
 
   //LIFECYCLE HOOKS ---
   ngOnInit(): void {
     this.setForm();
     this.setFormValidator();
-    // this.setFormActions();
 
     this.setCategorizedExercises();
     this.fillFormIfDataExists();
   }
 
   //GETTERS & SETTERS ---
+  private get workout(): Workout | null {
+    return this.dialogHandler.model ? this.dialogHandler.model : null;
+  }
+
   private setForm(): void {
     this.form = this.fb.group({
       id: [null],
@@ -73,51 +78,16 @@ export class WorkoutFormComponent implements OnInit {
     this.categorizedExercises = this.form.get('categorizedExercises') as FormArray;
   }
 
-  //FILL FORM IF DATA EXISTS ---
   private fillFormIfDataExists(): void {
-    const workout = this.getWorkoutFromConfig();
+    const workout = this.workout;
     if (!workout) return;
 
-    this.getWorkoutId(workout.id);
-    this.getExercises(workout.categorizedExercises);
-    this.getFormValues(workout);
-    this.getCategorizedExercises(workout.categorizedExercises);
-  }
+    const fillFormHelper = this.fillFormService.getHelper( workout );
 
-  private getWorkoutFromConfig(): Workout | null {
-    const { data } = this.config;
-    return data && data.model ? data.model : null;
-  }
-
-  private getWorkoutId(id: string): void {
-    this.workoutId = id;
-  }
-
-  private getExercises(categorizedExercises: CategorizedExercise[]): void {
-    const exercisesIds: string[] = categorizedExercises.map(catEx => catEx.exerciseId);
-    this.exercises = this.exerciseStoreActions.getExercisesById(exercisesIds);
-  }
-
-  private getFormValues(workout: Workout): void {
-    this.form.patchValue({
-      id: workout.id,
-      name: workout.name,
-      duration: workout.duration,
-    });
-  }
-
-  private getCategorizedExercises(categorizedExercises: CategorizedExercise[]): void {
-    categorizedExercises.forEach(catEx => {
-      const { exerciseId, sets, reps, rest } = catEx;
-      this.categorizedExercises!.push(
-        this.fb.group({
-          exerciseId: [exerciseId],
-          sets: [sets, [Validators.required, Validators.min(1)]],
-          reps: [reps, [Validators.required, Validators.min(1)]],
-          rest: [rest, [Validators.required, Validators.min(10)]],
-        })
-      );
-    });
+    this.workoutId = fillFormHelper.getWorkoutId();
+    this.exercises = fillFormHelper.getExercises();
+    fillFormHelper.setFormValues( this.form );
+    fillFormHelper.setCategorizedExercises( this.categorizedExercises! )
   }
 
   //SELECTOR EMIT METHODS ---
@@ -169,7 +139,7 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   public onClose(): void {
-    this.ref.close();
+    this.dialogHandler.closeDialog();
   }
 
 }

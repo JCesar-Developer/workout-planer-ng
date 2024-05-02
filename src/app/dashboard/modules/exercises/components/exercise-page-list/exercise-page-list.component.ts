@@ -1,4 +1,4 @@
-import { ExerciseStoreService } from '@/dashboard/shared/services/store-services/exercise-store.service';
+import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-services/exercise-store-actions.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Exercise } from '@dashboard/shared/models/exercise.interface';
@@ -14,11 +14,11 @@ export class ExercisePageListComponent implements OnInit, OnDestroy {
   public $exercises?: Subscription;
 
   constructor(
-    private exerciseStoreActions: ExerciseStoreService,
+    private exerciseStoreActions: ExerciseStoreActionsService,
   ) { }
 
   ngOnInit(): void {
-    this.$exercises = this.exerciseStoreActions.exercises$
+    this.$exercises = this.exerciseStoreActions.items$
       .subscribe( exercises => {
         this.exercises = exercises
       });

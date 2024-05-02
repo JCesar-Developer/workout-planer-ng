@@ -16,7 +16,7 @@ export class DashboardOpenFormBtnComponent<T> {
   ) { }
 
   public onOpenForm(): void {
-    this.dialogHandler.openForm( this.dialogConfig );
+    this.dialogHandler.openDialog( this.dialogConfig );
   }
 
 }
