@@ -1,21 +1,12 @@
 import { Component, Input } from '@angular/core';
-
-export interface StoreActions<T> {
-  getItemsByName: (term: string) => T[];
-  setItemsToRender: (items: T[]) => void;
-  setItemsToRenderAllItems: () => void;
-}
+import { StoreActionsInterface } from '@/dashboard/shared/interfaces/store-action.interface';
 
 @Component({
   selector: 'dashboard-searchbar',
   templateUrl: './dashboard-searchbar.component.html',
 })
 export class SearchbarComponent<T> {
-  @Input() storeActions!: {
-    getItemsByName: (term: string) => T[];
-    setItemsToRender: (items: T[]) => void;
-    setItemsToRenderAllItems: () => void;
-  };
+  @Input() storeActions!: StoreActionsInterface<T>;
   @Input() showSuggestions: boolean = true;
   @Input() field: string = 'name';
   public suggestedItems: T[] = [];

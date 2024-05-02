@@ -14,19 +14,11 @@ export class WorkoutPageHeaderComponent implements OnInit {
   public dialogConfig!: DialogSetup<Workout>;
 
   constructor(
-    private workoutStoreActions: WorkoutStoreActionsService,
+    public workoutStoreActions: WorkoutStoreActionsService,
   ) {}
 
   ngOnInit(): void {
     this.dialogConfig = new WorkoutDialogConfig().config;
-  }
-
-  public get storeActions() {
-    return {
-      getItemsByName: this.workoutStoreActions.getItemsByName,
-      setItemsToRender: this.workoutStoreActions.setItemsToRender,
-      setItemsToRenderAllItems: this.workoutStoreActions.setItemsToRenderAllItems,
-    };
   }
 
 }

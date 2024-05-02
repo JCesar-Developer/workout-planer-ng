@@ -5,7 +5,6 @@ import { ExerciseStoreActionsService } from '@/dashboard/shared/services/store-s
 
 import { ExerciseDialogConfig } from '@exercises/helpers/exercise-dialog-config.helper'
 import { DialogSetup } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
-import type { StoreActions } from '@/dashboard/shared/components/dashboard-searchbar/dashboard-searchbar.component';
 
 @Component({
   selector: 'exercise-page-header',
@@ -16,19 +15,11 @@ export class ExercisePageHeaderComponent implements OnInit {
   public dialogConfig!: DialogSetup<Exercise>;
 
   constructor(
-    private exerciseStoreActions: ExerciseStoreActionsService,
+    public exerciseStoreActions: ExerciseStoreActionsService,
   ) {}
 
   ngOnInit(): void {
     this.dialogConfig = new ExerciseDialogConfig().config;
-  }
-
-  public get storeActions(): StoreActions<Exercise> {
-    return {
-      getItemsByName: this.exerciseStoreActions.getItemsByName,
-      setItemsToRender: this.exerciseStoreActions.setItemsToRender,
-      setItemsToRenderAllItems: this.exerciseStoreActions.setItemsToRenderAllItems,
-    };
   }
 
 }
