@@ -11,6 +11,7 @@ import { ConfirmationService } from 'primeng/api';
 import { exerciseErrorMessages } from '@exercises/helpers/exercise-form-error-messages.helper';
 import { DialogHandlerService } from '@/dashboard/shared/services/dashboard-services/dialog-handler.service';
 import { ExerciseCrudActionsService } from '../../services/exercise-crud-actions.service';
+import { ExerciseCategoriesService } from '../../services/exercise-categories.service';
 
 interface ExerciseForm {
   id: FormControl<string|null>;
@@ -41,6 +42,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     private customValidators: CustomValidatorsService,
     private exerciseCrudActions: ExerciseCrudActionsService,
     private confirmationService: ConfirmationService,
+    private categoryService: ExerciseCategoriesService,
   ) {}
 
   //LIFECYCLE HOOKS ---
@@ -100,11 +102,13 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
     }
 
     if( this.currentExercise.id ) {
-      this.exerciseCrudActions.update( this.currentExercise );
+      this.exerciseCrudActions.update( this.currentExercise )
+      .then(() => this.categoryService.setCurrentCategoryToAll());
       return;
     }
 
-    this.exerciseCrudActions.save( this.currentExercise );
+    this.exerciseCrudActions.save( this.currentExercise )
+    .then(() => this.categoryService.setCurrentCategoryToAll());
   }
 
   public onConfirmDelete(event: Event) {

@@ -39,18 +39,20 @@ export class CrudActionsHelper<T extends Model> {
     successMessageFunc: (name: string) => string,
     errorMessage: string,
     onSuccess: () => void
-  ): void {
-    httpRequest.pipe(
-      tap((status) => {
-        const message = status ? successMessageFunc(model.name) : errorMessage;
-        this.showMessage(status, message);
-        if (status && onSuccess) onSuccess();
-      })
-    ).subscribe();
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      httpRequest.pipe(
+        tap((status) => {
+          const message = status ? successMessageFunc(model.name) : errorMessage;
+          this.showMessage(status, message);
+          if (status && onSuccess) onSuccess();
+        })
+      ).subscribe( status => resolve(status) );
+    });
   }
 
-  public save(model: T): void {
-    this.sendHttpRequest(
+  public save(model: T): Promise<boolean> {
+    return this.sendHttpRequest(
       this.config.httpService.save(model),
       model,
       (name) => this.config.messages.success.create(name),
@@ -62,8 +64,8 @@ export class CrudActionsHelper<T extends Model> {
     );
   }
 
-  public update(model: T): void {
-    this.sendHttpRequest(
+  public update(model: T): Promise<boolean> {
+    return this.sendHttpRequest(
       this.config.httpService.update(model),
       model,
       (name) => this.config.messages.success.update(name),
@@ -75,8 +77,8 @@ export class CrudActionsHelper<T extends Model> {
     );
   }
 
-  public delete(model: T): void {
-    this.sendHttpRequest(
+  public delete(model: T): Promise<boolean> {
+    return this.sendHttpRequest(
       this.config.httpService.delete(model.id),
       model,
       (name) => this.config.messages.success.delete(name),

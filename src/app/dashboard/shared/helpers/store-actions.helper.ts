@@ -56,7 +56,7 @@ export class StoreActionsHelper<T extends Item> implements StoreActionsInterface
     newItemsArray[itemIndex] = item;
 
     this.allItemsStoreHandler.setState(newItemsArray);
-    // this.itemsToRenderStoreHandler.setState(newItemsArray);
+    this.itemsToRenderStoreHandler.setState(newItemsArray);
   }
   public delete(itemId: string): void {
     const newItemsArray = this.allItems.filter((item) => item.id !== itemId);
